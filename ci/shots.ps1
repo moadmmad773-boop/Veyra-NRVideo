@@ -35,12 +35,16 @@ New-Item -ItemType Directory -Force $out | Out-Null
 $shots = @(
     @{ name = '1-home'; args = @('--page', 'home') },
     @{ name = '2-settings'; args = @('--page', 'set') },
-    @{ name = '3-pro'; args = @('--page', 'pro') },
-    @{ name = '4-pro-colour'; args = @('--page', 'pro', '--tab', 'color') },
+    @{ name = '3-pro'; args = @('--page', 'pro', '--video-probe', 'hidden') },
+    @{ name = '4-pro-colour'; args = @('--page', 'pro', '--tab', 'color', '--video-probe', 'hidden') },
     @{ name = '5-minimal'; args = @('--page', 'min') },
+    @{ name = '9-capture'; args = @('--page', 'pro', '--dialog', 'capture', '--video-probe', 'hidden') },
+    @{ name = '10-pro-display'; args = @('--page', 'pro', '--tab', 'display', '--video-probe', 'hidden') },
     @{ name = '6-translation'; args = @('--page', 'set', '--dialog', 'translation') },
     @{ name = '7-export'; args = @('--page', 'exp') },
-    @{ name = '8-pro-fg'; args = @('--page', 'pro', '--tab', 'fg') }
+    @{ name = '8-pro-fg'; args = @('--page', 'pro', '--tab', 'fg', '--video-probe', 'hidden') },
+    @{ name = '11-home-sky'; args = @('--page', 'home', '--pref-at', '300', 'palette', 'sky') },
+    @{ name = '12-dock'; args = @('--page', 'set', '--dock-pinned', '--tip', 'pro') }
 )
 foreach ($s in $shots) {
     $data = Join-Path $env:RUNNER_TEMP ("shot-data-" + $s.name)
