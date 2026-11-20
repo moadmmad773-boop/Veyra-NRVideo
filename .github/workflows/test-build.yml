@@ -2,7 +2,7 @@
 # subtitles) live translation source, from branch feature/screen-text-translation.
 # Publishes the package as the "screen-text-test" pre-release of this fork and
 # pushes a readable report to the ci/results branch.
-name: Veyra test build (screen text translation)
+name: M$M! build (Veyra + screen text translation)
 
 on:
   push:
@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  SOURCE_REF: feature/screen-text-translation
+  SOURCE_REF: custom/mmm
   OFFICIAL_TAG: v2.2.0
   DEPS: D:\deps
   BUILD: D:\b
@@ -79,23 +79,24 @@ jobs:
         run: |
           pwsh -NoProfile -File ci/ci/package.ps1 *>&1 | Tee-Object -FilePath "$env:LOGS\3-package.log"
           exit $LASTEXITCODE
-      - name: Publish test release
+      - name: Publish release
         id: publish
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           $notes = @"
-          Unofficial **test build** of Veyra 2.2.0 (NVIDIA) with the new live translation source
-          **On-screen text (capture card / PS5 subtitles)**, from branch ``$($env:SOURCE_REF)`` @ ``$($env:SOURCE_SHA)``.
-          Built by GitHub Actions on top of the official Veyra 2.2.0 NVIDIA package; see TEST-BUILD-README.txt inside.
+          **M`$M! 2.2.0 (NVIDIA)** - personal test build based on Veyra 2.2.0 by Likely7 (GPL-3.0), from branch ``$($env:SOURCE_REF)`` @ ``$($env:SOURCE_SHA)``.
 
-          نسخة تجريبية غير رسمية من Veyra 2.2.0 فيها خيار ترجمة نص الشاشة. فك الضغط في مجلد جديد وشغّل Veyra.exe.
+          - **MMM-2.2.0-NVIDIA.zip**: the full program. Unzip into a new folder and run **M`$M!.exe**.
+          - **MMM-update.zip**: only the changed files. Unzip over a folder that already has this program (replace files), then run **M`$M!.exe**.
+
+          نسخة M`$M! الشخصية. الملف الكامل: فكّه في مجلد جديد وشغّل M`$M!.exe. ملف التحديث: فكّه فوق المجلد اللي عندك (استبدال الملفات) وشغّل M`$M!.exe.
           "@
           Set-Content "$env:RUNNER_TEMP\notes.md" $notes -Encoding utf8
-          gh release delete screen-text-test -R $env:GITHUB_REPOSITORY -y --cleanup-tag 2>$null
-          gh release create screen-text-test $env:PACKAGE -R $env:GITHUB_REPOSITORY --prerelease `
-            --title "Veyra 2.2.0 – screen text translation (test build)" --notes-file "$env:RUNNER_TEMP\notes.md" --target $env:GITHUB_SHA
+          foreach ($tag in 'screen-text-test', 'mmm') { gh release delete $tag -R $env:GITHUB_REPOSITORY -y --cleanup-tag 2>$null }
+          gh release create mmm $env:PACKAGE $env:UPDATE -R $env:GITHUB_REPOSITORY --prerelease `
+            --title "M`$M! 2.2.0 (test build)" --notes-file "$env:RUNNER_TEMP\notes.md" --target $env:GITHUB_SHA
       - name: Report
         if: always()
         shell: pwsh

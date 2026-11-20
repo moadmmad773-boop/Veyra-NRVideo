@@ -4,7 +4,7 @@
 $ErrorActionPreference = 'Stop'
 $PSNativeCommandUseErrorActionPreference = $true
 $build = $env:BUILD
-$name = 'Veyra-2.2.0-screen-text-test-NVIDIA'
+$name = 'MMM-2.2.0-NVIDIA'
 $stage = Join-Path $env:STAGE $name
 if (Test-Path $env:STAGE) { Remove-Item -Recurse -Force $env:STAGE }
 New-Item -ItemType Directory -Force $stage | Out-Null
@@ -18,6 +18,12 @@ Write-Host "package root $root; program folder $app"
 Get-ChildItem $stage | ForEach-Object { Write-Host ("  root {0}" -f $_.Name) }
 
 Copy-Item (Join-Path $build 'veyra_qml_ui.exe') (Join-Path $app 'veyra_qml_ui.exe') -Force
+# The launcher, rebuilt with the M$M! icon and named after it (same program as Veyra.exe).
+$launcher = 'M$M!.exe'
+if ($root -ne $env:PKG_DIR) {
+    Copy-Item (Join-Path $build 'veyra_portable_launcher.exe') (Join-Path $stage $launcher) -Force
+    Remove-Item (Join-Path $stage 'Veyra.exe') -Force -ErrorAction SilentlyContinue
+}
 # The program loads its QML from disk: replace Veyra's own QML (Qt's modules stay).
 $builtQml = Join-Path $build 'qml'
 foreach ($module in Get-ChildItem $builtQml -Directory) {
@@ -43,27 +49,21 @@ foreach ($dll in $dlls) {
     else { Write-Host "WARNING: $dll not found for the package" }
 }
 
-Set-Content (Join-Path $stage 'TEST-BUILD-README.txt') -Encoding utf8 @'
-Veyra 2.2.0 – test build with "On-screen text (capture card / PS5 subtitles)" live translation
-=============================================================================================
-Unofficial test build from https://github.com/moadmmad773-boop/Veyra-NRVideo (branch
-feature/screen-text-translation), built by GitHub Actions on top of the official Veyra 2.2.0
-NVIDIA package. Only veyra_qml_ui.exe, qml/Veyra and shaders/ in versions/2.2.0 differ from the
-official package. Start it with Veyra.exe as usual.
+Set-Content (Join-Path $stage 'M$M!-README.txt') -Encoding utf8 @'
+M$M! 2.2.0 (NVIDIA) - personal test build
+==========================================
+Based on Veyra 2.2.0 by Likely7 (GPL-3.0, https://github.com/Likely7/Veyra-NRVideo), built by
+GitHub Actions from https://github.com/moadmmad773-boop/Veyra-NRVideo (branch custom/mmm):
+sky blue look, the M$M! name and logo, and the live translation source "On-screen text
+(capture card / PS5 subtitles)". Start it with M$M!.exe.
 
-Use: Settings -> Live translation settings... -> Caption source -> "On-screen text (capture card /
-PS5 subtitles)" -> pick "Translate to" -> turn it on. Windows needs the English OCR language
-(Settings -> Time & language -> Language & region -> add English).
-
-Not in this test build (they need private build trees): PS5 Remote Play, Moonlight/Sunshine and
+Not in this build (they need private build trees): PS5 Remote Play, Moonlight/Sunshine and
 Xbox streaming, NVIDIA Optical Flow guidance, Dolby Vision enhancement-layer RPU parsing, the
-deinterlace module. Use the official Veyra 2.2.0 for those.
+deinterlace module.
 
-نسخة تجريبية غير رسمية من Veyra 2.2.0 فيها خيار ترجمة نص الشاشة (الكابتشر / ترجمة PS5).
-شغّله من Veyra.exe مثل العادة.
-الاستخدام: الإعدادات ← إعدادات الترجمة المباشرة ← مصدر الترجمة ← "On-screen text" ← اختر العربية ← شغّل.
-يحتاج ويندوز لغة قراءة النصوص الإنجليزية (الإعدادات ← الوقت واللغة ← اللغة والمنطقة ← إضافة الإنجليزية).
-غير موجود في هذه النسخة: PS5 Remote Play وبث Moonlight وXbox. استخدم Veyra الرسمي لهذي الخصائص.
+M$M! - نسخة شخصية تجريبية مبنية على Veyra 2.2.0 (للمطوّر Likely7، رخصة GPL-3.0).
+شغّلها من M$M!.exe. فيها اللون الأزرق الفاتح والاسم والشعار الجديد وخيار ترجمة نص الشاشة.
+غير موجود فيها: PS5 Remote Play وبث Moonlight وXbox.
 '@
 
 $out = Join-Path $env:STAGE "$name.zip"
@@ -74,3 +74,20 @@ $size = (Get-Item $out).Length
 Write-Host ("package {0} {1:N0} MB sha256 {2}" -f $out, ($size / 1MB), (Get-FileHash $out -Algorithm SHA256).Hash)
 if ($size -ge 2GB) { throw 'Package over the 2 GB release asset limit' }
 "PACKAGE=$out" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+
+# Update: only the changed files, to unzip over an existing copy of this package.
+$updName = 'MMM-update'
+$upd = Join-Path $env:STAGE $updName
+$updApp = Join-Path $upd ([IO.Path]::GetRelativePath($stage, $app))
+New-Item -ItemType Directory -Force (Join-Path $updApp 'qml'), (Join-Path $updApp 'shaders') | Out-Null
+Copy-Item (Join-Path $app 'veyra_qml_ui.exe') $updApp
+foreach ($module in Get-ChildItem $builtQml -Directory) { Copy-Item (Join-Path $app "qml/$($module.Name)") (Join-Path $updApp 'qml') -Recurse }
+Copy-Item (Join-Path $shaders '*.dxil') (Join-Path $updApp 'shaders')
+if (Test-Path (Join-Path $stage $launcher)) { Copy-Item (Join-Path $stage $launcher) $upd }
+Copy-Item (Join-Path $stage 'M$M!-README.txt') $upd
+$updZip = Join-Path $env:STAGE "$updName.zip"
+Push-Location $upd
+7z a -tzip -mx=7 $updZip * | Out-Null
+Pop-Location
+Write-Host ("update {0} {1:N1} MB" -f $updZip, ((Get-Item $updZip).Length / 1MB))
+"UPDATE=$updZip" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8

@@ -27,7 +27,7 @@ $options = @(
 if ($env:CUDA_INCLUDE) { $options += "-DVEYRA_CUDA_DRIVER_INCLUDE_DIR=$($env:CUDA_INCLUDE)" }
 
 cmake -S $src -B $build @options
-$targets = @('veyra_qml_ui', 'veyra_screen_text_tests', 'veyra_live_translation_tests')
+$targets = @('veyra_qml_ui', 'veyra_portable_launcher', 'veyra_screen_text_tests', 'veyra_live_translation_tests')
 cmake --build $build --parallel 4 --target @targets
 
 # New tests: the OCR reading core, and the live translation on-screen source
