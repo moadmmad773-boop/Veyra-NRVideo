@@ -110,6 +110,33 @@ bool loopbackListenerIsOwned(quint16 port, DWORD pid) {
     return false;
 }
 
+// VI Translator's prompt for language models (translate.rs, llm_prompt), without its colour and
+// button tags: game text read by OCR, short enough to read live, earlier lines as context.
+QByteArray gameLinePrompt(const QString& line, const QString& model, const QString& target,
+                          const QList<QPair<QString, QString>>& history) {
+    const QString name = languageName(target);
+    const QString style = target.startsWith(QLatin1String("ar"), Qt::CaseInsensitive)
+        ? QStringLiteral("Modern Standard Arabic (\u0627\u0644\u0641\u0635\u062d\u0649), natural and readable, not stiff")
+        : QStringLiteral("%1, natural and readable").arg(name);
+    const QString system = QStringLiteral(
+        "You translate English video-game text (subtitles and on-screen instructions) into %1 for players reading live.\n"
+        "Target language: %2.\n"
+        "Rules:\n"
+        "- Output ONLY the %1 translation of the NEW line. No quotes, notes or English.\n"
+        "- Keep it short enough to read in 2-3 seconds; meaning and tone over literal wording.\n"
+        "- Translate slang, jokes and insults naturally (tone down only the most graphic slurs).\n"
+        "- The line came from OCR and may have small errors; silently fix obvious ones.\n"
+        "- Use earlier lines only as context; never re-translate them.").arg(name, style);
+    QStringList context;
+    for (const auto& [en, ar] : history) context << QStringLiteral("EN: %1\nAR: %2").arg(en, ar);
+    const QString user = context.isEmpty() ? QStringLiteral("NEW line:\n%1").arg(line)
+        : QStringLiteral("Earlier lines:\n%1\n\nNEW line:\n%2").arg(context.join(QLatin1Char('\n')), line);
+    return QJsonDocument(QJsonObject{
+        {"model", model}, {"stream", false},
+        {"messages", QJsonArray{QJsonObject{{"role", "system"}, {"content", system}}, QJsonObject{{"role", "user"}, {"content", user}}}}
+    }).toJson(QJsonDocument::Compact);
+}
+
 QByteArray chatRequest(const QString& text, const QString& model, const QString& source, const QString& target, bool local) {
     QString instruction = QStringLiteral("Translate the subtitle into %1. Preserve the meaning and tone. Return only the translation.")
         .arg(languageName(target));
@@ -132,13 +159,13 @@ QByteArray chatRequest(const QString& text, const QString& model, const QString&
 LiveTranslation::LiveTranslation(const QString& directory, QObject* parent)
     : QObject(parent), assets_(directory),
       settings_(QDir(directory).filePath(QStringLiteral("live-translation.ini")), QSettings::IniFormat) {
-    provider_ = std::clamp(settings_.value(QStringLiteral("provider"), int(Google)).toInt(), int(Local), int(Google));
-    // M$M! build: Google Translate is the engine the first time this build runs (the
-    // local model on the CPU was too slow for game dialogue); any later choice is kept.
-    if (!settings_.contains(QStringLiteral("mmmEngine"))) {
-        provider_ = Google;
+    provider_ = std::clamp(settings_.value(QStringLiteral("provider"), int(Offline)).toInt(), int(Local), int(Offline));
+    // M$M! build: VI Translator's offline translator is the engine the first time this
+    // version runs (asked for: "translate the way VI Translator does"); later choices are kept.
+    if (settings_.value(QStringLiteral("mmmEngine")).toInt() < 2) {
+        provider_ = Offline;
         settings_.setValue(QStringLiteral("provider"), provider_);
-        settings_.setValue(QStringLiteral("mmmEngine"), 1);
+        settings_.setValue(QStringLiteral("mmmEngine"), 2);
     }
     sourceLanguage_ = settings_.value(QStringLiteral("source")).toString();
     targetLanguage_ = settings_.value(QStringLiteral("target"), QLocale().bcp47Name()).toString();
@@ -319,7 +346,7 @@ void LiveTranslation::setEnabled(bool value) {
 }
 
 void LiveTranslation::setProvider(int value) {
-    if (value < Local || value > Google || provider_ == value) return;
+    if (value < Local || value > Offline || provider_ == value) return;
     setEnabled(false);
     provider_ = value;
     if (provider_ == MyMemory && sourceLanguage_.isEmpty()) setSourceLanguage(QStringLiteral("en"));
@@ -570,6 +597,7 @@ void LiveTranslation::resetCaption() {
 }
 
 void LiveTranslation::cancelRequest() {
+    if (std::exchange(opusJob_, 0) && opusMt_) opusMt_->cancel();
     if (auto* reply = std::exchange(request_, nullptr)) {
         reply->disconnect(this);
         reply->abort();
@@ -617,7 +645,7 @@ void LiveTranslation::tick() {
     }
     if (screen) { tickScreen(now); return; }
     if (caption_.isEmpty()) return;
-    if (caption_ == requestedText_ || request_) return;
+    if (caption_ == requestedText_ || busy()) return;
     // Live captions grow word by word: wait for a pause before sending.
     if (now - requestedAt_ < 850 || (now - newTextAt_ < 300 && now - requestedAt_ < 1400)) return;
     if (provider_ == Local && !loopbackListenerIsOwned(serverPort_, DWORD(server_.processId()))) {
@@ -638,7 +666,7 @@ void LiveTranslation::tickScreen(qint64 now) {
             setStatus(tr("正在等待画面字幕…"));
         return;
     }
-    if (request_ || currentSeq_ == requestedSeq_ || now < retryAt_) return;
+    if (busy() || currentSeq_ == requestedSeq_ || now < retryAt_) return;
     if (!listening()) {
         serverNotListening(now);
         return;
@@ -719,6 +747,34 @@ void LiveTranslation::requestTranslation(const QString& text, quint64 seq, qint6
             return;
         }
     }
+    // VI Translator's line handling: cues, a speaker name, kept terms and slang come off; the
+    // translator gets the sentence alone (the offline model: sentence by sentence).
+    const bool offline = provider_ == Offline;
+    const bool arabic = targetLanguage_.startsWith(QLatin1String("ar"), Qt::CaseInsensitive);
+    const auto lang = arabic ? std::u32string(U"ar") : targetLanguage_.section(QLatin1Char('-'), 0, 0).toLower().toStdU32String();
+    pending_ = {text, seq, start, viline::plan(text.toStdU32String(), lang, offline)};
+    if (pending_.plan.parts.empty()) {
+        // Nothing to translate (a cue and a name, only kept terms): shown as the word lists have it.
+        deliver(text, seq, start, QString::fromStdU32String(viline::assemble(pending_.plan, {})));
+        return;
+    }
+    if (offline) {
+        if (!arabic) { setStatus(tr("VI Translator 离线翻译只能译成阿拉伯语")); return; }
+        if (!OpusMtService::installed()) { setStatus(tr("程序目录中没有离线翻译模型")); return; }
+        if (!opusMt_) {
+            opusMt_ = std::make_unique<OpusMtService>();
+            connect(opusMt_.get(), &OpusMtService::done, this, &LiveTranslation::receiveOffline);
+            connect(opusMt_.get(), &OpusMtService::loading, this, [this](bool on) {
+                if (on && enabled_) setStatus(tr("正在加载离线翻译模型…"));
+            });
+        }
+        QStringList parts;
+        for (const auto& part : pending_.plan.parts) parts << QString::fromStdU32String(part);
+        opusSentAt_ = clock_.elapsed();
+        opusJob_ = opusMt_->translate(parts);
+        return;
+    }
+    const QString body = QString::fromStdU32String(pending_.plan.parts.front());
     QUrl url;
     QByteArray token, payload;
     // Google did not answer the first time (blocked, offline, rate limited): the
@@ -733,7 +789,7 @@ void LiveTranslation::requestTranslation(const QString& text, quint64 seq, qint6
         }
         url = QUrl(QStringLiteral("https://api.mymemory.translated.net/get"));
         QUrlQuery query;
-        QString input = text;
+        QString input = body;
         while (input.toUtf8().size() > 500) input.chop(1);
         if (!input.isEmpty() && input.back().isHighSurrogate()) input.chop(1);
         query.addQueryItem(QStringLiteral("q"), QString::fromLatin1(QUrl::toPercentEncoding(input)));
@@ -746,16 +802,16 @@ void LiveTranslation::requestTranslation(const QString& text, quint64 seq, qint6
         query.addQueryItem(QStringLiteral("sl"), sourceLanguage_.isEmpty() ? QStringLiteral("auto") : googleLanguage(sourceLanguage_));
         query.addQueryItem(QStringLiteral("tl"), googleLanguage(targetLanguage_));
         query.addQueryItem(QStringLiteral("dt"), QStringLiteral("t"));
-        query.addQueryItem(QStringLiteral("q"), QString::fromLatin1(QUrl::toPercentEncoding(text.left(1000))));
+        query.addQueryItem(QStringLiteral("q"), QString::fromLatin1(QUrl::toPercentEncoding(body.left(1000))));
         url.setQuery(query);
     } else if (provider_ == Local) {
         url = completionEndpoint(QStringLiteral("http://127.0.0.1:%1/v1").arg(serverPort_));
         token = serverKey_;
-        payload = chatRequest(text, QString::fromLatin1(localAlias), sourceLanguage_, targetLanguage_, true);
+        payload = chatRequest(body, QString::fromLatin1(localAlias), sourceLanguage_, targetLanguage_, true);
     } else {
         url = completionEndpoint(apiBase_);
         token = apiKey_;
-        payload = chatRequest(text, apiModel_, sourceLanguage_, targetLanguage_, false);
+        payload = gameLinePrompt(body, apiModel_, targetLanguage_, history_);
     }
     QNetworkRequest request(url);
     request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::ManualRedirectPolicy);
@@ -840,13 +896,8 @@ void LiveTranslation::receiveTranslation(QNetworkReply* reply, const QString& te
         // Google refusing (429) or unreachable: give it a minute's rest, MyMemory meanwhile.
         if (engine == Google) googleRestAt_ = clock_.elapsed() + 60000;
         if (!current) return;
-        setStatus(code ? tr("翻译接口返回 HTTP %1").arg(code) : tr("翻译请求失败，请检查连接"));
-        if (screen && retries_ < maxRetries) {
-            // The same line again shortly (tick() waits for retryAt_).
-            ++retries_;
-            requestedSeq_ = 0;
-            retryAt_ = clock_.elapsed() + (engine == Google ? 200 : retryDelayMs);
-        }
+        requestFailed(seq, code ? tr("翻译接口返回 HTTP %1").arg(code) : tr("翻译请求失败，请检查连接"),
+                      engine == Google ? 200 : retryDelayMs);
         return;
     }
     QString problem;
@@ -855,13 +906,52 @@ void LiveTranslation::receiveTranslation(QNetworkReply* reply, const QString& te
         if (current) setStatus(problem);
         return;
     }
-    remember(text, result);
-    if (screen) {
-        // Shown even when its line has gone meanwhile (the presenter decides for how long).
-        present(text, result, seq, start);
+    deliver(text, seq, start, QString::fromStdU32String(viline::assemble(pending_.plan, {result.toStdU32String()})));
+}
+
+void LiveTranslation::receiveOffline(quint64 job, const QStringList& translations, const QString& error, int ms) {
+    if (job != opusJob_) return;
+    opusJob_ = 0;
+    const bool current = pending_.seq ? pending_.seq == currentSeq_ : active_ && sameCaption(pending_.text, caption_);
+    log::info("live-translation", std::format("request provider={} source={} parts={} ms={} chars={} line={} ok={}",
+        int(Offline), captionSource_, translations.size(), ms, pending_.text.size(),
+        pending_.seq ? (current ? "current" : "earlier") : "live", error.isEmpty()));
+    if (!enabled_) return;
+    if (!error.isEmpty()) {
+        if (current) requestFailed(pending_.seq, tr("离线翻译失败：%1").arg(error), retryDelayMs);
         return;
     }
-    translated_ = result;
+    std::vector<std::u32string> parts;
+    for (const auto& t : translations) parts.push_back(t.toStdU32String());
+    deliver(pending_.text, pending_.seq, pending_.start, QString::fromStdU32String(viline::assemble(pending_.plan, parts)));
+}
+
+void LiveTranslation::requestFailed(quint64 seq, const QString& status, qint64 delayMs) {
+    setStatus(status);
+    if (seq && retries_ < maxRetries) {
+        // The same line again shortly (tick() waits for retryAt_).
+        ++retries_;
+        requestedSeq_ = 0;
+        retryAt_ = clock_.elapsed() + delayMs;
+    }
+}
+
+void LiveTranslation::deliver(const QString& text, quint64 seq, qint64 start, const QString& result) {
+    const auto shown = result.simplified().left(500);
+    if (shown.isEmpty()) {
+        setStatus(tr("翻译接口未返回译文"));
+        return;
+    }
+    remember(text, shown);
+    history_.append({text, shown});
+    while (history_.size() > 4) history_.removeFirst();
+    if (seq) {
+        // Shown even when its line has gone meanwhile (the presenter decides for how long).
+        present(text, shown, seq, start);
+        return;
+    }
+    if (!active_ || !sameCaption(text, caption_)) return;
+    translated_ = shown;
     setStatus(tr("实时翻译运行中"));
     emit captionChanged();
 }

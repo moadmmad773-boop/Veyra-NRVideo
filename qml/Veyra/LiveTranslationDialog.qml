@@ -36,7 +36,9 @@ DialogLayer {
     function setRegion(x, y, w, h) {
         if (root.translation) root.translation.customRegion = Qt.rect(x, y, w, h)
     }
+    // VI Translator's offline translator first: the M$M! default.
     readonly property var providers: [
+        {id: "4", label: qsTr("VI Translator 离线翻译（阿拉伯语）")},
         {id: "0", label: qsTr("本地模型")},
         {id: "1", label: qsTr("自定义 API（OpenAI 兼容）")},
         {id: "2", label: "MyMemory"},
@@ -179,7 +181,9 @@ DialogLayer {
             visible: root.supported
             label: qsTr("翻译引擎")
             hintBelow: true
-            hint: root.provider === 0
+            hint: root.provider === 4
+                ? qsTr("VI Translator 的翻译方法：OPUS-MT 离线模型在本机把英文译成阿拉伯语，免费、无需联网；人名、音效（如 [laughs]）和游戏术语单独处理。")
+                : root.provider === 0
                 ? qsTr("在本机运行，字幕文本留在本机。")
                 : root.provider === 3
                 ? qsTr("免费、无需密钥，每句约 0.2 秒；启用后会把识别出的文字发送给 Google。")
@@ -189,7 +193,7 @@ DialogLayer {
                 objectName: "live-translation-provider"
                 implicitWidth: 224
                 options: root.providers
-                value: root.providers[Math.max(0, Math.min(root.providers.length - 1, root.provider))].label
+                value: (root.providers.find(p => Number(p.id) === root.provider) || root.providers[0]).label
                 onPicked: id => { root.translation.provider = Number(id) }
             }
         }

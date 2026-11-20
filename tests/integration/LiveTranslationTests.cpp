@@ -241,7 +241,7 @@ void secondLineChecks(const QString& root) {
 // VEYRA_TEST_GOOGLE set (CI); reported, not counted, as the network is not ours.
 void googleChecks(const QString& root) {
     LiveTranslation translation(root);
-    check(translation.provider() == LiveTranslation::Google, "M$M! build starts with Google Translate");
+    translation.setProvider(LiveTranslation::Google);
     translation.setCaptionSource(LiveTranslation::ScreenText);
     translation.setTargetLanguage(QStringLiteral("ar"));
     translation.setEnabled(true);
@@ -265,6 +265,53 @@ void googleChecks(const QString& root) {
     std::printf("GOOGLE %s %.2f s status=%s chars=%d arabic=%d\n", ok && arabic > 5 ? "PASS" : "FAIL",
                 std::chrono::duration<double>(std::chrono::steady_clock::now() - begin).count(),
                 qPrintable(status), int(shown.size()), int(arabic));
+    translation.setEnabled(false);
+}
+
+// M$M! build: VI Translator's offline translator (OPUS-MT on ONNX Runtime) on real lines, with
+// the runtime and model from VEYRA_OPUS_MT_DIR (CI). The results go to VEYRA_TEST_OUT (UTF-8).
+void offlineChecks(const QString& root) {
+    if (!LiveTranslation::offlineInstalled()) { check(false, "offline translator files present"); return; }
+    LiveTranslation translation(root);
+    check(translation.provider() == LiveTranslation::Offline, "M$M! build starts with VI Translator's offline translator");
+    translation.setCaptionSource(LiveTranslation::ScreenText);
+    translation.setTargetLanguage(QStringLiteral("ar"));
+    translation.setEnabled(true);
+    translation.setPlayback(12, true, false);
+    translation.acceptScreenText(QString(), true, QString());
+    const QStringList lines{
+        QStringLiteral("We need to get out of here before the cops show up."),
+        QStringLiteral("Jason: [laughs] C'mon, you know I'd never leave you."),
+        QStringLiteral("Press X to open the door."),
+        QStringLiteral("Lucia: Where the hell were you last night?"),
+        QStringLiteral("I don't trust him. He's hiding something."),
+        QStringLiteral("Follow the car, but keep your distance."),
+        QStringLiteral("[phone ringing]"),
+        QStringLiteral("Cop: Hands where I can see them!"),
+    };
+    QFile out(qEnvironmentVariable("VEYRA_TEST_OUT", QDir(root).filePath(QStringLiteral("offline.txt"))));
+    out.open(QIODevice::WriteOnly | QIODevice::Text);
+    int translated = 0;
+    for (const auto& line : lines) {
+        const auto begin = std::chrono::steady_clock::now();
+        QTimer feed;
+        QObject::connect(&feed, &QTimer::timeout, &feed, [&] { translation.acceptScreenText(line, true, QString()); });
+        translation.acceptScreenText(line, true, QString());
+        feed.start(50);
+        const bool ok = QTest::qWaitFor([&] { return translation.caption() == line && !translation.translated().isEmpty(); }, 30000);
+        feed.stop();
+        const QString shown = translation.translated();
+        const auto arabic = std::count_if(shown.begin(), shown.end(), [](QChar c) { return c.unicode() >= 0x0600 && c.unicode() <= 0x06FF; });
+        const double seconds = std::chrono::duration<double>(std::chrono::steady_clock::now() - begin).count();
+        if (ok && arabic > 1) ++translated;
+        out.write(QStringLiteral("%1 %2 s | %3 | %4\n").arg(ok && arabic > 1 ? QStringLiteral("OK") : QStringLiteral("NO"))
+                      .arg(seconds, 0, 'f', 2).arg(line, shown).toUtf8());
+        std::printf("OFFLINE %s %.2f s arabic=%d\n", ok && arabic > 1 ? "PASS" : "FAIL", seconds, int(arabic));
+        translation.acceptScreenText(QString(), true, QString());
+        QTest::qWait(200);
+    }
+    out.close();
+    check(translated == lines.size(), "every line translated into Arabic offline");
     translation.setEnabled(false);
 }
 
@@ -310,6 +357,7 @@ int main(int argc, char** argv) {
     screenChecks(QDir(root).filePath(QStringLiteral("screen")));
     secondLineChecks(QDir(root).filePath(QStringLiteral("second-line")));
     if (qEnvironmentVariableIsSet("VEYRA_TEST_GOOGLE")) googleChecks(QDir(root).filePath(QStringLiteral("google")));
+    if (qEnvironmentVariableIsSet("VEYRA_OPUS_MT_DIR")) offlineChecks(QDir(root).filePath(QStringLiteral("offline")));
     if (!LiveTranslation::supported()) {
         std::puts("SKIP Live Captions unavailable on this Windows build");
         return failures ? 1 : 77;

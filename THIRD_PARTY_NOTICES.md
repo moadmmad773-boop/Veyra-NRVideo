@@ -29,6 +29,15 @@ The frame readback, the Windows OCR wrapper (`src/engine/ScreenTextCapture.cpp`)
 and the user interface are Veyra's own. Text recognition is Windows.Media.Ocr.
 When each line's translation is shown follows VI Translator's presenter (`src-tauri/src/main.rs`,
 same version), ported into `src/ui/CaptionPresenter.h` and `tests/unit/CaptionPresenterTests.cpp`.
+M$M! build: VI Translator's line handling around its translators (sound cues, speaker names in
+Arabic letters, roles, language tags, kept terms, slang, sentence by sentence, softened words;
+`translate.rs`, `speaker.rs`, `ocr.rs`, `translate_spoken` in `main.rs`) is ported into
+`include/veyra/ui/ViLineText.h`, `src/ui/ViLineText.cpp` and `tests/unit/ViLineTextTests.cpp`; its
+offline translator (`LocalMt`: OPUS-MT through ONNX Runtime, greedy decoding) into `src/ui/OpusMt.cpp`
+and `src/ui/UnigramTokenizer.cpp`, and its language-model prompt into `gameLinePrompt` in
+`src/ui/LiveTranslation.cpp`. The M$M! package carries ONNX Runtime (MIT, Microsoft) and the OPUS-MT
+English -> Arabic model by Helsinki-NLP (CC-BY 4.0) in the ONNX export by Xenova at commit
+`034a684356c19021a187cda4d7f823298b913921`, in `translation/` beside the program, with their notices.
 
 ```
 MIT License

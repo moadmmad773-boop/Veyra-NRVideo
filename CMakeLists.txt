@@ -141,6 +141,16 @@ target_link_libraries(veyra_screen_text_tests PRIVATE veyra_base)
 add_executable(veyra_caption_presenter_tests tests/unit/CaptionPresenterTests.cpp)
 target_compile_features(veyra_caption_presenter_tests PRIVATE cxx_std_20)
 
+# VI Translator's line handling and the offline translator's tokenizer (portable, no Qt).
+add_executable(veyra_vi_line_tests tests/unit/ViLineTextTests.cpp src/ui/ViLineText.cpp)
+target_compile_features(veyra_vi_line_tests PRIVATE cxx_std_20)
+target_include_directories(veyra_vi_line_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_compile_options(veyra_vi_line_tests PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/utf-8>)
+add_executable(veyra_unigram_tokenizer_tests tests/unit/UnigramTokenizerTests.cpp src/ui/UnigramTokenizer.cpp)
+target_compile_features(veyra_unigram_tokenizer_tests PRIVATE cxx_std_20)
+target_include_directories(veyra_unigram_tokenizer_tests PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_compile_options(veyra_unigram_tokenizer_tests PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/utf-8>)
+
 add_executable(veyra_export_timeline_tests tests/unit/ExportTimelineTests.cpp)
 target_compile_features(veyra_export_timeline_tests PRIVATE cxx_std_20)
 target_link_libraries(veyra_export_timeline_tests PRIVATE veyra_base)
@@ -1359,6 +1369,9 @@ if(VEYRA_BUILD_QML_UI AND Qt6_FOUND)
     src/ui/LiveTranslation.cpp src/ui/LiveTranslation.h
     src/ui/TranslationAssets.cpp src/ui/TranslationAssets.h
     src/ui/WinCaptionReader.cpp src/ui/WinCaptionReader.h
+    # M$M!: VI Translator's offline translator and line handling.
+    src/ui/OpusMt.cpp src/ui/OpusMt.h src/ui/ViLineText.cpp include/veyra/ui/ViLineText.h
+    src/ui/UnigramTokenizer.cpp include/veyra/ui/UnigramTokenizer.h
     include/veyra/ui/QmlPlayerBridge.h include/veyra/ui/ThumbnailProvider.h
     # Custom: the start-up format badge, same layered-window construction.
     src/media/FormatBadgeWindow.cpp
@@ -1443,6 +1456,16 @@ if(VEYRA_BUILD_QML_UI AND Qt6_FOUND)
   # piece of the old shell worth keeping, and its own dialog is what users
   # expect from a desktop app. No QWidget UI is created.
   target_link_libraries(veyra_qml_bridge PUBLIC veyra_engine Qt6::Core Qt6::Gui Qt6::Qml Qt6::Quick Qt6::QuickControls2 Qt6::Widgets Qt6::Network PRIVATE shell32 ole32 oleaut32 uiautomationcore iphlpapi ws2_32)
+  # The offline translator (src/ui/OpusMt.cpp) calls ONNX Runtime's C API: its header at build
+  # time, onnxruntime.dll loaded at run time from the program's translation folder (no import lib).
+  set(VEYRA_ONNXRUNTIME_ROOT "" CACHE PATH "ONNX Runtime package with include/onnxruntime_c_api.h (offline translator)")
+  if(VEYRA_ONNXRUNTIME_ROOT AND EXISTS "${VEYRA_ONNXRUNTIME_ROOT}/include/onnxruntime_c_api.h")
+    target_include_directories(veyra_qml_bridge PRIVATE "${VEYRA_ONNXRUNTIME_ROOT}/include")
+    target_compile_definitions(veyra_qml_bridge PRIVATE VEYRA_HAS_ONNXRUNTIME=1)
+    message(STATUS "Offline translator: ONNX Runtime headers from ${VEYRA_ONNXRUNTIME_ROOT}")
+  else()
+    message(STATUS "Offline translator: no ONNX Runtime headers, left out")
+  endif()
   add_executable(veyra_playlist_tests tests/unit/PlaylistModelTests.cpp src/ui/PlaylistModel.cpp include/veyra/ui/PlaylistModel.h)
   set_target_properties(veyra_playlist_tests PROPERTIES AUTOMOC ON)
   target_compile_features(veyra_playlist_tests PRIVATE cxx_std_20)

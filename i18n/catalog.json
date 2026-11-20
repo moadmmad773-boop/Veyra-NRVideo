@@ -4759,6 +4759,45 @@
    "ru": "VFG в высоком качестве может быть очень плавным и сильно нагружает GPU. На моей RTX 5070 при 4K генерация одного кадра в высоком качестве занимала примерно **20 мс**, в среднем — **от четверти до трети** этого времени. Несколько раз поверните камеру и проверьте время обработки и равномерность кадров."
   },
   {
+   "zh": "VI Translator 的翻译方法：OPUS-MT 离线模型在本机把英文译成阿拉伯语，免费、无需联网；人名、音效（如 [laughs]）和游戏术语单独处理。",
+   "src": "qml/LiveTranslationDialog.qml",
+   "zh-TW": "VI Translator 的翻譯方法：OPUS-MT 離線模型在本機把英文譯成阿拉伯語，免費、無需連網；人名、音效（如 [laughs]）和遊戲術語單獨處理。",
+   "en": "VI Translator's method: the OPUS-MT offline model translates English into Arabic on this PC, free and without internet; speaker names, sound cues (like [laughs]) and game terms are handled apart.",
+   "ja": "VI Translator の方法: OPUS-MT オフラインモデルがこの PC で英語をアラビア語に翻訳します。無料・オフライン。話者名、効果音 ([laughs] など)、ゲーム用語は別に処理します。",
+   "ko": "VI Translator 방식: OPUS-MT 오프라인 모델이 이 PC에서 영어를 아랍어로 번역합니다. 무료이며 인터넷이 필요 없습니다. 화자 이름, 효과음([laughs] 등), 게임 용어는 따로 처리합니다.",
+   "es": "El método de VI Translator: el modelo OPUS-MT sin conexión traduce del inglés al árabe en este PC, gratis y sin internet; nombres, sonidos (como [laughs]) y términos del juego se tratan aparte.",
+   "fr": "La méthode de VI Translator : le modèle hors ligne OPUS-MT traduit l’anglais en arabe sur ce PC, gratuitement et sans internet ; noms, bruitages (comme [laughs]) et termes de jeu sont traités à part.",
+   "de": "Die Methode von VI Translator: Das Offline-Modell OPUS-MT übersetzt Englisch auf diesem PC ins Arabische, kostenlos und ohne Internet; Namen, Geräusche (wie [laughs]) und Spielbegriffe werden getrennt behandelt.",
+   "pt-BR": "O método do VI Translator: o modelo offline OPUS-MT traduz inglês para árabe neste PC, grátis e sem internet; nomes, sons (como [laughs]) e termos do jogo são tratados à parte.",
+   "ru": "Метод VI Translator: офлайн-модель OPUS-MT переводит с английского на арабский на этом ПК бесплатно и без интернета; имена, звуки (например [laughs]) и игровые термины обрабатываются отдельно."
+  },
+  {
+   "zh": "VI Translator 离线翻译只能译成阿拉伯语",
+   "src": "src/ui/LiveTranslation.cpp",
+   "zh-TW": "VI Translator 離線翻譯只能譯成阿拉伯語",
+   "en": "VI Translator's offline translator only translates into Arabic",
+   "ja": "VI Translator のオフライン翻訳はアラビア語への翻訳のみです",
+   "ko": "VI Translator 오프라인 번역은 아랍어로만 번역합니다",
+   "es": "El traductor sin conexión de VI Translator solo traduce al árabe",
+   "fr": "Le traducteur hors ligne de VI Translator ne traduit que vers l’arabe",
+   "de": "Der Offline-Übersetzer von VI Translator übersetzt nur ins Arabische",
+   "pt-BR": "O tradutor offline do VI Translator só traduz para árabe",
+   "ru": "Офлайн-переводчик VI Translator переводит только на арабский"
+  },
+  {
+   "zh": "VI Translator 离线翻译（阿拉伯语）",
+   "src": "qml/LiveTranslationDialog.qml",
+   "zh-TW": "VI Translator 離線翻譯（阿拉伯語）",
+   "en": "VI Translator offline (Arabic)",
+   "ja": "VI Translator オフライン (アラビア語)",
+   "ko": "VI Translator 오프라인 (아랍어)",
+   "es": "VI Translator sin conexión (árabe)",
+   "fr": "VI Translator hors ligne (arabe)",
+   "de": "VI Translator offline (Arabisch)",
+   "pt-BR": "VI Translator offline (árabe)",
+   "ru": "VI Translator офлайн (арабский)"
+  },
+  {
    "zh": "Veyra 处理手上这张已经渲染好的画面，DLSS SR 在这里能发挥的空间有限。有 NVIDIA 显卡的话，我更推荐 **RTX 视频超分 · 标准 · 中**，画面变清楚，开销也比较好控。",
    "src": "qml/CaptureGuideDialog.qml",
    "zh-TW": "Veyra 處理的是已經渲染好的畫面，DLSS SR 在這裡能發揮的空間有限。有 NVIDIA 顯示卡的話，我更推薦 **RTX 影片超解析 · 標準 · 中**，畫面清楚，負載也比較好控制。",
@@ -25730,6 +25769,19 @@
    "ru": "Загрузка локальной модели перевода…"
   },
   {
+   "zh": "正在加载离线翻译模型…",
+   "src": "src/ui/LiveTranslation.cpp",
+   "zh-TW": "正在載入離線翻譯模型…",
+   "en": "Loading the offline translation model…",
+   "ja": "オフライン翻訳モデルを読み込み中…",
+   "ko": "오프라인 번역 모델을 불러오는 중…",
+   "es": "Cargando el modelo de traducción sin conexión…",
+   "fr": "Chargement du modèle de traduction hors ligne…",
+   "de": "Offline-Übersetzungsmodell wird geladen…",
+   "pt-BR": "Carregando o modelo de tradução offline…",
+   "ru": "Загрузка офлайн-модели перевода…"
+  },
+  {
    "zh": "正在取消…",
    "src": "src/ui/MoonlightModel.cpp",
    "zh-TW": "正在取消…",
@@ -29227,6 +29279,19 @@
    "ru": "Не в сети"
   },
   {
+   "zh": "离线翻译失败：%1",
+   "src": "src/ui/LiveTranslation.cpp",
+   "zh-TW": "離線翻譯失敗：%1",
+   "en": "Offline translation failed: %1",
+   "ja": "オフライン翻訳に失敗しました: %1",
+   "ko": "오프라인 번역 실패: %1",
+   "es": "Error en la traducción sin conexión: %1",
+   "fr": "Échec de la traduction hors ligne : %1",
+   "de": "Offline-Übersetzung fehlgeschlagen: %1",
+   "pt-BR": "Falha na tradução offline: %1",
+   "ru": "Ошибка офлайн-перевода: %1"
+  },
+  {
    "zh": "秒",
    "src": "qml/SettingsPage.qml",
    "zh-TW": "秒",
@@ -29251,6 +29316,19 @@
    "de": "Seiten-, Fenster- und Lebenslaufverhalten beim Start.",
    "pt-BR": "Página, janela e retomar o comportamento na inicialização.",
    "ru": "Страница, окно и возобновление поведения при запуске."
+  },
+  {
+   "zh": "程序目录中没有离线翻译模型",
+   "src": "src/ui/LiveTranslation.cpp",
+   "zh-TW": "程式目錄中沒有離線翻譯模型",
+   "en": "The offline translation model is not in the program folder",
+   "ja": "プログラムのフォルダーにオフライン翻訳モデルがありません",
+   "ko": "프로그램 폴더에 오프라인 번역 모델이 없습니다",
+   "es": "El modelo de traducción sin conexión no está en la carpeta del programa",
+   "fr": "Le modèle de traduction hors ligne n’est pas dans le dossier du programme",
+   "de": "Das Offline-Übersetzungsmodell fehlt im Programmordner",
+   "pt-BR": "O modelo de tradução offline não está na pasta do programa",
+   "ru": "В папке программы нет офлайн-модели перевода"
   },
   {
    "zh": "稍后",

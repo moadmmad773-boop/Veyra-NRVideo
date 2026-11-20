@@ -1,13 +1,17 @@
 #pragma once
 
 #include "CaptionPresenter.h"
+#include "OpusMt.h"
 #include "TranslationAssets.h"
+#include "veyra/ui/ViLineText.h"
 #include <QElapsedTimer>
 #include <QHash>
 #include <QRectF>
 #include <QSettings>
 #include <QStringList>
 #include <QTimer>
+#include <QPair>
+#include <memory>
 #include <optional>
 
 namespace veyra::ui {
@@ -36,12 +40,15 @@ class LiveTranslation final : public QObject {
     Q_PROPERTY(QString caption READ caption NOTIFY captionChanged)
     Q_PROPERTY(QString translated READ translated NOTIFY captionChanged)
     Q_PROPERTY(bool modelInstalled READ modelInstalled NOTIFY changed)
+    Q_PROPERTY(bool offlineInstalled READ offlineInstalled CONSTANT)
     Q_PROPERTY(bool downloading READ downloading NOTIFY changed)
     Q_PROPERTY(double downloadProgress READ downloadProgress NOTIFY changed)
     Q_PROPERTY(qint64 downloadBytes READ downloadBytes CONSTANT)
 public:
     // Google: Google Translate's free web endpoint (M$M! build): no key, about 0.2 s a line.
-    enum Provider { Local, OpenAi, MyMemory, Google };
+    // Offline: VI Translator's own translator (OPUS-MT English -> Arabic on the CPU, in the
+    // package), with its line handling; the M$M! build's default.
+    enum Provider { Local, OpenAi, MyMemory, Google, Offline };
     // Where the original text comes from: what Windows Live Captions hears, or the
     // subtitles drawn on the picture (capture card, PS5/Xbox/PC streaming), read by OCR.
     enum CaptionSource { WindowsCaptions, ScreenText };
@@ -75,6 +82,7 @@ public:
     QString caption() const { return caption_; }
     QString translated() const { return translated_; }
     bool modelInstalled() const { return assets_.installed(); }
+    static bool offlineInstalled() { return OpusMtService::installed(); }
     bool downloading() const { return assets_.downloading(); }
     double downloadProgress() const { return double(assets_.received()) / double(assets_.totalBytes()); }
     qint64 downloadBytes() const { return assets_.totalBytes(); }
@@ -124,6 +132,12 @@ private:
     void requestTranslation(const QString& text, quint64 seq = 0, qint64 start = 0);
     // engine: the service the request went to (Google's failed retries go to MyMemory).
     void receiveTranslation(QNetworkReply* reply, const QString& text, quint64 seq, qint64 start, int engine);
+    void receiveOffline(quint64 job, const QStringList& translations, const QString& error, int ms);
+    // A finished translation of `text` (seq 0: Windows Live Captions): remembered and shown.
+    void deliver(const QString& text, quint64 seq, qint64 start, const QString& result);
+    // A request that failed: the status, and the same on-screen line again shortly.
+    void requestFailed(quint64 seq, const QString& status, qint64 delayMs);
+    bool busy() const { return request_ || opusJob_; }
     // The translation in a reply body; empty when there is none, with the reason in *problem.
     QString parseTranslation(const QByteArray& body, QString* problem, int engine) const;
     // A translation already known (same language, or recently translated).
@@ -165,6 +179,18 @@ private:
     qint64 currentStart_ = 0, retryAt_ = 0;
     // Google refused or did not answer: MyMemory until then, without trying Google first.
     qint64 googleRestAt_ = 0;
+    // The request on its way: its line, taken apart (VI Translator's line handling).
+    struct Pending {
+        QString text;
+        quint64 seq = 0;
+        qint64 start = 0;
+        viline::Plan plan;
+    } pending_;
+    std::unique_ptr<OpusMtService> opusMt_;
+    quint64 opusJob_ = 0;
+    qint64 opusSentAt_ = 0;
+    // The last lines and their translations: context for a language model (custom API).
+    QList<QPair<QString, QString>> history_;
     QString sourceLanguage_, targetLanguage_, apiBase_, apiModel_;
     QByteArray apiKey_;
 };
