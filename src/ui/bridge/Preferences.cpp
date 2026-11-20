@@ -244,9 +244,11 @@ bool QmlPlayerBridge::setPreference(const QString& key, const QVariant& value) {
         if (!ok || !(qFuzzyCompare(v, 1.0) || qFuzzyCompare(v, 0.1) || qFuzzyCompare(v, 0.01))) return false;
         stored = v;
     } else if (key == QLatin1String("palette")) {
-        // 设置 → 外观 → 界面配色 (Theme.qml): 日落 or the original 经典 palette.
+        // 设置 → 外观 → 界面配色 (Theme.qml): 日落 or the original 经典 palette; the M$M!
+        // build adds 冰蓝 (frost, its default) and 天蓝 (sky).
         const QString v = value.toString();
-        if (v != QLatin1String("dusk") && v != QLatin1String("classic")) return false;
+        if (v != QLatin1String("dusk") && v != QLatin1String("classic")
+            && v != QLatin1String("frost") && v != QLatin1String("sky")) return false;
         stored = v;
     } else if (key == QLatin1String("accent")) {
         const QString v = value.toString();

@@ -163,6 +163,8 @@ private:
     QString current_;
     quint64 lineSeq_ = 0, currentSeq_ = 0, requestedSeq_ = 0;
     qint64 currentStart_ = 0, retryAt_ = 0;
+    // Google refused or did not answer: MyMemory until then, without trying Google first.
+    qint64 googleRestAt_ = 0;
     QString sourceLanguage_, targetLanguage_, apiBase_, apiModel_;
     QByteArray apiKey_;
 };

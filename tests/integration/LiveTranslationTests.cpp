@@ -256,14 +256,15 @@ void googleChecks(const QString& root) {
     feed.start(50);
     const bool ok = QTest::qWaitFor([&] { return !translation.translated().isEmpty(); }, 15000);
     feed.stop();
-    const auto arabic = std::count_if(translation.translated().begin(), translation.translated().end(),
+    const QString shown = translation.translated();  // one copy: begin and end of the same string
+    const auto arabic = std::count_if(shown.begin(), shown.end(),
                                       [](QChar c) { return c.unicode() >= 0x0600 && c.unicode() <= 0x06FF; });
     // The status as code points: the console's code page would garble it.
     QString status;
     for (const QChar c : translation.status()) status += c.unicode() < 128 ? QString(c) : QStringLiteral("\\u%1").arg(c.unicode(), 4, 16, QLatin1Char('0'));
     std::printf("GOOGLE %s %.2f s status=%s chars=%d arabic=%d\n", ok && arabic > 5 ? "PASS" : "FAIL",
                 std::chrono::duration<double>(std::chrono::steady_clock::now() - begin).count(),
-                qPrintable(status), int(translation.translated().size()), int(arabic));
+                qPrintable(status), int(shown.size()), int(arabic));
     translation.setEnabled(false);
 }
 

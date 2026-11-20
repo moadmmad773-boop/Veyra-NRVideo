@@ -723,7 +723,8 @@ void LiveTranslation::requestTranslation(const QString& text, quint64 seq, qint6
     QByteArray token, payload;
     // Google did not answer the first time (blocked, offline, rate limited): the
     // retry goes to MyMemory, so the line still gets a translation.
-    const int engine = provider_ == Google && retries_ > 0 && seq ? int(MyMemory) : provider_;
+    const int engine = provider_ == Google && seq && (retries_ > 0 || clock_.elapsed() < googleRestAt_)
+        ? int(MyMemory) : provider_;
     const QString myMemorySource = provider_ == Google && sourceLanguage_.isEmpty() ? QStringLiteral("en") : sourceLanguage_;
     if (engine == MyMemory) {
         if (myMemorySource.isEmpty()) {
@@ -836,6 +837,8 @@ void LiveTranslation::receiveTranslation(QNetworkReply* reply, const QString& te
         return;
     }
     if (code < 200 || code >= 300 || reply->error() != QNetworkReply::NoError) {
+        // Google refusing (429) or unreachable: give it a minute's rest, MyMemory meanwhile.
+        if (engine == Google) googleRestAt_ = clock_.elapsed() + 60000;
         if (!current) return;
         setStatus(code ? tr("翻译接口返回 HTTP %1").arg(code) : tr("翻译请求失败，请检查连接"));
         if (screen && retries_ < maxRetries) {
