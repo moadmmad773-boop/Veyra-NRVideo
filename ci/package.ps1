@@ -15,6 +15,7 @@ if (-not (Test-Path (Join-Path $root 'current-version.txt'))) { $root = $env:PKG
 Copy-Item (Join-Path $root '*') $stage -Recurse -Force
 $app = Join-Path $stage ([IO.Path]::GetRelativePath($root, $env:PKG_DIR))
 Write-Host "package root $root; program folder $app"
+"PKG_APP=$app" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
 Get-ChildItem $stage | ForEach-Object { Write-Host ("  root {0}" -f $_.Name) }
 
 Copy-Item (Join-Path $build 'veyra_qml_ui.exe') (Join-Path $app 'veyra_qml_ui.exe') -Force

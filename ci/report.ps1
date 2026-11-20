@@ -16,6 +16,8 @@ foreach ($log in Get-ChildItem $logs -Filter *.log -ErrorAction SilentlyContinue
     $lines += '```', ''
     Copy-Item $log.FullName $report
 }
+$shots = Join-Path $logs 'shots'
+if (Test-Path $shots) { Copy-Item $shots (Join-Path $report 'shots') -Recurse }
 Set-Content (Join-Path $report 'REPORT.md') $lines -Encoding utf8
 Push-Location $report
 git init -q

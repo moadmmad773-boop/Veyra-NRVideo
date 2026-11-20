@@ -27,12 +27,13 @@ $options = @(
 if ($env:CUDA_INCLUDE) { $options += "-DVEYRA_CUDA_DRIVER_INCLUDE_DIR=$($env:CUDA_INCLUDE)" }
 
 cmake -S $src -B $build @options
-$targets = @('veyra_qml_ui', 'veyra_portable_launcher', 'veyra_screen_text_tests', 'veyra_live_translation_tests')
+$targets = @('veyra_qml_ui', 'veyra_portable_launcher', 'veyra_screen_text_tests', 'veyra_caption_presenter_tests', 'veyra_live_translation_tests')
 cmake --build $build --parallel 4 --target @targets
 
 # New tests: the OCR reading core, and the live translation on-screen source
 # (exit 77 = Live Captions missing on Windows Server after the on-screen checks ran).
 & (Join-Path $build 'veyra_screen_text_tests.exe')
+& (Join-Path $build 'veyra_caption_presenter_tests.exe')
 # Qt (with Qt6Test), then the official package's runtimes (FFmpeg, ...), then OpenSSL.
 $env:PATH = @((Join-Path $env:QT_ROOT_DIR 'bin'), $env:PKG_DIR, (Join-Path $env:OPENSSL_ROOT 'bin'), $env:PATH) -join ';'
 $PSNativeCommandUseErrorActionPreference = $false

@@ -18,6 +18,9 @@ concurrency:
 
 env:
   SOURCE_REF: custom/mmm
+  # 'true': publish the package as the "mmm" pre-release; otherwise build, test and report only.
+  PUBLISH: 'false'
+
   OFFICIAL_TAG: v2.2.0
   DEPS: D:\deps
   BUILD: D:\b
@@ -79,8 +82,15 @@ jobs:
         run: |
           pwsh -NoProfile -File ci/ci/package.ps1 *>&1 | Tee-Object -FilePath "$env:LOGS\3-package.log"
           exit $LASTEXITCODE
+      - name: Screenshots
+        id: shots
+        if: steps.package.outcome == 'success'
+        shell: pwsh
+        timeout-minutes: 15
+        run: pwsh -NoProfile -File ci/ci/shots.ps1 *>&1 | Tee-Object -FilePath "$env:LOGS\4-shots.log"
       - name: Publish release
         id: publish
+        if: env.PUBLISH == 'true'
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
