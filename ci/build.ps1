@@ -37,6 +37,7 @@ cmake --build $build --parallel 4 --target @targets
 # Qt (with Qt6Test), then the official package's runtimes (FFmpeg, ...), then OpenSSL.
 $env:PATH = @((Join-Path $env:QT_ROOT_DIR 'bin'), $env:PKG_DIR, (Join-Path $env:OPENSSL_ROOT 'bin'), $env:PATH) -join ';'
 $PSNativeCommandUseErrorActionPreference = $false
+$env:VEYRA_TEST_GOOGLE = '1'
 & (Join-Path $build 'veyra_live_translation_tests.exe') (Join-Path $env:RUNNER_TEMP 'live-translation-tests')
 $code = $LASTEXITCODE
 Write-Host "veyra_live_translation_tests exit $code"
