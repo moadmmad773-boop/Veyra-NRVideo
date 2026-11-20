@@ -75,6 +75,14 @@ QUrl completionEndpoint(const QString& value) {
     return url;
 }
 
+// Google's codes: Chinese keeps its script, Portuguese and the rest the language alone.
+QString googleLanguage(const QString& code) {
+    if (code.startsWith(QLatin1String("zh"), Qt::CaseInsensitive))
+        return code.contains(QLatin1String("TW"), Qt::CaseInsensitive) || code.contains(QLatin1String("Hant"), Qt::CaseInsensitive)
+            || code.contains(QLatin1String("HK"), Qt::CaseInsensitive) ? QStringLiteral("zh-TW") : QStringLiteral("zh-CN");
+    return code.section(QLatin1Char('-'), 0, 0).toLower();
+}
+
 // A region inside the picture, large enough to hold a line of text.
 QRectF boundedRegion(QRectF r) {
     if (!std::isfinite(r.x()) || !std::isfinite(r.y()) || !std::isfinite(r.width()) || !std::isfinite(r.height()))
@@ -124,7 +132,14 @@ QByteArray chatRequest(const QString& text, const QString& model, const QString&
 LiveTranslation::LiveTranslation(const QString& directory, QObject* parent)
     : QObject(parent), assets_(directory),
       settings_(QDir(directory).filePath(QStringLiteral("live-translation.ini")), QSettings::IniFormat) {
-    provider_ = std::clamp(settings_.value(QStringLiteral("provider"), int(Local)).toInt(), int(Local), int(MyMemory));
+    provider_ = std::clamp(settings_.value(QStringLiteral("provider"), int(Google)).toInt(), int(Local), int(Google));
+    // M$M! build: Google Translate is the engine the first time this build runs (the
+    // local model on the CPU was too slow for game dialogue); any later choice is kept.
+    if (!settings_.contains(QStringLiteral("mmmEngine"))) {
+        provider_ = Google;
+        settings_.setValue(QStringLiteral("provider"), provider_);
+        settings_.setValue(QStringLiteral("mmmEngine"), 1);
+    }
     sourceLanguage_ = settings_.value(QStringLiteral("source")).toString();
     targetLanguage_ = settings_.value(QStringLiteral("target"), QLocale().bcp47Name()).toString();
     if (!sourceLanguage_.isEmpty() && !languageCode(sourceLanguage_)) sourceLanguage_ = QStringLiteral("en");
@@ -304,7 +319,7 @@ void LiveTranslation::setEnabled(bool value) {
 }
 
 void LiveTranslation::setProvider(int value) {
-    if (value < Local || value > MyMemory || provider_ == value) return;
+    if (value < Local || value > Google || provider_ == value) return;
     setEnabled(false);
     provider_ = value;
     if (provider_ == MyMemory && sourceLanguage_.isEmpty()) setSourceLanguage(QStringLiteral("en"));
@@ -719,6 +734,15 @@ void LiveTranslation::requestTranslation(const QString& text, quint64 seq, qint6
         query.addQueryItem(QStringLiteral("q"), QString::fromLatin1(QUrl::toPercentEncoding(input)));
         query.addQueryItem(QStringLiteral("langpair"), sourceLanguage_ + QLatin1Char('|') + targetLanguage_);
         url.setQuery(query);
+    } else if (provider_ == Google) {
+        url = QUrl(QStringLiteral("https://translate.googleapis.com/translate_a/single"));
+        QUrlQuery query;
+        query.addQueryItem(QStringLiteral("client"), QStringLiteral("gtx"));
+        query.addQueryItem(QStringLiteral("sl"), sourceLanguage_.isEmpty() ? QStringLiteral("auto") : googleLanguage(sourceLanguage_));
+        query.addQueryItem(QStringLiteral("tl"), googleLanguage(targetLanguage_));
+        query.addQueryItem(QStringLiteral("dt"), QStringLiteral("t"));
+        query.addQueryItem(QStringLiteral("q"), QString::fromLatin1(QUrl::toPercentEncoding(text.left(1000))));
+        url.setQuery(query);
     } else if (provider_ == Local) {
         url = completionEndpoint(QStringLiteral("http://127.0.0.1:%1/v1").arg(serverPort_));
         token = serverKey_;
@@ -761,9 +785,14 @@ void LiveTranslation::requestTranslation(const QString& text, quint64 seq, qint6
 }
 
 QString LiveTranslation::parseTranslation(const QByteArray& body, QString* problem) const {
-    const auto json = QJsonDocument::fromJson(body).object();
+    const auto document = QJsonDocument::fromJson(body);
+    const auto json = document.object();
     QString translation;
-    if (provider_ == MyMemory) {
+    if (provider_ == Google) {
+        // [[["translated part","original part",...],...],...]: the parts joined.
+        for (const auto& part : document.array().at(0).toArray())
+            translation += part.toArray().at(0).toString();
+    } else if (provider_ == MyMemory) {
         const int status = json.value(QStringLiteral("responseStatus")).toVariant().toInt();
         if (status == 200)
             translation = json.value(QStringLiteral("responseData")).toObject().value(QStringLiteral("translatedText")).toString();

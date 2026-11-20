@@ -40,7 +40,8 @@ class LiveTranslation final : public QObject {
     Q_PROPERTY(double downloadProgress READ downloadProgress NOTIFY changed)
     Q_PROPERTY(qint64 downloadBytes READ downloadBytes CONSTANT)
 public:
-    enum Provider { Local, OpenAi, MyMemory };
+    // Google: Google Translate's free web endpoint (M$M! build): no key, about 0.2 s a line.
+    enum Provider { Local, OpenAi, MyMemory, Google };
     // Where the original text comes from: what Windows Live Captions hears, or the
     // subtitles drawn on the picture (capture card, PS5/Xbox/PC streaming), read by OCR.
     enum CaptionSource { WindowsCaptions, ScreenText };

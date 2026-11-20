@@ -39,7 +39,8 @@ DialogLayer {
     readonly property var providers: [
         {id: "0", label: qsTr("本地模型")},
         {id: "1", label: qsTr("自定义 API（OpenAI 兼容）")},
-        {id: "2", label: "MyMemory"}
+        {id: "2", label: "MyMemory"},
+        {id: "3", label: qsTr("Google 翻译（免费，最快）")}
     ]
     readonly property var languages: [
         {id: "zh-CN", label: qsTr("简体中文")}, {id: "zh-TW", label: qsTr("繁體中文")},
@@ -180,13 +181,15 @@ DialogLayer {
             hintBelow: true
             hint: root.provider === 0
                 ? qsTr("在本机运行，字幕文本留在本机。")
+                : root.provider === 3
+                ? qsTr("免费、无需密钥，每句约 0.2 秒；启用后会把识别出的文字发送给 Google。")
                 : root.screenSource ? qsTr("启用后会把识别出的画面文字发送给所选服务。")
                                     : qsTr("启用后会把系统字幕文本发送给所选服务。")
             VSelect {
                 objectName: "live-translation-provider"
                 implicitWidth: 224
                 options: root.providers
-                value: root.providers[root.provider].label
+                value: root.providers[Math.max(0, Math.min(root.providers.length - 1, root.provider))].label
                 onPicked: id => { root.translation.provider = Number(id) }
             }
         }

@@ -2705,6 +2705,19 @@
    "ru": "GitHub напрямую"
   },
   {
+   "zh": "Google 翻译（免费，最快）",
+   "src": "qml/LiveTranslationDialog.qml",
+   "zh-TW": "Google 翻譯（免費，最快）",
+   "en": "Google Translate (free, fastest)",
+   "ja": "Google 翻訳（無料・最速）",
+   "ko": "Google 번역(무료, 가장 빠름)",
+   "es": "Google Translate (gratis, el más rápido)",
+   "fr": "Google Traduction (gratuit, le plus rapide)",
+   "de": "Google Übersetzer (kostenlos, am schnellsten)",
+   "pt-BR": "Google Tradutor (grátis, o mais rápido)",
+   "ru": "Google Переводчик (бесплатно, быстрее всего)"
+  },
+  {
    "zh": "HDMI 采集设备",
    "src": "qml/CineBar.qml",
    "zh-TW": "HDMI 擷取裝置",
@@ -8579,6 +8592,19 @@
    "de": "Akkumulierter Fluss+",
    "pt-BR": "Fluxo acumulado+",
    "ru": "Накопленный поток+"
+  },
+  {
+   "zh": "免费、无需密钥，每句约 0.2 秒；启用后会把识别出的文字发送给 Google。",
+   "src": "qml/LiveTranslationDialog.qml",
+   "zh-TW": "免費、無需金鑰，每句約 0.2 秒；啟用後會把辨識出的文字傳送給 Google。",
+   "en": "Free, no key, about 0.2 s a line. When on, the recognized text is sent to Google.",
+   "ja": "無料・キー不要で 1 行約 0.2 秒。オンにすると認識した文字を Google に送信します。",
+   "ko": "무료이며 키가 필요 없고 한 줄에 약 0.2초입니다. 켜면 인식한 텍스트를 Google로 보냅니다.",
+   "es": "Gratis, sin clave, unos 0,2 s por línea. Al activarlo, el texto reconocido se envía a Google.",
+   "fr": "Gratuit, sans clé, environ 0,2 s par ligne. Activé, le texte reconnu est envoyé à Google.",
+   "de": "Kostenlos, ohne Schlüssel, etwa 0,2 s pro Zeile. Eingeschaltet wird der erkannte Text an Google gesendet.",
+   "pt-BR": "Grátis, sem chave, cerca de 0,2 s por linha. Ativado, o texto reconhecido é enviado ao Google.",
+   "ru": "Бесплатно, без ключа, около 0,2 с на строку. При включении распознанный текст отправляется в Google."
   },
   {
    "zh": "入点 I",

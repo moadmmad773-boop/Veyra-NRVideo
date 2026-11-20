@@ -12,6 +12,7 @@
 #include <QTest>
 #include <QThread>
 #include <QTimer>
+#include <algorithm>
 #include <chrono>
 #include <cstdio>
 
@@ -236,6 +237,27 @@ void secondLineChecks(const QString& root) {
     translation.setEnabled(false);
 }
 
+// M$M! build: Google Translate's free endpoint, over the real network. Only with
+// VEYRA_TEST_GOOGLE set (CI); reported, not counted, as the network is not ours.
+void googleChecks(const QString& root) {
+    LiveTranslation translation(root);
+    check(translation.provider() == LiveTranslation::Google, "M$M! build starts with Google Translate");
+    translation.setCaptionSource(LiveTranslation::ScreenText);
+    translation.setTargetLanguage(QStringLiteral("ar"));
+    translation.setEnabled(true);
+    translation.setPlayback(11, true, false);
+    translation.acceptScreenText(QString(), true, QString());
+    const auto begin = std::chrono::steady_clock::now();
+    translation.acceptScreenText(QStringLiteral("We need to get out of here before the cops show up."), true, QString());
+    const bool ok = QTest::qWaitFor([&] { return !translation.translated().isEmpty(); }, 10000);
+    const auto arabic = std::count_if(translation.translated().begin(), translation.translated().end(),
+                                      [](QChar c) { return c.unicode() >= 0x0600 && c.unicode() <= 0x06FF; });
+    std::printf("GOOGLE %s %.2f s status=%s chars=%d arabic=%d\n", ok && arabic > 5 ? "PASS" : "FAIL",
+                std::chrono::duration<double>(std::chrono::steady_clock::now() - begin).count(),
+                qPrintable(translation.status()), int(translation.translated().size()), int(arabic));
+    translation.setEnabled(false);
+}
+
 void localChecks(const QString& root, bool download) {
     LiveTranslation translation(root);
     translation.setTargetLanguage(QStringLiteral("zh-CN"));
@@ -277,6 +299,7 @@ int main(int argc, char** argv) {
     const auto root = args.at(1);
     screenChecks(QDir(root).filePath(QStringLiteral("screen")));
     secondLineChecks(QDir(root).filePath(QStringLiteral("second-line")));
+    if (qEnvironmentVariableIsSet("VEYRA_TEST_GOOGLE")) googleChecks(QDir(root).filePath(QStringLiteral("google")));
     if (!LiveTranslation::supported()) {
         std::puts("SKIP Live Captions unavailable on this Windows build");
         return failures ? 1 : 77;
