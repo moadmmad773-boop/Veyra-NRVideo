@@ -1,0 +1,108 @@
+# Unofficial test build of Veyra with the on-screen text (capture card / PS5
+# subtitles) live translation source, from branch feature/screen-text-translation.
+# Publishes the package as the "screen-text-test" pre-release of this fork and
+# pushes a readable report to the ci/results branch.
+name: Veyra test build (screen text translation)
+
+on:
+  push:
+    branches: [ci/test-build]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: veyra-test-build
+  cancel-in-progress: true
+
+env:
+  SOURCE_REF: feature/screen-text-translation
+  OFFICIAL_TAG: v2.2.0
+  DEPS: D:\deps
+  BUILD: D:\b
+  STAGE: D:\stage
+  LOGS: D:\logs
+
+jobs:
+  build:
+    runs-on: windows-2022
+    timeout-minutes: 330
+    steps:
+      - name: Source (feature branch)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ env.SOURCE_REF }}
+          path: src
+      - name: CI scripts
+        uses: actions/checkout@v4
+        with:
+          path: ci
+      - name: MSVC x64 environment
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+      - name: Qt 6.8.3
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: '6.8.3'
+          host: windows
+          target: desktop
+          arch: win64_msvc2022_64
+          dir: D:\Qt
+          cache: true
+      - name: Cache official package
+        uses: actions/cache@v4
+        with:
+          path: D:\deps\official
+          key: veyra-official-${{ env.OFFICIAL_TAG }}-nvidia
+      - name: Dependencies
+        id: deps
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          New-Item -ItemType Directory -Force $env:LOGS | Out-Null
+          "SOURCE_SHA=$(git -C src rev-parse HEAD)" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          pwsh -NoProfile -File ci/ci/fetch-deps.ps1 *>&1 | Tee-Object -FilePath "$env:LOGS\1-deps.log"
+          exit $LASTEXITCODE
+      - name: Build
+        id: build
+        shell: pwsh
+        timeout-minutes: 240
+        run: |
+          pwsh -NoProfile -File ci/ci/build.ps1 *>&1 | Tee-Object -FilePath "$env:LOGS\2-build.log"
+          exit $LASTEXITCODE
+      - name: Package
+        id: package
+        shell: pwsh
+        run: |
+          pwsh -NoProfile -File ci/ci/package.ps1 *>&1 | Tee-Object -FilePath "$env:LOGS\3-package.log"
+          exit $LASTEXITCODE
+      - name: Publish test release
+        id: publish
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $notes = @"
+          Unofficial **test build** of Veyra 2.2.0 (NVIDIA) with the new live translation source
+          **On-screen text (capture card / PS5 subtitles)**, from branch ``$($env:SOURCE_REF)`` @ ``$($env:SOURCE_SHA)``.
+          Built by GitHub Actions on top of the official Veyra 2.2.0 NVIDIA package; see TEST-BUILD-README.txt inside.
+
+          نسخة تجريبية غير رسمية من Veyra 2.2.0 فيها خيار ترجمة نص الشاشة. فك الضغط وشغّل veyra_qml_ui.exe.
+          "@
+          Set-Content "$env:RUNNER_TEMP\notes.md" $notes -Encoding utf8
+          gh release delete screen-text-test -R $env:GITHUB_REPOSITORY -y --cleanup-tag 2>$null
+          gh release create screen-text-test $env:PACKAGE -R $env:GITHUB_REPOSITORY --prerelease `
+            --title "Veyra 2.2.0 – screen text translation (test build)" --notes-file "$env:RUNNER_TEMP\notes.md" --target $env:GITHUB_SHA
+      - name: Report
+        if: always()
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          R_DEPS: ${{ steps.deps.outcome }}
+          R_BUILD: ${{ steps.build.outcome }}
+          R_PACKAGE: ${{ steps.package.outcome }}
+          R_PUBLISH: ${{ steps.publish.outcome }}
+        run: pwsh -NoProfile -File ci/ci/report.ps1
