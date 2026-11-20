@@ -122,9 +122,10 @@ private:
     void serverNotListening(qint64 now);
     // seq/start: the on-screen line the text is (0 for Windows Live Captions).
     void requestTranslation(const QString& text, quint64 seq = 0, qint64 start = 0);
-    void receiveTranslation(QNetworkReply* reply, const QString& text, quint64 seq, qint64 start);
+    // engine: the service the request went to (Google's failed retries go to MyMemory).
+    void receiveTranslation(QNetworkReply* reply, const QString& text, quint64 seq, qint64 start, int engine);
     // The translation in a reply body; empty when there is none, with the reason in *problem.
-    QString parseTranslation(const QByteArray& body, QString* problem) const;
+    QString parseTranslation(const QByteArray& body, QString* problem, int engine) const;
     // A translation already known (same language, or recently translated).
     std::optional<QString> knownTranslation(const QString& text) const;
     QString cacheKey(const QString& text) const;

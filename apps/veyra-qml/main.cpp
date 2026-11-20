@@ -1298,8 +1298,10 @@ int main(int argc, char** argv) {
                     for (int i = 1; i < count; ++i) args << QString::fromWCharArray(wide[i]);
                     LocalFree(wide);
                 }
-                return QProcess::startDetached(QString::fromStdWString((root / portable::launcherName).wstring()), args)
-                    ? 0 : 1;
+                auto launcher = root / portable::launcherName;
+                std::error_code missing;
+                if (!std::filesystem::is_regular_file(launcher, missing)) launcher = root / portable::veyraLauncherName;
+                return QProcess::startDetached(QString::fromStdWString(launcher.wstring()), args) ? 0 : 1;
             }
         }
     }

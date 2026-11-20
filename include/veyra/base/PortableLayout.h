@@ -11,7 +11,9 @@
 namespace veyra::portable {
 
 inline constexpr auto playerName = L"veyra_qml_ui.exe";
-inline constexpr auto launcherName = L"Veyra.exe";
+// M$M! build: the package's launcher is M$M!.exe (Veyra.exe in Veyra's own packages).
+inline constexpr auto launcherName = L"M$M!.exe";
+inline constexpr auto veyraLauncherName = L"Veyra.exe";
 inline constexpr auto workerName = L"veyra_update_worker.exe";
 inline constexpr auto packageMarker = L"portable-package.txt";
 inline constexpr auto versionState = L"current-version.txt";

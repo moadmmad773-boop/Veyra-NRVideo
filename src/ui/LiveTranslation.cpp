@@ -721,8 +721,12 @@ void LiveTranslation::requestTranslation(const QString& text, quint64 seq, qint6
     }
     QUrl url;
     QByteArray token, payload;
-    if (provider_ == MyMemory) {
-        if (sourceLanguage_.isEmpty()) {
+    // Google did not answer the first time (blocked, offline, rate limited): the
+    // retry goes to MyMemory, so the line still gets a translation.
+    const int engine = provider_ == Google && retries_ > 0 && seq ? int(MyMemory) : provider_;
+    const QString myMemorySource = provider_ == Google && sourceLanguage_.isEmpty() ? QStringLiteral("en") : sourceLanguage_;
+    if (engine == MyMemory) {
+        if (myMemorySource.isEmpty()) {
             setStatus(tr("MyMemory 需要选择原文语言"));
             return;
         }
@@ -732,7 +736,7 @@ void LiveTranslation::requestTranslation(const QString& text, quint64 seq, qint6
         while (input.toUtf8().size() > 500) input.chop(1);
         if (!input.isEmpty() && input.back().isHighSurrogate()) input.chop(1);
         query.addQueryItem(QStringLiteral("q"), QString::fromLatin1(QUrl::toPercentEncoding(input)));
-        query.addQueryItem(QStringLiteral("langpair"), sourceLanguage_ + QLatin1Char('|') + targetLanguage_);
+        query.addQueryItem(QStringLiteral("langpair"), myMemorySource + QLatin1Char('|') + targetLanguage_);
         url.setQuery(query);
     } else if (provider_ == Google) {
         url = QUrl(QStringLiteral("https://translate.googleapis.com/translate_a/single"));
@@ -756,7 +760,9 @@ void LiveTranslation::requestTranslation(const QString& text, quint64 seq, qint6
     request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::ManualRedirectPolicy);
     request.setAttribute(QNetworkRequest::CookieLoadControlAttribute, QNetworkRequest::Manual);
     request.setAttribute(QNetworkRequest::CookieSaveControlAttribute, QNetworkRequest::Manual);
-    request.setTransferTimeout(captionSource_ == ScreenText && provider_ == Local ? localScreenTimeoutMs : 8000);
+    // Google answers in a fraction of a second: one that hangs is given up on soon (MyMemory next).
+    request.setTransferTimeout(captionSource_ == ScreenText && provider_ == Local ? localScreenTimeoutMs
+                               : engine == Google ? 4000 : 8000);
     if (!token.isEmpty()) request.setRawHeader("Authorization", "Bearer " + token);
     auto& manager = provider_ == Local || QHostAddress(url.host()).isLoopback() || url.host() == QLatin1String("localhost")
         ? localNetwork_ : remoteNetwork_;
@@ -772,27 +778,27 @@ void LiveTranslation::requestTranslation(const QString& text, quint64 seq, qint6
         if (reply->bytesAvailable() > maxResponseBytes) reply->abort();
     });
     const qint64 sentAt = clock_.elapsed();
-    connect(reply, &QNetworkReply::finished, this, [this, reply, text, seq, start, sentAt] {
+    connect(reply, &QNetworkReply::finished, this, [this, reply, text, seq, start, sentAt, engine] {
         request_ = nullptr;
         const int code = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         // Timing and outcome only: the text itself is never logged.
         log::info("live-translation", std::format("request provider={} source={} http={} error={} ms={} chars={} line={}",
-            provider_, captionSource_, code, int(reply->error()), clock_.elapsed() - sentAt, text.size(),
+            engine, captionSource_, code, int(reply->error()), clock_.elapsed() - sentAt, text.size(),
             seq ? (seq == currentSeq_ ? "current" : "earlier") : "live"));
-        receiveTranslation(reply, text, seq, start);
+        receiveTranslation(reply, text, seq, start, engine);
         reply->deleteLater();
     });
 }
 
-QString LiveTranslation::parseTranslation(const QByteArray& body, QString* problem) const {
+QString LiveTranslation::parseTranslation(const QByteArray& body, QString* problem, int engine) const {
     const auto document = QJsonDocument::fromJson(body);
     const auto json = document.object();
     QString translation;
-    if (provider_ == Google) {
+    if (engine == Google) {
         // [[["translated part","original part",...],...],...]: the parts joined.
         for (const auto& part : document.array().at(0).toArray())
             translation += part.toArray().at(0).toString();
-    } else if (provider_ == MyMemory) {
+    } else if (engine == MyMemory) {
         const int status = json.value(QStringLiteral("responseStatus")).toVariant().toInt();
         if (status == 200)
             translation = json.value(QStringLiteral("responseData")).toObject().value(QStringLiteral("translatedText")).toString();
@@ -812,7 +818,7 @@ QString LiveTranslation::parseTranslation(const QByteArray& body, QString* probl
     return translation.simplified().left(500);
 }
 
-void LiveTranslation::receiveTranslation(QNetworkReply* reply, const QString& text, quint64 seq, qint64 start) {
+void LiveTranslation::receiveTranslation(QNetworkReply* reply, const QString& text, quint64 seq, qint64 start, int engine) {
     if (!enabled_) return;
     const bool screen = seq != 0;
     // Windows Live Captions: only the line still being shown is of use.
@@ -836,12 +842,12 @@ void LiveTranslation::receiveTranslation(QNetworkReply* reply, const QString& te
             // The same line again shortly (tick() waits for retryAt_).
             ++retries_;
             requestedSeq_ = 0;
-            retryAt_ = clock_.elapsed() + retryDelayMs;
+            retryAt_ = clock_.elapsed() + (engine == Google ? 200 : retryDelayMs);
         }
         return;
     }
     QString problem;
-    const auto result = parseTranslation(reply->readAll(), &problem);
+    const auto result = parseTranslation(reply->readAll(), &problem, engine);
     if (result.isEmpty()) {
         if (current) setStatus(problem);
         return;
