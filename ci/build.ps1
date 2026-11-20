@@ -22,22 +22,28 @@ $options = @(
     "-DVEYRA_XESS_ROOT=$($env:XESS_ROOT)",
     "-DVEYRA_FIDELITYFX2_ROOT=$($env:FFX2_ROOT)",
     "-DVEYRA_AMF_SDK_ROOT=$($env:AMF_ROOT)",
-    "-DOPENSSL_ROOT_DIR=$($env:OPENSSL_ROOT)"
+    "-DOPENSSL_ROOT_DIR=$($env:OPENSSL_ROOT)",
+    "-DVEYRA_ONNXRUNTIME_ROOT=$($env:ORT_ROOT)"
 )
 if ($env:CUDA_INCLUDE) { $options += "-DVEYRA_CUDA_DRIVER_INCLUDE_DIR=$($env:CUDA_INCLUDE)" }
 
 cmake -S $src -B $build @options
-$targets = @('veyra_qml_ui', 'veyra_portable_launcher', 'veyra_screen_text_tests', 'veyra_caption_presenter_tests', 'veyra_live_translation_tests')
+$targets = @('veyra_qml_ui', 'veyra_portable_launcher', 'veyra_screen_text_tests', 'veyra_caption_presenter_tests', 'veyra_vi_line_tests', 'veyra_unigram_tokenizer_tests', 'veyra_live_translation_tests')
 cmake --build $build --parallel 4 --target @targets
 
 # New tests: the OCR reading core, and the live translation on-screen source
 # (exit 77 = Live Captions missing on Windows Server after the on-screen checks ran).
 & (Join-Path $build 'veyra_screen_text_tests.exe')
 & (Join-Path $build 'veyra_caption_presenter_tests.exe')
+& (Join-Path $build 'veyra_vi_line_tests.exe')
+& (Join-Path $build 'veyra_unigram_tokenizer_tests.exe')
 # Qt (with Qt6Test), then the official package's runtimes (FFmpeg, ...), then OpenSSL.
 $env:PATH = @((Join-Path $env:QT_ROOT_DIR 'bin'), $env:PKG_DIR, (Join-Path $env:OPENSSL_ROOT 'bin'), $env:PATH) -join ';'
 $PSNativeCommandUseErrorActionPreference = $false
 $env:VEYRA_TEST_GOOGLE = '1'
+# The offline translator on real lines; its results (UTF-8) go next to the logs.
+$env:VEYRA_OPUS_MT_DIR = $env:OPUS_DIR
+$env:VEYRA_TEST_OUT = Join-Path $env:LOGS '5-offline-samples.log'
 & (Join-Path $build 'veyra_live_translation_tests.exe') (Join-Path $env:RUNNER_TEMP 'live-translation-tests')
 $code = $LASTEXITCODE
 Write-Host "veyra_live_translation_tests exit $code"

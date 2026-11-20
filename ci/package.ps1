@@ -32,6 +32,11 @@ foreach ($module in Get-ChildItem $builtQml -Directory) {
     if (Test-Path $target) { Remove-Item -Recurse -Force $target }
     Copy-Item $module.FullName $target -Recurse
 }
+# VI Translator's offline translator: ONNX Runtime and the OPUS-MT model, beside the program.
+$translation = Join-Path $app 'translation'
+if (Test-Path $translation) { Remove-Item -Recurse -Force $translation }
+Copy-Item $env:OPUS_DIR $translation -Recurse
+Write-Host ("offline translator {0:N0} MB" -f ((Get-ChildItem $translation -Recurse | Measure-Object Length -Sum).Sum / 1MB))
 $shaders = Join-Path $app 'shaders'
 New-Item -ItemType Directory -Force $shaders | Out-Null
 $built = Get-ChildItem (Join-Path $build 'shaders') -Filter *.dxil
@@ -88,6 +93,7 @@ New-Item -ItemType Directory -Force (Join-Path $updApp 'qml'), (Join-Path $updAp
 Copy-Item (Join-Path $app 'veyra_qml_ui.exe') $updApp
 foreach ($module in Get-ChildItem $builtQml -Directory) { Copy-Item (Join-Path $app "qml/$($module.Name)") (Join-Path $updApp 'qml') -Recurse }
 Copy-Item (Join-Path $shaders '*.dxil') (Join-Path $updApp 'shaders')
+Copy-Item $translation (Join-Path $updApp 'translation') -Recurse
 if (Test-Path (Join-Path $stage $launcher)) { Copy-Item (Join-Path $stage $launcher) $upd }
 Copy-Item (Join-Path $stage 'M$M!-README.txt') $upd
 $updZip = Join-Path $env:STAGE "$updName.zip"

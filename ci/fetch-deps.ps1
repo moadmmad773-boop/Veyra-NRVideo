@@ -135,4 +135,54 @@ if (-not $ssl) {
 }
 if (-not $ssl) { throw 'OpenSSL not available' }
 Env OPENSSL_ROOT $ssl
+
+# --- VI Translator's offline translator: ONNX Runtime + OPUS-MT en->ar -----------
+# ONNX Runtime (MIT): the C API header to build against, onnxruntime.dll for the package.
+$ortRoot = $null
+foreach ($v in '1.22.0', '1.21.0', '1.20.1') {
+    $oz = Join-Path $deps "onnxruntime-$v.zip"
+    try {
+        Invoke-WebRequest "https://github.com/microsoft/onnxruntime/releases/download/v$v/onnxruntime-win-x64-$v.zip" -OutFile $oz
+        7z x $oz "-o$(Join-Path $deps 'ort')" -y | Out-Null
+        $ortRoot = Join-Path $deps "ort/onnxruntime-win-x64-$v"
+        Write-Host ("onnxruntime {0} sha256 {1}" -f $v, (Get-FileHash $oz -Algorithm SHA256).Hash)
+        break
+    } catch { Write-Host "onnxruntime $v not fetched: $_" }
+}
+if (-not $ortRoot -or -not (Test-Path (Join-Path $ortRoot 'include/onnxruntime_c_api.h'))) { throw 'ONNX Runtime not available' }
+Env ORT_ROOT ($ortRoot -replace '\\', '/')
+# The model VI Translator pins (translate.rs PINNED): Xenova/opus-mt-en-ar at a fixed commit,
+# the two model files checked against its SHA-256 values.
+$opus = Join-Path $deps 'opus/translation'
+$model = Join-Path $opus 'opus-mt-en-ar'
+New-Item -ItemType Directory -Force (Join-Path $model 'onnx') | Out-Null
+$rev = '034a684356c19021a187cda4d7f823298b913921'
+$files = [ordered]@{
+    'onnx/encoder_model_quantized.onnx' = '53c354d87ced44b39085fe8a46a25f09ea4578d442dbce9663f3977228f8a04e'
+    'onnx/decoder_model_quantized.onnx' = '94e6bdf90866151787d014b7b77be0adb0f036418ee04d235ec01238aa8426b9'
+    'tokenizer.json' = ''
+    'config.json' = ''
+}
+foreach ($f in $files.Keys) {
+    $to = Join-Path $model $f
+    Invoke-WebRequest "https://huggingface.co/Xenova/opus-mt-en-ar/resolve/$rev/$f" -OutFile $to
+    $hash = (Get-FileHash $to -Algorithm SHA256).Hash.ToLower()
+    Write-Host ("opus-mt {0} {1:N0} bytes sha256 {2}" -f $f, (Get-Item $to).Length, $hash)
+    if ($files[$f] -and $hash -ne $files[$f]) { throw "$f is not the file VI Translator pins" }
+}
+Copy-Item (Join-Path $ortRoot 'lib/onnxruntime.dll') $opus
+foreach ($n in 'LICENSE', 'ThirdPartyNotices.txt') {
+    $src = Join-Path $ortRoot $n
+    if (Test-Path $src) { Copy-Item $src (Join-Path $opus "onnxruntime-$n") }
+}
+Set-Content (Join-Path $opus 'README.txt') -Encoding utf8 @'
+Offline translator (live translation engine "VI Translator offline"), as VI Translator uses it:
+- opus-mt-en-ar: OPUS-MT English -> Arabic by Helsinki-NLP (CC-BY 4.0,
+  https://huggingface.co/Helsinki-NLP/opus-mt-en-ar), ONNX export by Xenova
+  (https://huggingface.co/Xenova/opus-mt-en-ar, commit 034a684356c19021a187cda4d7f823298b913921).
+- onnxruntime.dll: ONNX Runtime by Microsoft (MIT, https://github.com/microsoft/onnxruntime),
+  license and third-party notices in onnxruntime-LICENSE and onnxruntime-ThirdPartyNotices.txt.
+- The way it is used follows VI Translator (MIT, https://github.com/vi-translator/vi-translator-desktop).
+'@
+Env OPUS_DIR $opus
 Write-Host 'Dependencies ready.'
