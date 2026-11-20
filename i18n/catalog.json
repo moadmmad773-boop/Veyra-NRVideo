@@ -13951,6 +13951,19 @@
    "ru": "Превью большого изображения не удалось инициализировать"
   },
   {
+   "zh": "天蓝",
+   "src": "qml/SettingsPage.qml",
+   "zh-TW": "天藍",
+   "en": "Sky blue",
+   "ja": "スカイブルー",
+   "ko": "하늘색",
+   "es": "Azul cielo",
+   "fr": "Bleu ciel",
+   "de": "Himmelblau",
+   "pt-BR": "Azul-céu",
+   "ru": "Голубая"
+  },
+  {
    "zh": "失败 · 点击重试",
    "src": "qml/ExportPage.qml",
    "zh-TW": "失敗 · 點擊重試",

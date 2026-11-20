@@ -34,7 +34,7 @@ Window {
     flags: Qt.Window | Qt.FramelessWindowHint
            | (veyra.passthroughActive ? Qt.WindowTransparentForInput : 0)
            | (veyra.gameInputActive ? Qt.WindowDoesNotAcceptFocus : 0)
-    title: "Veyra " + veyra.version
+    title: "M$M! " + veyra.version
 
     // Page ids match the prototype's PAGES keys so a design screenshot and an
     // app screenshot can be compared under the same name.
@@ -71,7 +71,7 @@ Window {
     }
     Binding { target: Theme; property: "reduced"; value: veyra.reducedMotion || root.test.reducedMotion === true }
     Binding { target: Theme; property: "accentName"; value: veyra.preferences.accent || "orange" }
-    Binding { target: Theme; property: "paletteName"; value: veyra.preferences.palette || "dusk" }
+    Binding { target: Theme; property: "paletteName"; value: veyra.preferences.palette || "sky" }
     Binding { target: Theme; property: "backdropLevel"; value: veyra.preferences.backdrop !== undefined ? veyra.preferences.backdrop : 1 }
 
     // Cinema geometry: the main window ends at the picture. The independent pill
@@ -1128,7 +1128,7 @@ Window {
         }
         if (root.test.menu !== undefined) testMenuTimer.start()
         if (root.test.fullBar !== undefined) testFullTimer.start()
-        if ((veyra.preferences.palette || "dusk") !== "classic" && veyra.preferences.introAnimation !== false
+        if ((veyra.preferences.palette || "sky") === "dusk" && veyra.preferences.introAnimation !== false
                 && !veyra.reducedMotion && root.page === "home" && Object.keys(root.test).length === 0) {
             homePage.introHold = true
             introLoader.active = true

@@ -15,60 +15,64 @@ import QtQuick
 
 QtObject {
     // --- palette ------------------------------------------------------------
-    property string paletteName: "dusk"
-    readonly property bool dusk: paletteName !== "classic"
+    property string paletteName: "sky"
+    // M$M! build: 天蓝 (sky), the default here - deep navy depths and a light blue accent.
+    // It takes the classic layout (logo + title, no intro) with its own colours.
+    readonly property bool sky: paletteName === "sky"
+    readonly property bool dusk: paletteName !== "classic" && !sky
 
     // --- surfaces (app.css .vy) -------------------------------------------
-    readonly property color card: dusk ? "#161425" : "#131317"
-    readonly property color card2: dusk ? "#1C192C" : "#19191E"
-    readonly property color card3: dusk ? "#262238" : "#24242A"
-    readonly property color popover: dusk ? "#1D1A2D" : "#1B1B20"
-    readonly property color dialog: dusk ? "#171526" : "#141418"
-    readonly property color stroke: dusk ? Qt.rgba(0.88, 0.84, 1, 0.09) : Qt.rgba(1, 1, 1, 0.07)
-    readonly property color stroke2: dusk ? Qt.rgba(0.88, 0.84, 1, 0.16) : Qt.rgba(1, 1, 1, 0.13)
+    readonly property color card: sky ? "#0F1A2C" : dusk ? "#161425" : "#131317"
+    readonly property color card2: sky ? "#14223A" : dusk ? "#1C192C" : "#19191E"
+    readonly property color card3: sky ? "#1C2E4A" : dusk ? "#262238" : "#24242A"
+    readonly property color popover: sky ? "#13213A" : dusk ? "#1D1A2D" : "#1B1B20"
+    readonly property color dialog: sky ? "#101B2F" : dusk ? "#171526" : "#141418"
+    readonly property color stroke: sky ? Qt.rgba(0.78, 0.9, 1, 0.10) : dusk ? Qt.rgba(0.88, 0.84, 1, 0.09) : Qt.rgba(1, 1, 1, 0.07)
+    readonly property color stroke2: sky ? Qt.rgba(0.78, 0.9, 1, 0.18) : dusk ? Qt.rgba(0.88, 0.84, 1, 0.16) : Qt.rgba(1, 1, 1, 0.13)
     // The app background: a radial gradient in the prototype, approximated here
     // with the three stops it interpolates between.
-    readonly property color bgOuter: dusk ? "#100E1D" : "#070709"
-    readonly property color bgMid: dusk ? "#161328" : "#0C0C10"
-    readonly property color bgInner: dusk ? "#201B34" : "#17171C"
+    readonly property color bgOuter: sky ? "#08111F" : dusk ? "#100E1D" : "#070709"
+    readonly property color bgMid: sky ? "#0D1A2E" : dusk ? "#161328" : "#0C0C10"
+    readonly property color bgInner: sky ? "#14284A" : dusk ? "#201B34" : "#17171C"
     readonly property color videoBlack: "#000000"
     // Dark neutrals some components still spell out (the cinema pill, the node
     // canvas, the dock): exactly that colour in the classic palette, the same
     // depth tinted indigo-violet in the dusk one.
     function shade(r, g, b, a) {
         const alpha = a === undefined ? 1 : a
+        if (sky) return Qt.rgba(Math.max(0, r - 4) / 255, Math.min(255, g + 4) / 255, Math.min(255, b + 22) / 255, alpha)
         return dusk ? Qt.rgba(Math.min(255, r + 2) / 255, Math.max(0, g - 1) / 255, Math.min(255, b + 14) / 255, alpha)
                     : Qt.rgba(r / 255, g / 255, b / 255, alpha)
     }
 
     // --- text -------------------------------------------------------------
-    readonly property color t1: dusk ? "#F7F4FC" : "#F3F3F5"
-    readonly property color t2: dusk ? Qt.rgba(0.969, 0.957, 0.988, 0.64) : Qt.rgba(0.953, 0.953, 0.961, 0.62)
-    readonly property color t3: dusk ? Qt.rgba(0.969, 0.957, 0.988, 0.40) : Qt.rgba(0.953, 0.953, 0.961, 0.38)
+    readonly property color t1: sky ? "#F1F7FF" : dusk ? "#F7F4FC" : "#F3F3F5"
+    readonly property color t2: sky ? Qt.rgba(0.945, 0.969, 1, 0.66) : dusk ? Qt.rgba(0.969, 0.957, 0.988, 0.64) : Qt.rgba(0.953, 0.953, 0.961, 0.62)
+    readonly property color t3: sky ? Qt.rgba(0.945, 0.969, 1, 0.42) : dusk ? Qt.rgba(0.969, 0.957, 0.988, 0.40) : Qt.rgba(0.953, 0.953, 0.961, 0.38)
 
     // --- accent and state -------------------------------------------------
     // 设置 → 强调色: orange (default; the sunset accent in the dusk palette) or
     // the design's .accent-white variant (a neon white with a pink glow in dusk).
     property string accentName: "orange"
     readonly property bool accentWhite: accentName === "white"
-    readonly property color accent: accentWhite ? (dusk ? "#FFF6FB" : "#F3F3F5") : (dusk ? "#F287A7" : "#FF8A3D")
-    readonly property color accentInk: accentWhite ? (dusk ? "#1E0B1A" : "#0B0B0E") : (dusk ? "#2A0B1E" : "#1B0E04")
-    readonly property color accentSoft: accentWhite ? Qt.rgba(1, 1, 1, 0.1)
+    readonly property color accent: sky ? (accentWhite ? "#F4FAFF" : "#7CC6FF") : accentWhite ? (dusk ? "#FFF6FB" : "#F3F3F5") : (dusk ? "#F287A7" : "#FF8A3D")
+    readonly property color accentInk: sky ? "#04182C" : accentWhite ? (dusk ? "#1E0B1A" : "#0B0B0E") : (dusk ? "#2A0B1E" : "#1B0E04")
+    readonly property color accentSoft: sky ? Qt.rgba(0.486, 0.776, 1, accentWhite ? 0.10 : 0.16) : accentWhite ? Qt.rgba(1, 1, 1, 0.1)
                                       : dusk ? Qt.rgba(0.949, 0.529, 0.655, 0.15) : Qt.rgba(1, 0.541, 0.239, 0.14)
-    readonly property color accentGlow: accentWhite ? (dusk ? Qt.rgba(0.96, 0.62, 0.82, 0.42) : Qt.rgba(1, 1, 1, 0.35))
+    readonly property color accentGlow: sky ? Qt.rgba(0.486, 0.776, 1, 0.40) : accentWhite ? (dusk ? Qt.rgba(0.96, 0.62, 0.82, 0.42) : Qt.rgba(1, 1, 1, 0.35))
                                       : dusk ? Qt.rgba(0.949, 0.529, 0.655, 0.38) : Qt.rgba(1, 0.541, 0.239, 0.35)
     // The sunset accent fills as a gradient (VAccentFill.qml): peach -> pink,
     // on to lilac along the seek bars.
-    readonly property bool accentGradient: dusk && !accentWhite
-    readonly property color accentFrom: "#F0B17B"
-    readonly property color accentTo: "#EF6FA3"
-    readonly property color accentFar: "#BB96F3"
+    readonly property bool accentGradient: (dusk || sky) && !accentWhite
+    readonly property color accentFrom: sky ? "#B4ECFF" : "#F0B17B"
+    readonly property color accentTo: sky ? "#5AA8FF" : "#EF6FA3"
+    readonly property color accentFar: sky ? "#8FA2FF" : "#BB96F3"
     // 设置 → 背景渐变强度: 0 none, 1 light (the design default), 2 medium.
     property int backdropLevel: 1
-    readonly property string backdropImage: (dusk ? "backdrop-dusk" : "backdrop") + (backdropLevel === 2 ? "-strong" : "") + ".png"
+    readonly property string backdropImage: (sky ? "backdrop-sky" : dusk ? "backdrop-dusk" : "backdrop") + (backdropLevel === 2 ? "-strong" : "") + ".png"
     // The logo: the neon gradient gamepad in the dusk palette (tools/qt_probe/make-logo-dusk.py,
     // from assets/veyra-logo-dusk.webp), the original white one in classic. Same canvas and box.
-    readonly property string logoImage: dusk ? "logo-dusk.png" : "logo.png"
+    readonly property string logoImage: sky ? "logo-sky.png" : dusk ? "logo-dusk.png" : "logo.png"
     readonly property color ok: dusk ? "#5ED4B2" : "#3DDC84"
     readonly property color okGlow: dusk ? Qt.rgba(0.369, 0.831, 0.698, 0.16) : Qt.rgba(0.239, 0.863, 0.518, 0.16)
     readonly property color warn: "#F5C84B"

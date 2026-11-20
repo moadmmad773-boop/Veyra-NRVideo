@@ -189,8 +189,8 @@ VPage {
                             hint: qsTr("日落：深靛紫底、日落渐变强调色；经典：原来的黑灰配色")
                             VSeg {
                                 objectName: "set-palette"
-                                options: [{ id: "dusk", label: qsTr("日落") }, { id: "classic", label: qsTr("经典") }]
-                                current: veyra.preferences.palette === "classic" ? "classic" : "dusk"
+                                options: [{ id: "sky", label: qsTr("天蓝") }, { id: "dusk", label: qsTr("日落") }, { id: "classic", label: qsTr("经典") }]
+                                current: veyra.preferences.palette === "classic" || veyra.preferences.palette === "dusk" ? veyra.preferences.palette : "sky"
                                 onPicked: id => veyra.setPreference("palette", id)
                             }
                         }
@@ -249,8 +249,8 @@ VPage {
                                         width: 24; height: 24; radius: 12
                                         // The dusk palette shows what each choice paints: the sunset
                                         // gradient, or the neon white (the ring stays on top).
-                                        color: Theme.dusk ? "#FFF6FB" : modelData.c
-                                        gradient: Theme.dusk && modelData.id === "orange" ? sunset : undefined
+                                        color: Theme.sky ? "#F4FAFF" : Theme.dusk ? "#FFF6FB" : modelData.c
+                                        gradient: (Theme.dusk || Theme.sky) && modelData.id === "orange" ? sunset : undefined
                                         Gradient {
                                             id: sunset
                                             orientation: Gradient.Horizontal
@@ -264,7 +264,8 @@ VPage {
                                         HoverHandler { id: swHover; cursorShape: Qt.PointingHandCursor }
                                         TapHandler { onTapped: veyra.setPreference("accent", modelData.id) }
                                         ToolTip.visible: swHover.hovered
-                                        ToolTip.text: Theme.dusk ? modelData.duskTip : modelData.tip
+                                        ToolTip.text: Theme.sky ? (modelData.id === "orange" ? qsTr("天蓝") : modelData.tip)
+                                                    : Theme.dusk ? modelData.duskTip : modelData.tip
                                     }
                                 }
                             }
@@ -1380,7 +1381,14 @@ VPage {
                         }
                         ColumnLayout {
                             spacing: 4
-                            VH1 { text: "Veyra" }
+                            VH1 { text: "M$M!" }
+                            // GPL-3.0: a modified Veyra; the original author stays credited.
+                            Text {
+                                text: "Based on Veyra by Likely7 · GPL-3.0 · github.com/Likely7/Veyra-NRVideo"
+                                color: Theme.t3
+                                font.family: Theme.fontUi
+                                font.pixelSize: Theme.fsSmall
+                            }
                             Text {
                                 text: qsTr("版本 ") + veyra.version
                                 color: Theme.t2

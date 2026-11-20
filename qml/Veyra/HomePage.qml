@@ -92,7 +92,7 @@ VPage {
                 anchors.fill: logoImg
                 shadowEnabled: true
                 // The dusk logo carries its own neon glow; the breath adds a pink one to it.
-                shadowColor: Theme.dusk ? "#F396CE" : "#FFFFFF"
+                shadowColor: Theme.sky ? "#7CC6FF" : Theme.dusk ? "#F396CE" : "#FFFFFF"
                 shadowHorizontalOffset: 0
                 shadowVerticalOffset: 0
                 blurMax: 64
@@ -149,7 +149,7 @@ VPage {
             Text {
                 Layout.alignment: Qt.AlignHCenter
                 visible: !Theme.dusk                    // the dusk wordmark says it
-                text: "Veyra NR Video"
+                text: "M$M!"
                 color: Theme.t1
                 font.family: Theme.fontUi
                 font.pixelSize: Theme.fsH1
