@@ -55,15 +55,19 @@ M$M! 2.2.0 (NVIDIA) - personal test build
 ==========================================
 Based on Veyra 2.2.0 by Likely7 (GPL-3.0, https://github.com/Likely7/Veyra-NRVideo), built by
 GitHub Actions from https://github.com/moadmmad773-boop/Veyra-NRVideo (branch custom/mmm):
-sky blue look, the M$M! name and logo, and the live translation source "On-screen text
-(capture card / PS5 subtitles)". Start it with M$M!.exe.
+a light "frost" look (the dark looks stay in Settings -> Appearance), the M$M! name and logo,
+and live translation of on-screen text (capture card / PS5 subtitles) with Google Translate
+(free, no key), the local model on the graphics card, and every line's translation shown.
+Start it with M$M!.exe.
 
 Not in this build (they need private build trees): PS5 Remote Play, Moonlight/Sunshine and
 Xbox streaming, NVIDIA Optical Flow guidance, Dolby Vision enhancement-layer RPU parsing, the
 deinterlace module.
 
 M$M! - نسخة شخصية تجريبية مبنية على Veyra 2.2.0 (للمطوّر Likely7، رخصة GPL-3.0).
-شغّلها من M$M!.exe. فيها اللون الأزرق الفاتح والاسم والشعار الجديد وخيار ترجمة نص الشاشة.
+شغّلها من M$M!.exe. فيها الشكل الفاتح الجديد (الألوان الغامقة موجودة في الإعدادات ← المظهر)،
+والاسم والشعار، وترجمة نص الشاشة عن طريق Google Translate (مجاني وبدون مفتاح) أو النموذج المحلي على كرت الشاشة،
+وكل جملة تنعرض ترجمتها.
 غير موجود فيها: PS5 Remote Play وبث Moonlight وXbox.
 '@
 

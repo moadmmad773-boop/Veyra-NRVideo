@@ -45,11 +45,17 @@ $shots = @(
 foreach ($s in $shots) {
     $data = Join-Path $env:RUNNER_TEMP ("shot-data-" + $s.name)
     New-Item -ItemType Directory -Force $data | Out-Null
-    $argv = @('--data-dir', $data, '--size', '1366x820', '--reduced-motion', '--exit-after', '30000') + $s.args
+    # --managed-portable first, as the launcher starts it: otherwise the program hands
+    # itself over to the launcher and this script would wait on the wrong process.
+    $argv = @('--managed-portable', '--data-dir', $data, '--size', '1366x820', '--reduced-motion', '--exit-after', '30000') + $s.args
     $p = Start-Process -FilePath $exe -ArgumentList $argv -PassThru -WorkingDirectory $env:PKG_APP
     $h = [IntPtr]::Zero
     for ($i = 0; $i -lt 40 -and $h -eq [IntPtr]::Zero; $i++) { Start-Sleep -Milliseconds 500; if ($p.HasExited) { break }; $h = [Shot]::Largest([uint32]$p.Id) }
-    if ($h -eq [IntPtr]::Zero) { Write-Host "shot $($s.name): no window (exited=$($p.HasExited) code=$($p.ExitCode))"; continue }
+    if ($h -eq [IntPtr]::Zero) {
+        Write-Host "shot $($s.name): no window (exited=$($p.HasExited) code=$($p.ExitCode))"
+        if (-not $p.HasExited) { Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue }
+        continue
+    }
     [Shot]::SetForegroundWindow($h) | Out-Null
     Start-Sleep -Seconds 7
     $r = New-Object Shot+RECT
@@ -65,7 +71,11 @@ foreach ($s in $shots) {
     $bmp.Save($file, [System.Drawing.Imaging.ImageFormat]::Png); $bmp.Dispose()
     Write-Host "shot $($s.name): ${w}x${hgt} printwindow=$ok -> $file"
     if (-not $p.HasExited) { Stop-Process -Id $p.Id -Force -ErrorAction SilentlyContinue }
-    $log = Get-ChildItem $data -Recurse -Filter *.log -ErrorAction SilentlyContinue | Select-Object -First 1
-    if ($log) { Copy-Item $log.FullName (Join-Path $out "$($s.name).log") }
+    Start-Sleep -Milliseconds 500
+}
+# The program's own log (package root\logs), for errors behind a missing window.
+$root = Split-Path (Split-Path $env:PKG_APP -Parent) -Parent
+Get-ChildItem (Join-Path $root 'logs') -Filter *.log -ErrorAction SilentlyContinue | ForEach-Object {
+    Get-Content $_.FullName -Tail 400 | Set-Content (Join-Path $out ("app-" + $_.Name)) -Encoding utf8
 }
 exit 0
