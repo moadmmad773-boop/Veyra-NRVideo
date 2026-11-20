@@ -111,7 +111,7 @@ Item {
         width: Math.max(1, parent.width - (slider.resettable ? 28 : 0))
         height: 4
         radius: 9
-        color: Qt.rgba(1, 1, 1, 0.12)
+        color: Theme.ink(0.12)
         gradient: slider.trackGradient
     }
     // The accent, or the sunset gradient laid along the whole track.
@@ -271,7 +271,7 @@ Item {
             text: parent.text; color: parent.enabled ? Theme.t2 : Theme.t3
             font.pixelSize: 16; horizontalAlignment: Text.AlignHCenter; verticalAlignment: Text.AlignVCenter
         }
-        background: Rectangle { radius: 4; color: parent.hovered ? Qt.rgba(1,1,1,0.08) : "transparent" }
+        background: Rectangle { radius: 4; color: parent.hovered ? Theme.ink(0.08) : "transparent" }
         onClicked: {
             slider.commitValue(slider.defaultValue)
         }

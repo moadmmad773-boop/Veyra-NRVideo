@@ -12,8 +12,8 @@ Rectangle {
     width: 500
     height: Math.max(54, message.implicitHeight + 24)
     radius: 10
-    color: "#17251E"
-    border.color: "#426C51"
+    color: Theme.light ? "#E6F7EE" : "#17251E"
+    border.color: Theme.light ? "#9AD3B0" : "#426C51"
     visible: shown
     function show(value) { version = value; shown = true; dismissTimer.restart() }
     function dismiss() { shown = false; dismissTimer.stop() }
@@ -32,7 +32,7 @@ Rectangle {
         anchors.rightMargin: 8
         anchors.verticalCenter: parent.verticalCenter
         text: qsTr("发现新版本 %1，点击查看更新").arg(banner.version)
-        color: "#D5F3DE"
+        color: Theme.light ? "#0A5A33" : "#D5F3DE"
         font.family: Theme.fontUi
         font.pixelSize: Theme.fsBody
         wrapMode: Text.WordWrap

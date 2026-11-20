@@ -253,7 +253,7 @@ Popup {
                                 implicitHeight: optRow.implicitHeight + 16
                                 radius: 9
                                 opacity: row.modelData.disabled ? 0.4 : 1
-                                color: optHover.hovered && !row.modelData.disabled ? Qt.rgba(1, 1, 1, 0.06) : "transparent"
+                                color: optHover.hovered && !row.modelData.disabled ? Theme.ink(0.06) : "transparent"
                                 RowLayout {
                                     id: optRow
                                     anchors.left: parent.left; anchors.right: parent.right

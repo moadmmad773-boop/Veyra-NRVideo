@@ -16,7 +16,7 @@ Item {
     // Compact (the node page's 40px bar): no label under the ring; the
     // tooltip names the orb instead.
     property bool showLabel: true
-    readonly property color tone: !known ? Qt.rgba(1, 1, 1, 0.25)
+    readonly property color tone: !known ? Theme.ink(0.25)
                                 : fraction < 0.7 ? Theme.ok : fraction < 1.0 ? "#F2B941" : Theme.err
     implicitWidth: Math.max(size, labelText.implicitWidth)
     implicitHeight: showLabel ? size + 4 + labelText.implicitHeight : size
@@ -39,7 +39,7 @@ Item {
             const c = getContext("2d"); c.reset()
             const r = width / 2 - 4, cx = width / 2, cy = height / 2
             c.lineWidth = 5; c.lineCap = "round"
-            c.strokeStyle = Qt.rgba(1, 1, 1, 0.08)
+            c.strokeStyle = Theme.ink(0.08)
             c.beginPath(); c.arc(cx, cy, r, 0, Math.PI * 2); c.stroke()
             if (orb.shown > 0.001) {
                 c.strokeStyle = orb.tone

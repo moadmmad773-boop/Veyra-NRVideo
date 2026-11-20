@@ -12,7 +12,7 @@ Rectangle {
          : kind === "acc" ? Theme.accentSoft
          : kind === "warn" ? Qt.rgba(0.961, 0.784, 0.294, 0.13)
          : kind === "ok" ? Qt.rgba(0.239, 0.863, 0.518, 0.12)
-         : Qt.rgba(1, 1, 1, 0.07)
+         : Theme.ink(0.07)
     Text {
         id: tagText
         anchors.centerIn: parent

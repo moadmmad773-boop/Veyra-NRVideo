@@ -17,7 +17,7 @@ Rectangle {
     implicitWidth: 150
     implicitHeight: compactLabel ? 30 : Math.max(30, valueLabel.implicitHeight + 8)
     radius: 9
-    color: hover.hovered ? Qt.rgba(1, 1, 1, 0.09) : Qt.rgba(1, 1, 1, 0.05)
+    color: hover.hovered ? Theme.ink(0.09) : Theme.ink(0.05)
     border.width: 1
     border.color: Theme.stroke
     HoverHandler { id: hover; cursorShape: Qt.PointingHandCursor }

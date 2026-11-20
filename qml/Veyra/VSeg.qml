@@ -11,7 +11,7 @@ Rectangle {
     implicitWidth: segRow.implicitWidth + 6
     implicitHeight: 30
     radius: Theme.rCtl
-    color: Qt.rgba(1, 1, 1, 0.05)
+    color: Theme.ink(0.05)
     border.width: 1
     border.color: Theme.stroke
 
@@ -46,7 +46,7 @@ Rectangle {
             anchors.left: parent.left; anchors.right: parent.right
             anchors.leftMargin: 4; anchors.rightMargin: 4
             height: 1
-            color: Qt.rgba(1, 1, 1, 0.06)
+            color: Theme.ink(0.06)
         }
     }
 

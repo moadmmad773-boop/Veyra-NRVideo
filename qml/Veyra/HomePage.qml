@@ -92,7 +92,7 @@ VPage {
                 anchors.fill: logoImg
                 shadowEnabled: true
                 // The dusk logo carries its own neon glow; the breath adds a pink one to it.
-                shadowColor: Theme.sky ? "#7CC6FF" : Theme.dusk ? "#F396CE" : "#FFFFFF"
+                shadowColor: Theme.frost ? "#4FB2FF" : Theme.sky ? "#7CC6FF" : Theme.dusk ? "#F396CE" : "#FFFFFF"
                 shadowHorizontalOffset: 0
                 shadowVerticalOffset: 0
                 blurMax: 64
@@ -276,7 +276,7 @@ VPage {
                             implicitWidth: 34
                             implicitHeight: 34
                             radius: 10
-                            color: Qt.rgba(1, 1, 1, 0.06)
+                            color: Theme.ink(0.06)
                             VIcon {
                                 anchors.centerIn: parent
                                 name: modelData.glyph
@@ -365,7 +365,7 @@ VPage {
             gradient: Gradient {
                 orientation: Gradient.Horizontal
                 GradientStop { position: 0.0; color: Theme.accentSoft }
-                GradientStop { position: 1.0; color: Qt.rgba(1, 1, 1, 0.03) }
+                GradientStop { position: 1.0; color: Theme.ink(0.03) }
             }
             RowLayout {
                 anchors.fill: parent
@@ -450,7 +450,7 @@ VPage {
                     height: 28
                     radius: 99
                     opacity: modelData.exists ? 1 : 0.45
-                    color: chipHover.hovered && modelData.exists ? Qt.rgba(1, 1, 1, 0.08) : Qt.rgba(1, 1, 1, 0.04)
+                    color: chipHover.hovered && modelData.exists ? Theme.ink(0.08) : Theme.ink(0.04)
                     border.width: 1
                     border.color: Theme.stroke
                     RowLayout {

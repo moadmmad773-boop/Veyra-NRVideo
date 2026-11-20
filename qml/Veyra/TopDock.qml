@@ -68,7 +68,7 @@ Item {
         width: dockRoot.opened ? 18 : 44
         height: 4
         radius: 4
-        color: Qt.rgba(1, 1, 1, 0.28)
+        color: Theme.ink(0.28)
         opacity: dockRoot.opened ? 0 : 1
         Behavior on width { NumberAnimation { duration: Theme.d(400); easing.bezierCurve: Theme.spring } }
         Behavior on opacity { NumberAnimation { duration: Theme.d(200) } }
@@ -96,7 +96,7 @@ Item {
         radius: height / 2
         color: Theme.shade(0, 0, 0)
         border.width: 1
-        border.color: Qt.rgba(1, 1, 1, 0.1)
+        border.color: Theme.ink(0.1)
         // Over the picture on the cinema page: cut out of the video window.
         objectName: "videoCover"
         property real coverRadius: height / 2
@@ -148,7 +148,7 @@ Item {
             }
 
             // .dock-sep
-            Rectangle { implicitWidth: 1; implicitHeight: 16; color: Qt.rgba(1, 1, 1, 0.14) }
+            Rectangle { implicitWidth: 1; implicitHeight: 16; color: Theme.ink(0.14) }
 
             // .dock-items with the sliding .dock-ind behind the active button.
             Item {
@@ -159,7 +159,8 @@ Item {
                     width: 32
                     height: 30
                     radius: 999
-                    color: Theme.shade(38, 38, 45)
+                    // Frost: the page's button sits on a soft accent pill and takes the accent.
+                    color: Theme.light ? Theme.accentSoft : Theme.shade(38, 38, 45)
                     x: {
                         let idx = 0
                         for (let i = 0; i < dockRoot.items.length; ++i)
@@ -188,7 +189,7 @@ Item {
                                 anchors.centerIn: parent
                                 name: btn.modelData.icon
                                 strokeWidth: 1.7
-                                color: "#FFFFFF"
+                                color: Theme.light && dockRoot.currentPage === btn.modelData.id ? Theme.accent : Theme.inkStrong
                                 opacity: dockRoot.currentPage === btn.modelData.id || tip.on ? 1.0 : 0.45
                                 Behavior on opacity { NumberAnimation { duration: Theme.d(200) } }
                             }
@@ -218,7 +219,7 @@ Item {
                                     id: tipText
                                     anchors.centerIn: parent
                                     text: btn.modelData.tip
-                                    color: "#FFFFFF"
+                                    color: Theme.inkStrong
                                     font.family: Theme.fontUi
                                     font.pixelSize: 11   // 11.5px; pixelSize is an int (fractional sizes: G3)
                                 }
@@ -239,7 +240,7 @@ Item {
                 }
             }
 
-            Rectangle { implicitWidth: 1; implicitHeight: 16; color: Qt.rgba(1, 1, 1, 0.14) }
+            Rectangle { implicitWidth: 1; implicitHeight: 16; color: Theme.ink(0.14) }
 
             // Show / hide the cinema pill (field request 2026-10-01). Only where the pill lives.
             Item {
@@ -252,7 +253,7 @@ Item {
                 VIcon {
                     anchors.centerIn: parent
                     name: dockRoot.pillHidden ? "eye" : "eyeoff"
-                    color: "#FFFFFF"
+                    color: Theme.inkStrong
                     opacity: pillHover.hovered ? 1.0 : 0.45
                 }
                 Rectangle {
@@ -274,7 +275,7 @@ Item {
                         id: pillTipText
                         anchors.centerIn: parent
                         text: dockRoot.pillHidden ? qsTr("显示播放条") : qsTr("隐藏播放条")
-                        color: "#FFFFFF"
+                        color: Theme.inkStrong
                         font.family: Theme.fontUi
                         font.pixelSize: 11
                     }
@@ -291,7 +292,7 @@ Item {
                 VDot { anchors.centerIn: parent; off: !veyra.running; warn: veyra.captureRecovering }
             }
 
-            Rectangle { implicitWidth: 1; implicitHeight: 16; color: Qt.rgba(1, 1, 1, 0.14) }
+            Rectangle { implicitWidth: 1; implicitHeight: 16; color: Theme.ink(0.14) }
 
             // Window controls: minimize, maximize/restore, close.
             Repeater {
@@ -318,7 +319,7 @@ Item {
                         anchors.centerIn: parent
                         name: wbtn.modelData.icon
                         size: 13
-                        color: whover.hovered && wbtn.modelData.id === "close" ? "#FF8A8A" : "#FFFFFF"
+                        color: whover.hovered && wbtn.modelData.id === "close" ? (Theme.light ? "#D92D33" : "#FF8A8A") : Theme.inkStrong
                         opacity: whover.hovered ? 1.0 : 0.45
                         Behavior on opacity { NumberAnimation { duration: Theme.d(200) } }
                     }
@@ -344,7 +345,7 @@ Item {
                             id: wtipText
                             anchors.centerIn: parent
                             text: wbtn.modelData.tip
-                            color: "#FFFFFF"
+                            color: Theme.inkStrong
                             font.family: Theme.fontUi
                             font.pixelSize: 11
                         }

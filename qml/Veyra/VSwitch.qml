@@ -8,7 +8,7 @@ Rectangle {
     width: Theme.switchWidth
     height: Theme.switchHeight
     radius: 99
-    color: checked ? Theme.accent : Qt.rgba(1, 1, 1, 0.14)
+    color: checked ? Theme.accent : Theme.ink(0.14)
     Behavior on color { ColorAnimation { duration: Theme.d(250) } }
     // The dusk palette's sunset accent: the on track is the gradient, faded in
     // and out with the colour.
@@ -26,6 +26,8 @@ Rectangle {
         height: Theme.switchKnob
         radius: height / 2
         color: sw.checked ? Theme.accentInk : "#FFFFFF"
+        border.width: Theme.light && !sw.checked ? 1 : 0
+        border.color: Theme.knobRing
         anchors.verticalCenter: parent.verticalCenter
         x: sw.checked ? (parent.width - width - 3) : 3
         Behavior on x { NumberAnimation { duration: Theme.d(500); easing.bezierCurve: Theme.spring } }

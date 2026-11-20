@@ -14,7 +14,7 @@ ColumnLayout {
     // The draft owns the points during a drag; otherwise the model does.
     property var draft: null
     readonly property var points: draft || modelPoints
-    readonly property color channelColor: ["#E7E7EA","#FF5A5A","#4CD964","#4F8BFF"][channel]
+    readonly property color channelColor: [Theme.light ? "#33435C" : "#E7E7EA","#FF5A5A","#4CD964","#4F8BFF"][channel]
     readonly property int maxPoints: 8
     signal edited(int channel, var points)
     spacing: 8
@@ -60,7 +60,7 @@ ColumnLayout {
     Rectangle {
         Layout.fillWidth: true
         Layout.preferredHeight: Math.min(width, 240)
-        color: "#17191E"; radius: 8; border.color: Theme.stroke
+        color: Theme.light ? "#F2F6FB" : "#17191E"; radius: 8; border.color: Theme.stroke
         Canvas {
             id: graph
             objectName: "colour-curve-canvas"
@@ -73,12 +73,12 @@ ColumnLayout {
             onActiveChanged: requestPaint()
             onPaint: {
                 const c = getContext("2d"); c.reset()
-                c.strokeStyle = "#30343C"; c.lineWidth = 1
+                c.strokeStyle = Theme.light ? "#D6DFEA" : "#30343C"; c.lineWidth = 1
                 for (let i = 0; i <= 4; ++i) {
                     c.beginPath(); c.moveTo(width * i / 4, 0); c.lineTo(width * i / 4, height); c.stroke()
                     c.beginPath(); c.moveTo(0, height * i / 4); c.lineTo(width, height * i / 4); c.stroke()
                 }
-                c.strokeStyle = "#545966"; c.beginPath(); c.moveTo(0, height); c.lineTo(width, 0); c.stroke()
+                c.strokeStyle = Theme.light ? "#A9B5C6" : "#545966"; c.beginPath(); c.moveTo(0, height); c.lineTo(width, 0); c.stroke()
                 c.strokeStyle = root.channelColor; c.lineWidth = 2; c.beginPath()
                 const values = root.draft ? null : root.samples[root.channel]
                 if (values && values.length > 1) {
@@ -97,7 +97,7 @@ ColumnLayout {
                 for (let i = 0; i < root.points.length; ++i) {
                     const p = root.points[i], big = i === active || i === hover
                     c.beginPath(); c.arc(p.x * width, (1 - p.y) * height, big ? 7 : 5.5, 0, Math.PI * 2)
-                    c.fillStyle = i === active ? root.channelColor : "#17191E"; c.fill()
+                    c.fillStyle = i === active ? root.channelColor : (Theme.light ? "#F2F6FB" : "#17191E"); c.fill()
                     c.lineWidth = 2; c.strokeStyle = root.channelColor; c.stroke()
                 }
             }

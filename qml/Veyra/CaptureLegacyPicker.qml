@@ -53,7 +53,7 @@ Popup {
             placeholderText: qsTr("搜索，例如：1920 60 NV12")
             color: Theme.t1; placeholderTextColor: Theme.t3
             font.family: Theme.fontUi; font.pixelSize: 12
-            background: Rectangle { color: Qt.rgba(1,1,1,.05); radius: 8; border.color: Theme.stroke }
+            background: Rectangle { color: Theme.ink(.05); radius: 8; border.color: Theme.stroke }
             onTextEdited: searchDelay.restart()
         }
         Text { text: qsTr("%1 / %2 个格式").arg(picker.filtered.length).arg(picker.formats.length); color: Theme.t3; font.pixelSize: 11 }
@@ -77,7 +77,7 @@ Popup {
                     font.family: Theme.fontMono; font.pixelSize: 11
                     elide: Text.ElideRight; verticalAlignment: Text.AlignVCenter
                 }
-                background: Rectangle { radius: 6; color: parent.highlighted ? Qt.rgba(1,1,1,.1) : parent.hovered ? Qt.rgba(1,1,1,.05) : "transparent" }
+                background: Rectangle { radius: 6; color: parent.highlighted ? Theme.ink(.1) : parent.hovered ? Theme.ink(.05) : "transparent" }
                 ToolTip.visible: hovered
                 ToolTip.text: modelData.label
                 onClicked: { picker.selected(modelData.id); picker.close() }

@@ -16,7 +16,7 @@ Basic.ScrollBar {
         implicitHeight: 6
         radius: 3
         visible: bar.size < 1
-        color: bar.pressed ? Theme.t2 : bar.hovered ? Qt.rgba(1, 1, 1, 0.28) : Theme.stroke2
+        color: bar.pressed ? Theme.t2 : bar.hovered ? Theme.ink(0.28) : Theme.stroke2
         Behavior on color { ColorAnimation { duration: Theme.d(150) } }
     }
     background: Item {}

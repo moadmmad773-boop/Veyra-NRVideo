@@ -61,7 +61,7 @@ ColumnLayout {
         gradient: Gradient {
             orientation: Gradient.Horizontal
             GradientStop { position: 0.0; color: Theme.accentSoft }
-            GradientStop { position: 1.0; color: Qt.rgba(1, 1, 1, 0.03) }
+            GradientStop { position: 1.0; color: Theme.ink(0.03) }
         }
         RowLayout {
             id: heroRow
@@ -159,7 +159,7 @@ ColumnLayout {
                             implicitWidth: goRow.implicitWidth + 20
                             implicitHeight: 26
                             radius: 8
-                            color: socialHover.hovered ? Theme.accent : Qt.rgba(1, 1, 1, 0.06)
+                            color: socialHover.hovered ? Theme.accent : Theme.ink(0.06)
                             Behavior on color { ColorAnimation { duration: Theme.d(Theme.durFast) } }
                             Row {
                                 id: goRow

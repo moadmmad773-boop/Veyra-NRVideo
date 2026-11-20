@@ -31,10 +31,10 @@ Rectangle {
     implicitHeight: Theme.ctlHeight
     radius: Theme.rCtl
     color: primary ? Theme.accent
-         : ghost ? (hover.hovered ? Qt.rgba(1, 1, 1, 0.07) : "transparent")
+         : ghost ? (hover.hovered ? Theme.ink(0.07) : "transparent")
          : (hover.hovered ? Theme.card3 : Theme.card2)
     border.width: (primary || ghost) ? 0 : 1
-    border.color: hover.hovered ? Qt.rgba(1, 1, 1, 0.2) : Theme.stroke2
+    border.color: hover.hovered ? Theme.ink(0.2) : Theme.stroke2
     Behavior on color { ColorAnimation { duration: Theme.d(Theme.durFast) } }
     // .btn:active { transform: scale(.95) }
     // A disabled button reads as such (undo with nothing to undo).

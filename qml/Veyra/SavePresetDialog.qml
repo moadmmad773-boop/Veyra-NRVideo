@@ -109,7 +109,7 @@ DialogLayer {
                 Layout.fillWidth: true
                 implicitHeight: 34
                 radius: 8
-                color: Qt.rgba(1, 1, 1, 0.03)
+                color: Theme.ink(0.03)
                 RowLayout {
                     anchors.fill: parent
                     anchors.leftMargin: 10
@@ -117,7 +117,7 @@ DialogLayer {
                     spacing: 10
                     Rectangle {
                         implicitWidth: 7; implicitHeight: 7; radius: 3.5
-                        color: modelData.enabled ? Theme.ok : Qt.rgba(1, 1, 1, 0.25)
+                        color: modelData.enabled ? Theme.ok : Theme.ink(0.25)
                     }
                     Text {
                         Layout.preferredWidth: 110

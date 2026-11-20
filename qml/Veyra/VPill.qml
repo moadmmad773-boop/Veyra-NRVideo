@@ -12,7 +12,7 @@ Rectangle {
     implicitWidth: pillRow.implicitWidth + 21
     implicitHeight: Theme.ctlHeight
     radius: 999
-    color: hover.hovered ? Qt.rgba(1, 1, 1, 0.10) : Qt.rgba(1, 1, 1, 0.05)
+    color: hover.hovered ? Theme.ink(0.10) : Theme.ink(0.05)
     border.width: 1
     border.color: Theme.stroke2
     scale: tap.pressed ? 0.95 : 1.0

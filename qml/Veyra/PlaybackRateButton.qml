@@ -10,7 +10,7 @@ Rectangle {
     enabled: veyra.running
     property real menuBottomLimit: -1
     readonly property bool menuOpen: rateMenu.visible || customRate.visible
-    color: hover.hovered ? Qt.rgba(1, 1, 1, 0.10) : "transparent"
+    color: hover.hovered ? Theme.ink(0.10) : "transparent"
     readonly property string rateLabel: Number(veyra.playbackRate || 1).toFixed(2).replace(/\.?0+$/, "") + "×"
     Text {
         anchors.centerIn: parent

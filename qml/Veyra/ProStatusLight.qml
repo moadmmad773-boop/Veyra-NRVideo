@@ -10,7 +10,7 @@ RowLayout {
     spacing: 8
     readonly property color tone: veyra.runStatusLevel === "ok" ? Theme.ok
                                 : veyra.runStatusLevel === "warn" ? "#F2B941"
-                                : veyra.runStatusLevel === "err" ? Theme.err : Qt.rgba(1, 1, 1, 0.3)
+                                : veyra.runStatusLevel === "err" ? Theme.err : Theme.ink(0.3)
     Item {
         Layout.fillWidth: true
         Layout.minimumWidth: 32

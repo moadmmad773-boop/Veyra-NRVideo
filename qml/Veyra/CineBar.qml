@@ -52,7 +52,7 @@ Rectangle {
     radius: 30
     color: Theme.shade(22, 22, 26, 0.86)
     border.width: 1
-    border.color: Qt.rgba(1, 1, 1, 0.1)
+    border.color: Theme.ink(0.1)
 
     RowLayout {
         anchors.fill: parent
@@ -152,12 +152,12 @@ Rectangle {
                     Rectangle {
                         anchors.fill: parent
                         radius: 16
-                        color: cHover.hovered ? Qt.rgba(1, 1, 1, 0.08) : "transparent"
+                        color: cHover.hovered ? Theme.ink(0.08) : "transparent"
                     }
                     VIcon {
                         anchors.centerIn: parent
                         name: glyph
-                        color: cHover.hovered ? "#FFFFFF" : Theme.t2
+                        color: cHover.hovered ? Theme.inkStrong : Theme.t2
                     }
                     scale: cTap.pressed ? 0.86 : 1.0
                     Behavior on scale { NumberAnimation { duration: Theme.d(400); easing.bezierCurve: Theme.spring } }
@@ -179,13 +179,14 @@ Rectangle {
                     Rectangle {
                         anchors.fill: parent
                         radius: 20
-                        color: "#FFFFFF"
+                        // Frost: a blue disc with a white glyph (white on white would vanish).
+                        color: Theme.light ? Theme.accent : "#FFFFFF"
                     }
                     VIcon {
                         anchors.centerIn: parent
                         name: (veyra.running && !veyra.paused) ? "pausefill" : "playfill"
                         filled: true
-                        color: "#0A0A0C"
+                        color: Theme.light ? "#FFFFFF" : "#0A0A0C"
                     }
                     scale: playTap.pressed ? 0.88 : (playHover.hovered ? 1.06 : 1.0)
                     Behavior on scale { NumberAnimation { duration: Theme.d(450); easing.bezierCurve: Theme.spring } }
@@ -263,14 +264,14 @@ Rectangle {
                         width: parent.width
                         height: seekMouse.containsMouse ? 6 : 3
                         radius: 9
-                        color: Qt.rgba(1, 1, 1, 0.14)
+                        color: Theme.ink(0.14)
                         Behavior on height { NumberAnimation { duration: Theme.d(300); easing.bezierCurve: Theme.spring } }
                         // White; the sunset gradient along the rail in the dusk palette.
                         Rectangle {
                             width: parent.width * seekArea.frac
                             height: parent.height
                             radius: 9
-                            color: "#FFFFFF"
+                            color: Theme.inkStrong
                             visible: !Theme.accentGradient
                         }
                         VAccentFill {
@@ -286,6 +287,8 @@ Rectangle {
                     Rectangle {
                         width: 11; height: 11; radius: 5.5
                         color: "#FFFFFF"
+                        border.width: Theme.light ? 2 : 0
+                        border.color: Theme.accent
                         x: seekArea.frac * seekArea.width - width / 2
                         anchors.verticalCenter: parent.verticalCenter
                         scale: seekMouse.containsMouse || seekArea.scrubbing ? 1 : 0
@@ -327,7 +330,7 @@ Rectangle {
                             anchors.centerIn: previewFrame
                             visible: previewFrame.status === Image.Loading || previewFrame.status === Image.Error
                             text: previewFrame.status === Image.Loading ? qsTr("加载中") : qsTr("预览不可用")
-                            color: Theme.t3
+                            color: Qt.rgba(1, 1, 1, 0.42)  // on the black preview box in every palette
                             font.family: Theme.fontUi
                             font.pixelSize: 11
                         }
@@ -341,7 +344,7 @@ Rectangle {
                             text: veyra.liveTimeshift.enabled
                                   ? "−" + veyra.formatTime(veyra.liveTimeshift.end - veyra.timelineSeconds(seekArea.hoverFrac))
                                   : veyra.formatTime(veyra.timelineSeconds(seekArea.hoverFrac))
-                            color: Theme.t1
+                            color: "#F3F3F5"  // on the #111111 strip in every palette
                             font.family: Theme.fontMono
                             font.pixelSize: 11
                             font.weight: Font.Medium; font.variableAxes: Theme.axesMedium
@@ -486,7 +489,7 @@ Rectangle {
             Item {
                 objectName: "cine-hide"
                 implicitWidth: 32; implicitHeight: 32
-                VIcon { anchors.centerIn: parent; name: "eyeoff"; color: hideHover.hovered ? "#FFFFFF" : Theme.t2 }
+                VIcon { anchors.centerIn: parent; name: "eyeoff"; color: hideHover.hovered ? Theme.inkStrong : Theme.t2 }
                 HoverHandler { id: hideHover; cursorShape: Qt.PointingHandCursor }
                 ToolTip.visible: hideHover.hovered
                 ToolTip.text: qsTr("隐藏播放条（顶部胶囊里可重新打开）")

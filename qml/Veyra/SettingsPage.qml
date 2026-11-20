@@ -98,7 +98,7 @@ VPage {
                     implicitHeight: 36
                     radius: 9
                     color: root.section === modelData.id ? Theme.card3
-                         : navHover.hovered ? Qt.rgba(1, 1, 1, 0.04) : "transparent"
+                         : navHover.hovered ? Theme.ink(0.04) : "transparent"
                     Behavior on color { ColorAnimation { duration: Theme.d(200) } }
                     // .setnav button: icon, 10px, label.
                     RowLayout {
@@ -186,11 +186,12 @@ VPage {
                         // 日落 (the default) or the original black-grey 经典 palette.
                         VRow {
                             label: qsTr("界面配色")
-                            hint: qsTr("日落：深靛紫底、日落渐变强调色；经典：原来的黑灰配色")
+                            hint: qsTr("冰蓝：白色与冰蓝的浅色界面；天蓝：深蓝底；日落：深靛紫底、日落渐变；经典：原来的黑灰配色")
                             VSeg {
                                 objectName: "set-palette"
-                                options: [{ id: "sky", label: qsTr("天蓝") }, { id: "dusk", label: qsTr("日落") }, { id: "classic", label: qsTr("经典") }]
-                                current: veyra.preferences.palette === "classic" || veyra.preferences.palette === "dusk" ? veyra.preferences.palette : "sky"
+                                options: [{ id: "frost", label: qsTr("冰蓝") }, { id: "sky", label: qsTr("天蓝") },
+                                          { id: "dusk", label: qsTr("日落") }, { id: "classic", label: qsTr("经典") }]
+                                current: ["classic", "dusk", "sky"].indexOf(veyra.preferences.palette) >= 0 ? veyra.preferences.palette : "frost"
                                 onPicked: id => veyra.setPreference("palette", id)
                             }
                         }
@@ -249,8 +250,9 @@ VPage {
                                         width: 24; height: 24; radius: 12
                                         // The dusk palette shows what each choice paints: the sunset
                                         // gradient, or the neon white (the ring stays on top).
-                                        color: Theme.sky ? "#F4FAFF" : Theme.dusk ? "#FFF6FB" : modelData.c
-                                        gradient: (Theme.dusk || Theme.sky) && modelData.id === "orange" ? sunset : undefined
+                                        color: Theme.frost ? (modelData.id === "white" ? "#0A1A30" : "#1C86FF")
+                                             : Theme.sky ? "#F4FAFF" : Theme.dusk ? "#FFF6FB" : modelData.c
+                                        gradient: (Theme.dusk || Theme.sky || Theme.frost) && modelData.id === "orange" ? sunset : undefined
                                         Gradient {
                                             id: sunset
                                             orientation: Gradient.Horizontal
@@ -258,13 +260,14 @@ VPage {
                                             GradientStop { position: 1.0; color: Theme.accentTo }
                                         }
                                         border.width: 2
-                                        border.color: on ? "#FFFFFF" : "transparent"
+                                        border.color: on ? (Theme.light ? "#36C2FF" : "#FFFFFF") : "transparent"
                                         scale: on ? 1.12 : 1
                                         Behavior on scale { NumberAnimation { duration: Theme.d(400); easing.bezierCurve: Theme.spring } }
                                         HoverHandler { id: swHover; cursorShape: Qt.PointingHandCursor }
                                         TapHandler { onTapped: veyra.setPreference("accent", modelData.id) }
                                         ToolTip.visible: swHover.hovered
-                                        ToolTip.text: Theme.sky ? (modelData.id === "orange" ? qsTr("天蓝") : modelData.tip)
+                                        ToolTip.text: Theme.frost ? (modelData.id === "orange" ? qsTr("冰蓝") : qsTr("藏青"))
+                                                    : Theme.sky ? (modelData.id === "orange" ? qsTr("天蓝") : modelData.tip)
                                                     : Theme.dusk ? modelData.duskTip : modelData.tip
                                     }
                                 }
@@ -1264,7 +1267,7 @@ VPage {
                                     implicitWidth: Math.max(64, keyText.implicitWidth + 20)
                                     implicitHeight: 26
                                     radius: 7
-                                    color: capturing ? Theme.accentSoft : Qt.rgba(1, 1, 1, 0.06)
+                                    color: capturing ? Theme.accentSoft : Theme.ink(0.06)
                                     border.width: 1
                                     border.color: capturing ? Theme.accent : Theme.stroke
                                     Text {

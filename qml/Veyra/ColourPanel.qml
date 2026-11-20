@@ -67,7 +67,7 @@ ColumnLayout {
         signal accepted()
         implicitHeight: Math.max(30, placeholderLabel.implicitHeight + 8)
         radius: 9
-        color: Qt.rgba(1, 1, 1, 0.04)
+        color: Theme.ink(0.04)
         border.width: 1
         border.color: field.activeFocus ? Theme.accent : Theme.stroke
         TextInput {

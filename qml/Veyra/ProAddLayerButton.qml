@@ -19,7 +19,7 @@ Rectangle {
     color: addHover.hovered && !full ? Theme.accentSoft : "transparent"
     readonly property bool softwareRendering: (typeof vySoftwareUi !== "undefined" && vySoftwareUi)
         || GraphicsInfo.api === GraphicsInfo.Software
-    readonly property color outline: addHover.hovered && !addLayer.full ? Theme.accent : Qt.rgba(1, 1, 1, 0.2)
+    readonly property color outline: addHover.hovered && !addLayer.full ? Theme.accent : Theme.ink(0.2)
     Image {
         anchors.fill: parent
         visible: addLayer.softwareRendering
@@ -44,7 +44,7 @@ Rectangle {
         anchors.fill: parent
         ShapePath {
             strokeWidth: 1
-            strokeColor: addHover.hovered && !addLayer.full ? Theme.accent : Qt.rgba(1, 1, 1, 0.2)
+            strokeColor: addHover.hovered && !addLayer.full ? Theme.accent : Theme.ink(0.2)
             fillColor: "transparent"
             strokeStyle: ShapePath.DashLine
             dashPattern: [5, 4]

@@ -111,7 +111,7 @@ Rectangle {
             spacing: 12
             Rectangle {
                 implicitWidth: 34; implicitHeight: 34; radius: 10
-                color: Qt.rgba(1, 1, 1, 0.06)
+                color: Theme.ink(0.06)
                 VIcon { anchors.centerIn: parent; name: dlg.glyph }
             }
             ColumnLayout {

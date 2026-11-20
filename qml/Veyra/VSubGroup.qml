@@ -18,7 +18,7 @@ Rectangle {
 
     implicitHeight: header.implicitHeight + (expanded ? inner.implicitHeight + 8 : 0)
     radius: 9
-    color: Qt.rgba(1, 1, 1, 0.03)
+    color: Theme.ink(0.03)
     clip: true
     Behavior on implicitHeight {
         enabled: !sub.instantExpansion

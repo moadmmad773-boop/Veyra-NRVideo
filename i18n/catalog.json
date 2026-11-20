@@ -9479,6 +9479,32 @@
    "ru": "Написать дополнительный трек"
   },
   {
+   "zh": "冰蓝",
+   "src": "qml/SettingsPage.qml",
+   "zh-TW": "冰藍",
+   "en": "Frost",
+   "ja": "フロスト",
+   "ko": "프로스트",
+   "es": "Escarcha",
+   "fr": "Givre",
+   "de": "Frost",
+   "pt-BR": "Gelo",
+   "ru": "Иней"
+  },
+  {
+   "zh": "冰蓝：白色与冰蓝的浅色界面；天蓝：深蓝底；日落：深靛紫底、日落渐变；经典：原来的黑灰配色",
+   "src": "qml/SettingsPage.qml",
+   "zh-TW": "冰藍：白色與冰藍的淺色介面；天藍：深藍底；日落：深靛紫底、日落漸層；經典：原來的黑灰配色",
+   "en": "Frost: a light white and ice-blue interface; Sky blue: deep blue; Dusk: deep indigo with a sunset gradient; Classic: the original black and grey",
+   "ja": "フロスト：白と氷青の明るい画面、スカイ：濃紺、サンセット：深い藍紫と夕焼けグラデーション、クラシック：元の黒とグレー",
+   "ko": "프로스트: 흰색과 얼음빛 파랑의 밝은 화면, 스카이: 짙은 파랑, 선셋: 짙은 남보라와 노을 그라데이션, 클래식: 원래의 검정과 회색",
+   "es": "Escarcha: interfaz clara en blanco y azul hielo; Cielo: azul oscuro; Atardecer: índigo con degradado de puesta de sol; Clásico: el negro y gris original",
+   "fr": "Givre : interface claire blanche et bleu glacier ; Ciel : bleu profond ; Coucher de soleil : indigo et dégradé ; Classique : le noir et gris d’origine",
+   "de": "Frost: helle Oberfläche in Weiß und Eisblau; Himmel: tiefes Blau; Sonnenuntergang: Indigo mit Verlauf; Klassisch: das ursprüngliche Schwarz-Grau",
+   "pt-BR": "Gelo: interface clara em branco e azul-gelo; Céu: azul profundo; Pôr do sol: índigo com degradê; Clássico: o preto e cinza original",
+   "ru": "Иней: светлый интерфейс в белом и ледяном голубом; Небо: тёмно-синий; Закат: индиго с градиентом; Классика: исходный чёрно-серый"
+  },
+  {
    "zh": "减少 NR 明暗改动；1 为保留原图亮度",
    "src": "qml/NrLayerEditor.qml",
    "zh-TW": "減少 NR 明暗改動；1 為保留原圖亮度",
@@ -32475,6 +32501,19 @@
    "de": "Blau: originaler Wiederherstellungsbereich; Magenta: Glättungsbereich. Automatisch für den Export ausgeschaltet",
    "pt-BR": "Azul: área de restauração original; magenta: área de alisamento. Desligado automaticamente para exportação",
    "ru": "Синий: оригинальная зона восстановления; пурпурная: сглаживающая зона. автоматически отключается для экспорта"
+  },
+  {
+   "zh": "藏青",
+   "src": "qml/SettingsPage.qml",
+   "zh-TW": "藏青",
+   "en": "Navy",
+   "ja": "ネイビー",
+   "ko": "네이비",
+   "es": "Azul marino",
+   "fr": "Bleu marine",
+   "de": "Marineblau",
+   "pt-BR": "Azul-marinho",
+   "ru": "Тёмно-синий"
   },
   {
    "zh": "虚拟扬声器回录需要将音频输出设为真实耳机或音箱",

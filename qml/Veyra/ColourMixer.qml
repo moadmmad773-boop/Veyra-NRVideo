@@ -39,7 +39,7 @@ ColumnLayout {
                 objectName:"colour-mixer-band-"+index
                 Layout.fillWidth:true;implicitHeight:22;radius:7
                 color:root.colors[index];border.width:2
-                border.color:root.band===index?"#FFFFFF":"transparent"
+                border.color:root.band===index?Theme.inkStrong:"transparent"
                 scale:root.band===index?1.08:1
                 Behavior on scale { NumberAnimation {duration:Theme.d(400);easing.bezierCurve:Theme.spring} }
                 Behavior on border.color { ColorAnimation {duration:Theme.d(200)} }

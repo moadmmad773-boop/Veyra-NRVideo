@@ -99,7 +99,7 @@ DialogLayer {
                     // .pico
                     Rectangle {
                         implicitWidth: 30; implicitHeight: 30; radius: 9
-                        color: Qt.rgba(1, 1, 1, 0.05)
+                        color: Theme.ink(0.05)
                         VIcon { anchors.centerIn: parent; name: modelData.nodeMode ? "nodes" : "layers"; size: 14; color: Theme.t2 }
                     }
                     ColumnLayout {

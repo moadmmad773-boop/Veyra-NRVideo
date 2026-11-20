@@ -71,7 +71,7 @@ Window {
     }
     Binding { target: Theme; property: "reduced"; value: veyra.reducedMotion || root.test.reducedMotion === true }
     Binding { target: Theme; property: "accentName"; value: veyra.preferences.accent || "orange" }
-    Binding { target: Theme; property: "paletteName"; value: veyra.preferences.palette || "sky" }
+    Binding { target: Theme; property: "paletteName"; value: veyra.preferences.palette || "frost" }
     Binding { target: Theme; property: "backdropLevel"; value: veyra.preferences.backdrop !== undefined ? veyra.preferences.backdrop : 1 }
 
     // Cinema geometry: the main window ends at the picture. The independent pill
@@ -926,7 +926,7 @@ Window {
         width: Math.min(toastText.implicitWidth + 24 + 2, root.width - 48)
         height: toastText.implicitHeight + 14 + 2
         radius: 9
-        color: toast.isError ? "#2A1414" : "#132218"
+        color: Theme.light ? (toast.isError ? "#FDECEC" : "#E6F7EE") : toast.isError ? "#2A1414" : "#132218"
         border.width: 1
         border.color: toast.isError ? Qt.rgba(1, 0.365, 0.365, 0.4) : Qt.rgba(0.239, 0.863, 0.518, 0.35)
         opacity: on ? 1 : 0
@@ -941,7 +941,7 @@ Window {
             anchors.centerIn: parent
             width: Math.min(implicitWidth, root.width - 72)
             text: toast.message
-            color: toast.isError ? "#FFC9C9" : "#BDF3D2"
+            color: Theme.light ? (toast.isError ? "#A61B1F" : "#0A6A3B") : toast.isError ? "#FFC9C9" : "#BDF3D2"
             font.family: Theme.fontUi
             font.pixelSize: 12
             wrapMode: Text.WordWrap
@@ -1128,7 +1128,7 @@ Window {
         }
         if (root.test.menu !== undefined) testMenuTimer.start()
         if (root.test.fullBar !== undefined) testFullTimer.start()
-        if ((veyra.preferences.palette || "sky") === "dusk" && veyra.preferences.introAnimation !== false
+        if ((veyra.preferences.palette || "frost") === "dusk" && veyra.preferences.introAnimation !== false
                 && !veyra.reducedMotion && root.page === "home" && Object.keys(root.test).length === 0) {
             homePage.introHold = true
             introLoader.active = true
