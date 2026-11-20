@@ -90,7 +90,7 @@ jobs:
           **On-screen text (capture card / PS5 subtitles)**, from branch ``$($env:SOURCE_REF)`` @ ``$($env:SOURCE_SHA)``.
           Built by GitHub Actions on top of the official Veyra 2.2.0 NVIDIA package; see TEST-BUILD-README.txt inside.
 
-          نسخة تجريبية غير رسمية من Veyra 2.2.0 فيها خيار ترجمة نص الشاشة. فك الضغط وشغّل veyra_qml_ui.exe.
+          نسخة تجريبية غير رسمية من Veyra 2.2.0 فيها خيار ترجمة نص الشاشة. فك الضغط في مجلد جديد وشغّل Veyra.exe.
           "@
           Set-Content "$env:RUNNER_TEMP\notes.md" $notes -Encoding utf8
           gh release delete screen-text-test -R $env:GITHUB_REPOSITORY -y --cleanup-tag 2>$null
