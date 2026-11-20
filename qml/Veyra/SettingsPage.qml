@@ -293,7 +293,8 @@ VPage {
                         }
                         VRow {
                             label: qsTr("背景渐变强度")
-                            hint: Theme.dusk ? qsTr("日落天空的渐变强度，带抖动防色带") : qsTr("深黑底上的极轻渐变与抖动（防色带）")
+                            hint: Theme.dusk ? qsTr("日落天空的渐变强度，带抖动防色带") : Theme.frost ? qsTr("冰蓝底上的柔和渐变与抖动（防色带）")
+                                         : qsTr("深黑底上的极轻渐变与抖动（防色带）")
                             VSeg {
                                 objectName: "set-backdrop"
                                 options: [{ id: "0", label: qsTr("无") }, { id: "1", label: qsTr("轻") }, { id: "2", label: qsTr("中") }]

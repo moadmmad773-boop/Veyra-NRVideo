@@ -9492,6 +9492,19 @@
    "ru": "Иней"
   },
   {
+   "zh": "冰蓝底上的柔和渐变与抖动（防色带）",
+   "src": "qml/SettingsPage.qml",
+   "zh-TW": "冰藍底上的柔和漸層與抖動（防色帶）",
+   "en": "A soft gradient and dither over the ice-blue background (prevents banding)",
+   "ja": "氷青の背景に柔らかなグラデーションとディザ（バンディング防止）",
+   "ko": "얼음빛 파랑 배경 위의 부드러운 그라데이션과 디더(밴딩 방지)",
+   "es": "Degradado suave y tramado sobre el fondo azul hielo (evita bandas)",
+   "fr": "Dégradé doux et tramage sur le fond bleu glacier (évite les bandes)",
+   "de": "Sanfter Verlauf mit Dithering auf dem eisblauen Hintergrund (verhindert Banding)",
+   "pt-BR": "Degradê suave e pontilhado sobre o fundo azul-gelo (evita faixas)",
+   "ru": "Мягкий градиент с дизерингом на ледяном голубом фоне (без полос)"
+  },
+  {
    "zh": "冰蓝：白色与冰蓝的浅色界面；天蓝：深蓝底；日落：深靛紫底、日落渐变；经典：原来的黑灰配色",
    "src": "qml/SettingsPage.qml",
    "zh-TW": "冰藍：白色與冰藍的淺色介面；天藍：深藍底；日落：深靛紫底、日落漸層；經典：原來的黑灰配色",

@@ -402,7 +402,7 @@ VPage {
                     anchors.centerIn: parent
                     visible: !veyra.hasSource
                     text: veyra.statusText
-                    color: Theme.t3
+                    color: Theme.onVideo3
                     font.family: Theme.fontUi
                     font.pixelSize: Theme.fsH3
                 }

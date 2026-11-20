@@ -65,7 +65,7 @@ VPage {
             anchors.centerIn: parent
             visible: stageTap.enabled
             text: qsTr("点击画面选择片源")
-            color: Theme.t3
+            color: Theme.onVideo3
             font.family: Theme.fontUi
             font.pixelSize: Theme.fsH3
         }

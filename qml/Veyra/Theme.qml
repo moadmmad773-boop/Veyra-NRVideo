@@ -40,6 +40,9 @@ QtObject {
     readonly property color bgMid: frost ? "#EAF3FD" : sky ? "#0D1A2E" : dusk ? "#161328" : "#0C0C10"
     readonly property color bgInner: frost ? "#F8FBFF" : sky ? "#14284A" : dusk ? "#201B34" : "#17171C"
     readonly property color videoBlack: "#000000"
+    // Text on the black picture area (no source yet): light in every palette.
+    readonly property color onVideo2: Qt.rgba(0.953, 0.953, 0.961, 0.62)
+    readonly property color onVideo3: Qt.rgba(0.953, 0.953, 0.961, 0.40)
     // Dark neutrals some components still spell out (the cinema pill, the node
     // canvas, the dock): exactly that colour in the classic palette, the same
     // depth tinted indigo-violet in the dusk one.

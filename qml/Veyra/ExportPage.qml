@@ -413,7 +413,7 @@ VPage {
                 wrapMode: Text.WordWrap
                 visible: !veyra.hasSource
                 text: veyra.exportRunning ? qsTr("导出进行中，预览已关闭，显卡留给导出") + "\n" + qsTr("点左侧文件可重新预览（会和导出抢显卡）") : qsTr("点左侧文件预览")
-                color: Theme.t3
+                color: Theme.onVideo3
                 font.family: Theme.fontUi
                 font.pixelSize: Theme.fsH3
             }

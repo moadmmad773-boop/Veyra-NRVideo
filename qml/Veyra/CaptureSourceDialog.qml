@@ -108,13 +108,23 @@ DialogLayer {
             y: 90 - height / 2
             spacing: 8
             visible: !capturePoster.visible
-            VIcon { anchors.horizontalCenter: parent.horizontalCenter; name: "video"; size: 22; color: Theme.t3 }
+            VIcon { anchors.horizontalCenter: parent.horizontalCenter; name: "video"; size: 22; color: Theme.onVideo3 }
             Text {
                 text: captureDialog.live ? qsTr("画面在主窗口播放") : qsTr("连接后在主窗口显示画面")
-                color: Theme.t3
+                color: Theme.onVideo3
                 font.family: Theme.fontUi
                 font.pixelSize: 12
             }
+        }
+        // Frost: the status strip under the black preview is light, like the dialog.
+        Rectangle {
+            anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom
+            anchors.margins: 1
+            height: 33
+            visible: Theme.light
+            color: Theme.card2
+            bottomLeftRadius: 9
+            bottomRightRadius: 9
         }
         RowLayout {
             anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom
