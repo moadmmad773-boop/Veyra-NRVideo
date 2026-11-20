@@ -19,7 +19,7 @@ concurrency:
 env:
   SOURCE_REF: custom/mmm
   # 'true': publish the package as the "mmm" pre-release; otherwise build, test and report only.
-  PUBLISH: 'false'
+  PUBLISH: 'true'
 
   OFFICIAL_TAG: v2.2.0
   DEPS: D:\deps
@@ -96,17 +96,21 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           $notes = @"
-          **M`$M! 2.2.0 (NVIDIA)** - personal test build based on Veyra 2.2.0 by Likely7 (GPL-3.0), from branch ``$($env:SOURCE_REF)`` @ ``$($env:SOURCE_SHA)``.
+          **M`$M! 2.2.0 (NVIDIA)** - personal build based on Veyra 2.2.0 by Likely7 (GPL-3.0), from branch ``$($env:SOURCE_REF)`` @ ``$($env:SOURCE_SHA)``.
 
           - **MMM-2.2.0-NVIDIA.zip**: the full program. Unzip into a new folder and run **M`$M!.exe**.
           - **MMM-update.zip**: only the changed files. Unzip over a folder that already has this program (replace files), then run **M`$M!.exe**.
 
-          نسخة M`$M! الشخصية. الملف الكامل: فكّه في مجلد جديد وشغّل M`$M!.exe. ملف التحديث: فكّه فوق المجلد اللي عندك (استبدال الملفات) وشغّل M`$M!.exe.
+          What changed: every on-screen line's translation is shown (late ones too), Google Translate engine (free, no key; MyMemory if Google fails), the local model runs on the graphics card, and a new light "frost" look (the dark looks stay in Settings > Appearance).
+
+          **التغييرات:** كل جملة على الشاشة تنعرض ترجمتها حتى لو تأخرت · محرك Google Translate مجاني وبدون مفتاح (وإذا تعطّل يكمل على MyMemory) · النموذج المحلي يشتغل على كرت الشاشة · شكل جديد فاتح (الألوان الغامقة موجودة في الإعدادات ← المظهر).
+
+          الملف الكامل: فكّه في مجلد جديد وشغّل M`$M!.exe. ملف التحديث: فكّه فوق المجلد اللي عندك (استبدال الملفات) وشغّل M`$M!.exe.
           "@
           Set-Content "$env:RUNNER_TEMP\notes.md" $notes -Encoding utf8
           foreach ($tag in 'screen-text-test', 'mmm') { gh release delete $tag -R $env:GITHUB_REPOSITORY -y --cleanup-tag 2>$null }
           gh release create mmm $env:PACKAGE $env:UPDATE -R $env:GITHUB_REPOSITORY --prerelease `
-            --title "M`$M! 2.2.0 (test build)" --notes-file "$env:RUNNER_TEMP\notes.md" --target $env:GITHUB_SHA
+            --title "M`$M! 2.2.0 (frost)" --notes-file "$env:RUNNER_TEMP\notes.md" --target $env:GITHUB_SHA
       - name: Report
         if: always()
         shell: pwsh
