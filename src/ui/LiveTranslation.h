@@ -133,6 +133,7 @@ private:
     // engine: the service the request went to (Google's failed retries go to MyMemory).
     void receiveTranslation(QNetworkReply* reply, const QString& text, quint64 seq, qint64 start, int engine);
     void receiveOffline(quint64 job, const QStringList& translations, const QString& error, int ms);
+    void ensureOffline();
     // A finished translation of `text` (seq 0: Windows Live Captions): remembered and shown.
     void deliver(const QString& text, quint64 seq, qint64 start, const QString& result);
     // A request that failed: the status, and the same on-screen line again shortly.

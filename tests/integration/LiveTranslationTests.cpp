@@ -4,6 +4,7 @@
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QRectF>
@@ -178,9 +179,12 @@ void secondLineChecks(const QString& root) {
             for (const auto& line : data.first(end).split('\n'))
                 if (line.toLower().startsWith("content-length:")) n = line.mid(15).trimmed().toInt();
             if (data.size() < end + 4 + n) return;
-            const auto body = data.mid(end + 4, n);
-            const QString which = body.contains("Line one") ? QStringLiteral("one")
-                : body.contains("Line two") ? QStringLiteral("two") : QStringLiteral("three");
+            // The line asked for: after "NEW line:" (the earlier lines come along as context).
+            const auto messages = QJsonDocument::fromJson(data.mid(end + 4, n)).object().value(QStringLiteral("messages")).toArray();
+            QString asked = messages.isEmpty() ? QString() : messages.last().toObject().value(QStringLiteral("content")).toString();
+            if (const auto at = asked.lastIndexOf(QStringLiteral("NEW line:")); at >= 0) asked = asked.mid(at);
+            const QString which = asked.contains(QStringLiteral("Line one")) ? QStringLiteral("one")
+                : asked.contains(QStringLiteral("Line two")) ? QStringLiteral("two") : QStringLiteral("three");
             order << which;
             const QByteArray json = which == QStringLiteral("one") ? QByteArray(R"({"choices":[{"message":{"content":"السطر الأول"}}]})")
                 : which == QStringLiteral("two") ? QByteArray(R"({"choices":[{"message":{"content":"السطر الثاني"}}]})")

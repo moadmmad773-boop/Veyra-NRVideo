@@ -336,6 +336,11 @@ void LiveTranslation::setEnabled(bool value) {
     if (enabled_) {
         setStatus(captionSource_ == ScreenText ? tr("正在启动画面文字识别…") : tr("请打开 Windows 实时字幕"));
         timer_.start();
+        // The offline model loads (about a second) before the first line, not on it.
+        if (provider_ == Offline && OpusMtService::installed()) {
+            ensureOffline();
+            opusMt_->translate({QStringLiteral("Hello.")});
+        }
     } else {
         timer_.stop();
         if (reader_.state() != QProcess::NotRunning) reader_.kill();
@@ -761,13 +766,7 @@ void LiveTranslation::requestTranslation(const QString& text, quint64 seq, qint6
     if (offline) {
         if (!arabic) { setStatus(tr("VI Translator 离线翻译只能译成阿拉伯语")); return; }
         if (!OpusMtService::installed()) { setStatus(tr("程序目录中没有离线翻译模型")); return; }
-        if (!opusMt_) {
-            opusMt_ = std::make_unique<OpusMtService>();
-            connect(opusMt_.get(), &OpusMtService::done, this, &LiveTranslation::receiveOffline);
-            connect(opusMt_.get(), &OpusMtService::loading, this, [this](bool on) {
-                if (on && enabled_) setStatus(tr("正在加载离线翻译模型…"));
-            });
-        }
+        ensureOffline();
         QStringList parts;
         for (const auto& part : pending_.plan.parts) parts << QString::fromStdU32String(part);
         opusSentAt_ = clock_.elapsed();
@@ -907,6 +906,15 @@ void LiveTranslation::receiveTranslation(QNetworkReply* reply, const QString& te
         return;
     }
     deliver(text, seq, start, QString::fromStdU32String(viline::assemble(pending_.plan, {result.toStdU32String()})));
+}
+
+void LiveTranslation::ensureOffline() {
+    if (opusMt_) return;
+    opusMt_ = std::make_unique<OpusMtService>();
+    connect(opusMt_.get(), &OpusMtService::done, this, &LiveTranslation::receiveOffline);
+    connect(opusMt_.get(), &OpusMtService::loading, this, [this](bool on) {
+        if (on && enabled_) setStatus(tr("正在加载离线翻译模型…"));
+    });
 }
 
 void LiveTranslation::receiveOffline(quint64 job, const QStringList& translations, const QString& error, int ms) {
