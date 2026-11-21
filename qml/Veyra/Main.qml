@@ -955,10 +955,16 @@ Window {
         anchors.topMargin: 12
         // Over the picture: cut out of the video window.
         objectName: "videoCover"
-        property real coverRadius: 9
+        property real coverRadius: Theme.arena ? 2 : 9
         width: Math.min(toastText.implicitWidth + 24 + 2, root.width - 48)
         height: toastText.implicitHeight + 14 + 2
-        radius: 9
+        radius: Theme.arena ? 2 : 9
+        // M$M! arena: a HUD notice - a bar in its colour down the left edge.
+        Rectangle {
+            visible: Theme.arena
+            x: 0; y: 0; width: 3; height: parent.height
+            color: toast.isError ? Theme.err : Theme.ok
+        }
         color: Theme.light ? (toast.isError ? "#FDECEC" : "#E6F7EE") : toast.isError ? "#2A1414" : "#132218"
         border.width: 1
         border.color: toast.isError ? Qt.rgba(1, 0.365, 0.365, 0.4) : Qt.rgba(0.239, 0.863, 0.518, 0.35)

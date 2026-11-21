@@ -436,7 +436,10 @@ Rectangle {
 
             // --- right: preset, volume, fullscreen (230px) ---------------
             RowLayout {
-                Layout.preferredWidth: 308; Layout.minimumWidth: 308; Layout.maximumWidth: 308
+                // Arena: as wide as its controls; the title at the left gives way first.
+                Layout.preferredWidth: Theme.arena ? implicitWidth : 308
+                Layout.minimumWidth: Theme.arena ? implicitWidth : 308
+                Layout.maximumWidth: Theme.arena ? implicitWidth : 308
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
                 spacing: 6
 

@@ -13,10 +13,10 @@ Rectangle {
     // value and clicking 连接 (which takes no focus) or closing the dialog lost it.
     signal typed(string text)
     implicitHeight: 30
-    radius: 9
-    color: Theme.ink(0.04)
+    radius: Theme.arena ? 2 : 9
+    color: Theme.arena ? Theme.card2 : Theme.ink(0.04)
     border.width: 1
-    border.color: field.activeFocus ? Theme.accent : Theme.stroke
+    border.color: field.activeFocus ? Theme.accent : Theme.arena ? Theme.stroke2 : Theme.stroke
     TextInput {
         id: field
         anchors.fill: parent

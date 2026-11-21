@@ -66,7 +66,7 @@ ColumnLayout {
         property string placeholder: ""
         signal accepted()
         implicitHeight: Math.max(30, placeholderLabel.implicitHeight + 8)
-        radius: 9
+        radius: Theme.arena ? 2 : 9
         color: Theme.ink(0.04)
         border.width: 1
         border.color: field.activeFocus ? Theme.accent : Theme.stroke
@@ -148,7 +148,7 @@ ColumnLayout {
         visible:!panel.compact
         Layout.fillWidth:true
         implicitHeight:topCol.implicitHeight+10
-        radius:12
+        radius:Theme.arena ? 3 : 12
         color:Theme.card2
         border.width:1
         border.color:Theme.stroke

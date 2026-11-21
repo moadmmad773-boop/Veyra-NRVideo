@@ -277,6 +277,20 @@ VPage {
     // .addlayer: the dashed button at the bottom of a layered stage (NR, beauty).
     component AddLayerButton: ProAddLayerButton {}
 
+    // M$M! arena: the header row sits on a HUD strip of its own.
+    Rectangle {
+        objectName: "pro-header-strip"
+        visible: Theme.arena && head.visible
+        x: head.x - 6
+        y: head.y - 6
+        width: head.width + 12
+        height: head.height + 12
+        radius: Theme.rCard
+        color: Theme.card
+        border.width: 1
+        border.color: Theme.stroke
+        VCorners { anchors.fill: parent; color: Theme.stroke2; size: 8 }
+    }
     // Source and output belong together; the transport stays clear for seeking.
     Item {
         id: head
@@ -683,15 +697,15 @@ VPage {
                     Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
                         width: parent.width
-                        height: 3
-                        radius: 9
-                        color: Theme.ink(0.14)
+                        height: Theme.arena ? 2 : 3
+                        radius: Theme.arena ? 0 : 9
+                        color: Theme.arena ? Theme.stroke2 : Theme.ink(0.14)
                         // White; the sunset gradient along the rail in the dusk palette.
                         Rectangle {
                             width: parent.width * proSeekArea.frac
                             height: parent.height
-                            radius: 9
-                            color: Theme.inkStrong
+                            radius: Theme.arena ? 0 : 9
+                            color: Theme.arena ? Theme.accent : Theme.inkStrong
                             visible: !Theme.accentGradient
                         }
                         VAccentFill {
@@ -709,8 +723,8 @@ VPage {
                     property real scrubFrac: 0
                     readonly property real frac: scrubbing ? scrubFrac : Math.max(0, Math.min(1, veyra.progress))
                     Rectangle {
-                        width: 11; height: 11; radius: 5.5
-                        color: "#FFFFFF"
+                        width: Theme.arena ? 4 : 11; height: Theme.arena ? 14 : 11; radius: Theme.arena ? 0 : 5.5
+                        color: Theme.arena ? Theme.accent : "#FFFFFF"
                         border.width: Theme.light ? 2 : 0
                         border.color: Theme.accent
                         anchors.verticalCenter: parent.verticalCenter
@@ -849,6 +863,7 @@ VPage {
             color: Theme.card
             border.width: 1
             border.color: Theme.stroke
+            VCorners { anchors.fill: parent; color: Theme.stroke2; size: 8 }
             ColumnLayout {
                 anchors.fill: parent
                 anchors.margins: 14
@@ -960,6 +975,7 @@ VPage {
             color: Theme.card
             border.width: 1
             border.color: Theme.stroke
+            VCorners { anchors.fill: parent; color: Theme.stroke2; size: 8 }
             ColumnLayout {
                 anchors.fill: parent
                 anchors.margins: 14
@@ -1077,6 +1093,7 @@ VPage {
             color: Theme.card
             border.width: 1
             border.color: Theme.stroke
+            VCorners { anchors.fill: parent; color: Theme.stroke2; size: 8 }
             ColumnLayout {
                 id: meter3Content
                 anchors.fill: parent
@@ -1359,7 +1376,7 @@ VPage {
                 // The design draws the chain bar on the 画质 tab only.
                 // Leave the controls a usable scroll area in short windows.
                 visible: root.tab === "quality" && insp.height >= 240
-                radius: 12
+                radius: Theme.arena ? 2 : 12
                 color: Theme.ink(0.03)
                 border.width: 1
                 border.color: Theme.stroke
@@ -1380,7 +1397,7 @@ VPage {
                         Rectangle {
                             width: inChip.implicitWidth + 18
                             height: 24
-                            radius: 99
+                            radius: Theme.arena ? 2 : 99
                             color: "transparent"
                             border.width: 1
                             border.color: Theme.stroke
@@ -1402,7 +1419,7 @@ VPage {
                                 Rectangle {
                                     width: chipLabel.implicitWidth + 18
                                     height: 24
-                                    radius: 99
+                                    radius: Theme.arena ? 2 : 99
                                     color: Theme.card3
                                     border.width: 1
                                     border.color: Theme.stroke
@@ -2257,8 +2274,8 @@ VPage {
         Layout.fillWidth: true
         Layout.preferredWidth: 1
         implicitHeight: modeCol.implicitHeight + 24
-        radius: 12
-        color: active ? Qt.rgba(1, 138 / 255, 61 / 255, 0.08) : Theme.card2
+        radius: Theme.arena ? 3 : 12
+        color: active ? (Theme.arena ? Theme.accentSoft : Qt.rgba(1, 138 / 255, 61 / 255, 0.08)) : Theme.card2
         border.width: 1
         border.color: active ? Theme.accent : Theme.stroke
         ColumnLayout {
@@ -2269,9 +2286,9 @@ VPage {
             anchors.margins: 12
             spacing: 6
             Rectangle {
-                implicitWidth: 28; implicitHeight: 28; radius: 8
+                implicitWidth: 28; implicitHeight: 28; radius: Theme.arena ? 2 : 8
                 color: Theme.ink(0.06)
-                VIcon { anchors.centerIn: parent; name: mc.glyph; size: 14 }
+                VIcon { anchors.centerIn: parent; name: mc.glyph; size: 14; color: Theme.arena ? Theme.accent : Theme.t1 }
             }
             Text {
                 text: mc.heading

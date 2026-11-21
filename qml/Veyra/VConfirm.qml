@@ -42,11 +42,12 @@ Item {
         id: card
         // Cut out of the native video window (main.cpp syncVideoCovers).
         objectName: "videoCover"
-        property real coverRadius: 16
+        property real coverRadius: Theme.arena ? 3 : 16
         anchors.centerIn: parent
         width: Math.min(box.cardWidth, box.width - 32)
         height: col.implicitHeight + 32
-        radius: 16
+        radius: Theme.arena ? 3 : 16
+        VCorners { anchors.fill: parent; size: 12; thickness: 2; z: 5 }
         color: Theme.dialog
         border.width: 1
         border.color: Theme.stroke2
@@ -75,9 +76,11 @@ Item {
                 Layout.fillWidth: true
                 spacing: 12
                 Rectangle {
-                    implicitWidth: 34; implicitHeight: 34; radius: 10
-                    color: Theme.ink(0.06)
-                    VIcon { anchors.centerIn: parent; name: box.glyph }
+                    implicitWidth: 34; implicitHeight: 34; radius: Theme.arena ? 2 : 10
+                    color: Theme.arena ? Theme.accentSoft : Theme.ink(0.06)
+                    border.width: Theme.arena ? 1 : 0
+                    border.color: Theme.accent
+                    VIcon { anchors.centerIn: parent; name: box.glyph; color: Theme.arena ? Theme.accent : Theme.t1 }
                 }
                 Text {
                     Layout.fillWidth: true

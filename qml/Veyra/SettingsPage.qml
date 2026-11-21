@@ -95,7 +95,7 @@ VPage {
             flickableDirection: Flickable.HorizontalFlick
             boundsBehavior: Flickable.StopAtBounds
             clip: true
-            ScrollBar.horizontal: ScrollBar { policy: navScroll.contentWidth > navScroll.width ? ScrollBar.AsNeeded : ScrollBar.AlwaysOff; height: 4 }
+            ScrollBar.horizontal: VScrollBar { policy: navScroll.contentWidth > navScroll.width ? ScrollBar.AsNeeded : ScrollBar.AlwaysOff; height: 4 }
             Row {
                 id: navRow
                 anchors.verticalCenter: parent.verticalCenter

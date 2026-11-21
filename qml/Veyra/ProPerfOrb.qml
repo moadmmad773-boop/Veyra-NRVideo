@@ -38,6 +38,18 @@ Item {
         onPaint: {
             const c = getContext("2d"); c.reset()
             const r = width / 2 - 4, cx = width / 2, cy = height / 2
+            // M$M! arena: a segmented HUD gauge - 24 blocks round the ring, lit in the
+            // tone up to the value.
+            if (Theme.arena) {
+                const seg = 24, gap = 0.07
+                c.lineWidth = 4; c.lineCap = "butt"
+                for (let i = 0; i < seg; ++i) {
+                    const a0 = -Math.PI / 2 + i * 2 * Math.PI / seg + gap / 2
+                    c.strokeStyle = (i + 0.5) / seg <= orb.shown ? orb.tone : Theme.ink(0.10)
+                    c.beginPath(); c.arc(cx, cy, r, a0, a0 + 2 * Math.PI / seg - gap); c.stroke()
+                }
+                return
+            }
             c.lineWidth = 5; c.lineCap = "round"
             c.strokeStyle = Theme.ink(0.08)
             c.beginPath(); c.arc(cx, cy, r, 0, Math.PI * 2); c.stroke()

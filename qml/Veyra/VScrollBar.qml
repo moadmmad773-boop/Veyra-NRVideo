@@ -14,9 +14,11 @@ Basic.ScrollBar {
     contentItem: Rectangle {
         implicitWidth: 6
         implicitHeight: 6
-        radius: 3
+        // M$M! arena: a square-ended thumb that lights up in the accent.
+        radius: Theme.arena ? 0 : 3
         visible: bar.size < 1
-        color: bar.pressed ? Theme.t2 : bar.hovered ? Theme.ink(0.28) : Theme.stroke2
+        color: Theme.arena ? (bar.pressed || bar.hovered ? Theme.accent : Theme.stroke2)
+                           : bar.pressed ? Theme.t2 : bar.hovered ? Theme.ink(0.28) : Theme.stroke2
         Behavior on color { ColorAnimation { duration: Theme.d(150) } }
     }
     background: Item {}
