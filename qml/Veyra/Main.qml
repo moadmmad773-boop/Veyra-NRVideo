@@ -234,6 +234,8 @@ Window {
         // and the controls float above it in their own window (FullscreenBar).
         if ((fullscreen || (maximized && page === "min")) && page !== "home" && page !== "set")
             return { x: 0, y: 0, width: width, height: height }
+        // M$M!: the pages sit right of the rail; their viewports are in page coordinates.
+        const onPage = r => ({ x: r.x + pages.x, y: r.y + pages.y, width: r.width, height: r.height })
         switch (page) {
         case "min":
             // .min .stage: full width, height = the picture height.
@@ -241,11 +243,11 @@ Window {
         case "pro":
             // Share the page's responsive header, transport and status dimensions.
             // A second fixed-height formula let the HWND cover the playback bar.
-            return proPage.videoViewport
+            return onPage(proPage.videoViewport)
         case "node":
-            return nodePage.videoViewport
+            return onPage(nodePage.videoViewport)
         case "exp":
-            return ExportLayout.calculate(width, height, exportPage.compactTab).video
+            return onPage(ExportLayout.calculate(pages.width, pages.height, exportPage.compactTab).video)
         default:
             return { x: 0, y: 0, width: 0, height: 0 }
         }
@@ -262,6 +264,9 @@ Window {
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         anchors.left: root.railShown ? navRail.right : parent.left
+        // The picture follows the pages when the rail comes or goes.
+        onXChanged: videoHost.syncRect()
+        onWidthChanged: videoHost.syncRect()
         // In fullscreen the picture covers the page, and the native video window
         // passes the pointer through: a hidden page control must not take a click
         // meant for the picture.

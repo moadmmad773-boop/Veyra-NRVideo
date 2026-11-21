@@ -166,6 +166,8 @@ LiveTranslation::LiveTranslation(const QString& directory, QObject* parent)
         provider_ = Offline;
         settings_.setValue(QStringLiteral("provider"), provider_);
         settings_.setValue(QStringLiteral("mmmEngine"), 2);
+        // Its model translates into Arabic, the language this build is for.
+        settings_.setValue(QStringLiteral("target"), QStringLiteral("ar"));
     }
     sourceLanguage_ = settings_.value(QStringLiteral("source")).toString();
     targetLanguage_ = settings_.value(QStringLiteral("target"), QLocale().bcp47Name()).toString();
