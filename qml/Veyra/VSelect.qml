@@ -16,7 +16,7 @@ Rectangle {
 
     implicitWidth: 150
     implicitHeight: compactLabel ? 30 : Math.max(30, valueLabel.implicitHeight + 8)
-    radius: 9
+    radius: Theme.light ? height / 2 : 9
     color: hover.hovered ? Theme.ink(0.09) : Theme.ink(0.05)
     border.width: 1
     border.color: Theme.stroke
@@ -25,8 +25,8 @@ Rectangle {
 
     RowLayout {
         anchors.fill: parent
-        anchors.leftMargin: 12
-        anchors.rightMargin: 10
+        anchors.leftMargin: Theme.light ? 14 : 12
+        anchors.rightMargin: Theme.light ? 4 : 10
         Text {
             id: valueLabel
             Layout.fillWidth: true
@@ -39,7 +39,13 @@ Rectangle {
             wrapMode: sel.compactLabel ? Text.NoWrap : Text.Wrap
             elide: sel.compactLabel ? Text.ElideRight : Text.ElideNone
         }
-        VIcon { name: "down"; size: 14; color: Theme.t3 }
+        VIcon { visible: !Theme.light; name: "down"; size: 14; color: Theme.t3 }
+        Rectangle {
+            visible: Theme.light
+            implicitWidth: 22; implicitHeight: 22; radius: 11
+            color: Theme.accentSoft
+            VIcon { anchors.centerIn: parent; name: "down"; size: 12; color: Theme.accent }
+        }
     }
 
     ToolTip.visible: hover.hovered && (sel.compactLabel || valueLabel.truncated)

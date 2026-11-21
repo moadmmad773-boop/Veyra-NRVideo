@@ -37,8 +37,14 @@ Rectangle {
         y: 3
         width: seg.currentItem ? seg.currentItem.width : 0
         height: 24
-        radius: 7
-        color: Theme.card3
+        // M$M! frost: the chosen option is a pill in the accent, its label white.
+        radius: Theme.light ? 12 : 7
+        color: Theme.light ? "transparent" : Theme.card3
+        VAccentFill {
+            anchors.fill: parent
+            radius: parent.radius
+            visible: Theme.light
+        }
         Behavior on x { NumberAnimation { duration: Theme.d(500); easing.bezierCurve: Theme.spring } }
         Behavior on width { NumberAnimation { duration: Theme.d(500); easing.bezierCurve: Theme.spring } }
         // box-shadow 0 1px 0 rgba(255,255,255,.06) inset: the lit top edge.
@@ -57,7 +63,7 @@ Rectangle {
         anchors.fill: indicator
         visible: indicator.visible
         shadowEnabled: true
-        shadowColor: Qt.rgba(0, 0, 0, 0.35)
+        shadowColor: Theme.light ? Qt.rgba(0.11, 0.45, 0.95, 0.30) : Qt.rgba(0, 0, 0, 0.35)
         shadowVerticalOffset: 4
         shadowHorizontalOffset: 0
         blurMax: 16
@@ -93,7 +99,7 @@ Rectangle {
                         id: segLabel
                         anchors.verticalCenter: parent.verticalCenter
                         text: modelData.label
-                        color: seg.current === modelData.id ? Theme.t1 : Theme.t2
+                        color: seg.current === modelData.id ? (Theme.light ? Theme.accentInk : Theme.t1) : Theme.t2
                         Behavior on color { ColorAnimation { duration: Theme.d(200) } }
                         font.family: Theme.fontUi
                         font.pixelSize: Theme.fsBody

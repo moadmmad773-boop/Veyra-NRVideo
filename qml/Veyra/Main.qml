@@ -253,9 +253,15 @@ Window {
 
     // Pages live for the whole session so switching never loses a half-edited
     // chain; only the visible page owns the video window.
+    // M$M! build: the page menu as a rail on the left (NavRail.qml), on every page but the
+    // cinema one and fullscreen, where the picture takes the window and the dock drops down.
+    readonly property bool railShown: !root.fullscreen && root.page !== "min"
     Item {
         id: pages
-        anchors.fill: parent
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.left: root.railShown ? navRail.right : parent.left
         // In fullscreen the picture covers the page, and the native video window
         // passes the pointer through: a hidden page control must not take a click
         // meant for the picture.
@@ -323,6 +329,21 @@ Window {
         }
     }
 
+    NavRail {
+        id: navRail
+        visible: root.railShown
+        x: 10
+        y: 10
+        height: parent.height - 20
+        currentPage: root.page === "node" ? "pro" : root.page
+        maximized: root.maximized
+        onRequestPage: p => root.goPage(p)
+        onRequestMinimize: root.showMinimized()
+        onRequestMaximize: root.toggleMaximized()
+        onRequestClose: root.close()
+        onRequestMove: root.startSystemMove()
+    }
+
     // The five dialogs sit above the pages and below the dock's own tooltips.
     DialogHost {
         id: dialogs
@@ -384,6 +405,8 @@ Window {
     // The dock floats above every page and retracts on its own.
     TopDock {
         id: dock
+        // M$M!: only where the rail is not (the cinema page, fullscreen).
+        visible: !root.railShown
         anchors.horizontalCenter: parent.horizontalCenter
         // The node page is the professional mode's node view.
         currentPage: root.page === "node" ? "pro" : root.page

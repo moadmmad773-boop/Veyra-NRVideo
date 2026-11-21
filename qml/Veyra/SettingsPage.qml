@@ -57,79 +57,93 @@ VPage {
     ]
 
     // --- nav ---------------------------------------------------------------
+    // M$M! build: the sections as a row of chips across the top (the design's 220px
+    // column on the left), the page title in front; the body takes the full width.
     Rectangle {
         id: navCard
         anchors.left: parent.left
         anchors.leftMargin: 14
+        anchors.right: parent.right
+        anchors.rightMargin: 14
         anchors.top: parent.top
         anchors.topMargin: 14
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 14
-        width: 220
+        height: 64
         radius: Theme.rCard
         color: Theme.card
         border.width: 1
         border.color: Theme.stroke
 
+        VH2 {
+            id: navTitle
+            text: qsTr("设置")
+            anchors.left: parent.left
+            anchors.leftMargin: 20
+            anchors.verticalCenter: parent.verticalCenter
+        }
         Flickable {
             id: navScroll
             objectName: "settings-navigation"
-            anchors.fill: parent
-            anchors.margins: 10
-            contentWidth: width
-            contentHeight: navColumn.implicitHeight
-            flickableDirection: Flickable.VerticalFlick
+            anchors.left: navTitle.right
+            anchors.leftMargin: 18
+            anchors.right: parent.right
+            anchors.rightMargin: 10
+            anchors.top: parent.top
+            anchors.bottom: parent.bottom
+            contentWidth: navRow.implicitWidth
+            contentHeight: height
+            flickableDirection: Flickable.HorizontalFlick
             boundsBehavior: Flickable.StopAtBounds
             clip: true
-            ScrollBar.vertical: VScrollBar { }
-        }
-        ColumnLayout {
-            id: navColumn
-            parent: navScroll.contentItem
-            width: navScroll.width - (navScroll.contentHeight > navScroll.height ? 8 : 0)
-            spacing: 2
-            VH2 { text: qsTr("设置"); Layout.margins: 8 }
-            Item { implicitHeight: 6 }
-            Repeater {
-                model: root.sections
-                delegate: Rectangle {
-                    required property var modelData
-                    Layout.fillWidth: true
-                    implicitHeight: 36
-                    radius: 9
-                    color: root.section === modelData.id ? Theme.card3
-                         : navHover.hovered ? Theme.ink(0.04) : "transparent"
-                    Behavior on color { ColorAnimation { duration: Theme.d(200) } }
-                    // .setnav button: icon, 10px, label.
-                    RowLayout {
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        anchors.leftMargin: 10
-                        anchors.rightMargin: 8
-                        anchors.verticalCenter: parent.verticalCenter
-                        spacing: 10
-                        VIcon {
-                            name: modelData.icon
-                            size: 15
-                            color: modelData.tint !== undefined ? modelData.tint : navLabel.color
+            ScrollBar.horizontal: ScrollBar { policy: navScroll.contentWidth > navScroll.width ? ScrollBar.AsNeeded : ScrollBar.AlwaysOff; height: 4 }
+            Row {
+                id: navRow
+                anchors.verticalCenter: parent.verticalCenter
+                spacing: 6
+                Repeater {
+                    model: root.sections
+                    delegate: Rectangle {
+                        id: chip
+                        required property var modelData
+                        readonly property bool on: root.section === modelData.id
+                        objectName: "settings-section-" + modelData.id
+                        implicitWidth: chipRow.implicitWidth + 28
+                        implicitHeight: 38
+                        radius: 19
+                        color: chip.on ? "transparent" : navHover.hovered ? Theme.ink(0.07) : Theme.ink(0.035)
+                        border.width: chip.on ? 0 : 1
+                        border.color: Theme.stroke
+                        Behavior on color { ColorAnimation { duration: Theme.d(200) } }
+                        VAccentFill {
+                            anchors.fill: parent
+                            radius: parent.radius
+                            opacity: chip.on ? 1 : 0
+                            visible: opacity > 0
+                            Behavior on opacity { NumberAnimation { duration: Theme.d(200) } }
                         }
-                        Text {
-                            id: navLabel
-                            Layout.fillWidth: true
-                            Layout.minimumWidth: 0
-                            elide: Text.ElideRight
-                            text: modelData.label
-                            color: root.section === modelData.id ? Theme.t1 : Theme.t2
-                            font.family: Theme.fontUi
-                            font.pixelSize: 13
-                            font.weight: Font.Medium
+                        Row {
+                            id: chipRow
+                            anchors.centerIn: parent
+                            spacing: 8
+                            VIcon {
+                                anchors.verticalCenter: parent.verticalCenter
+                                name: chip.modelData.icon
+                                size: 15
+                                color: chip.on ? Theme.accentInk
+                                     : chip.modelData.tint !== undefined ? chip.modelData.tint : Theme.t2
+                            }
+                            Text {
+                                id: navLabel
+                                anchors.verticalCenter: parent.verticalCenter
+                                text: chip.modelData.label
+                                color: chip.on ? Theme.accentInk : Theme.t1
+                                font.family: Theme.fontUi
+                                font.pixelSize: 13
+                                font.weight: chip.on ? Font.DemiBold : Font.Medium
+                            }
                         }
+                        HoverHandler { id: navHover; cursorShape: Qt.PointingHandCursor }
+                        TapHandler { onTapped: root.section = chip.modelData.id }
                     }
-                    ToolTip.visible: navHover.hovered && navLabel.truncated
-                    ToolTip.text: navLabel.text
-                    ToolTip.delay: 500
-                    HoverHandler { id: navHover; cursorShape: Qt.PointingHandCursor }
-                    TapHandler { onTapped: root.section = modelData.id }
                 }
             }
         }
@@ -139,11 +153,11 @@ VPage {
     Rectangle {
         id: bodyCard
         anchors.left: parent.left
-        anchors.leftMargin: 14 + 220 + 10
+        anchors.leftMargin: 14
         anchors.right: parent.right
         anchors.rightMargin: 14
-        anchors.top: parent.top
-        anchors.topMargin: 14
+        anchors.top: navCard.bottom
+        anchors.topMargin: 10
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 14
         radius: Theme.rCard
@@ -161,10 +175,10 @@ VPage {
 
             ColumnLayout {
                 id: body
-                x: 26
                 y: 22
-                // .setbody section { max-width: 720px }
-                width: Math.min(parent.width - 52, 720)
+                // .setbody section { max-width: 720px }; M$M!: wider, centred, the body has the full width
+                x: Math.max(26, (parent.width - width) / 2)
+                width: Math.min(parent.width - 52, 860)
                 spacing: 12
 
                 // --- 外观 ---

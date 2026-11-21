@@ -155,7 +155,7 @@ Popup {
     contentItem: Item {
         // Cut out of the native video window (main.cpp syncVideoCovers).
         objectName: "videoCover"
-        property real coverRadius: 14
+        property real coverRadius: Theme.light ? 18 : 14
         transform: [
             Scale {
                 origin.x: pop.originX
@@ -171,7 +171,7 @@ Popup {
             id: shadowSrc
             anchors.fill: parent
             anchors.margins: 12
-            radius: 14
+            radius: Theme.light ? 18 : 14
             color: "black"
             visible: false
         }
@@ -179,7 +179,7 @@ Popup {
             source: shadowSrc
             anchors.fill: shadowSrc
             shadowEnabled: true
-            shadowColor: Qt.rgba(0, 0, 0, 0.8)
+            shadowColor: Qt.rgba(0, 0, 0, Theme.light ? 0.22 : 0.8)
             shadowBlur: 1.0
             blurMax: 50
             shadowVerticalOffset: 24
@@ -187,7 +187,7 @@ Popup {
         }
         Rectangle {
             anchors.fill: parent
-            radius: 14
+            radius: Theme.light ? 18 : 14
             color: Theme.popover
             border.width: 1
             border.color: Theme.stroke2
@@ -250,17 +250,36 @@ Popup {
                             id: optC
                             // .opt: padding 8px 10px, radius 9, hover rgba(255,255,255,.06).
                             Rectangle {
-                                implicitHeight: optRow.implicitHeight + 16
-                                radius: 9
+                                // M$M! frost: roomier rows; the chosen one sits on the soft accent
+                                // with an accent bar at its edge.
+                                readonly property bool chosen: Theme.light && pop.checks[row.index] === true
+                                implicitHeight: optRow.implicitHeight + (Theme.light ? 22 : 16)
+                                radius: Theme.light ? 12 : 9
                                 opacity: row.modelData.disabled ? 0.4 : 1
-                                color: optHover.hovered && !row.modelData.disabled ? Theme.ink(0.06) : "transparent"
+                                color: chosen ? Theme.accentSoft
+                                     : optHover.hovered && !row.modelData.disabled ? Theme.ink(0.06) : "transparent"
+                                Rectangle {
+                                    visible: parent.chosen
+                                    x: 3; width: 3; radius: 2
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    height: parent.height - 18
+                                    color: Theme.accent
+                                }
                                 RowLayout {
                                     id: optRow
                                     anchors.left: parent.left; anchors.right: parent.right
                                     anchors.verticalCenter: parent.verticalCenter
-                                    anchors.leftMargin: 10; anchors.rightMargin: 10
+                                    anchors.leftMargin: Theme.light ? 14 : 10; anchors.rightMargin: 10
                                     spacing: 10
-                                    VIcon { visible: !!row.modelData.icon; name: row.modelData.icon || ""; color: Theme.t1 }
+                                    // Frost: the option's icon in a small tile.
+                                    Rectangle {
+                                        visible: !!row.modelData.icon
+                                        implicitWidth: Theme.light ? 28 : 16
+                                        implicitHeight: Theme.light ? 28 : 16
+                                        radius: 9
+                                        color: Theme.light ? Theme.ink(0.06) : "transparent"
+                                        VIcon { anchors.centerIn: parent; name: row.modelData.icon || ""; color: Theme.t1 }
+                                    }
                                     ColumnLayout {
                                         Layout.fillWidth: true
                                         Layout.minimumWidth: 0

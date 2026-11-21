@@ -18,7 +18,7 @@ Rectangle {
     property real motionDy: 0
     transform: Translate { y: group.motionDy }
     Layout.fillWidth: true
-    radius: 12
+    radius: Theme.light ? 16 : 12
     color: Theme.card2
     border.width: 1
     border.color: Theme.stroke

@@ -1273,36 +1273,55 @@ VPage {
                 Layout.margins: 8
                 spacing: 2
                 Repeater {
+                    // M$M!: each tab an icon over its name; the open one in the accent.
                     model: [
-                        { id: "quality", label: qsTr("画质") },
-                        { id: "fg", label: qsTr("补帧") },
-                        { id: "color", label: qsTr("色彩") },
-                        { id: "audio", label: qsTr("声音") },
-                        { id: "display", label: qsTr("显示") }
+                        { id: "quality", label: qsTr("画质"), icon: "sparkles" },
+                        { id: "fg", label: qsTr("补帧"), icon: "layers" },
+                        { id: "color", label: qsTr("色彩"), icon: "palette" },
+                        { id: "audio", label: qsTr("声音"), icon: "vol" },
+                        { id: "display", label: qsTr("显示"), icon: "monitor" }
                     ]
                     delegate: Rectangle {
+                        id: tabTile
                         required property var modelData
+                        readonly property bool on: root.tab === modelData.id
                         Layout.fillWidth: true
                         implicitWidth: tabLabel.implicitWidth + 10
-                        implicitHeight: Math.max(30, tabLabel.implicitHeight + 8)
-                        radius: 9
-                        color: root.tab === modelData.id ? Theme.card3
-                             : tabHover.hovered ? Theme.ink(0.04) : "transparent"
+                        implicitHeight: Math.max(50, tabLabel.implicitHeight + 32)
+                        radius: 14
+                        color: tabTile.on ? "transparent" : tabHover.hovered ? Theme.ink(0.05) : "transparent"
                         Behavior on color { ColorAnimation { duration: Theme.d(200) } }
-                        Text {
-                            id: tabLabel
-                            width: Math.max(1, parent.width - 6)
+                        VAccentFill {
+                            anchors.fill: parent
+                            radius: parent.radius
+                            opacity: tabTile.on ? 1 : 0
+                            visible: opacity > 0
+                            Behavior on opacity { NumberAnimation { duration: Theme.d(200) } }
+                        }
+                        Column {
                             anchors.centerIn: parent
-                            horizontalAlignment: Text.AlignHCenter
-                            wrapMode: Text.Wrap
-                            text: modelData.label
-                            color: root.tab === modelData.id ? Theme.t1 : Theme.t2
-                            font.family: Theme.fontUi
-                            font.pixelSize: Theme.fsBody
-                            font.weight: Font.Medium
+                            width: parent.width - 6
+                            spacing: 3
+                            VIcon {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                name: tabTile.modelData.icon
+                                size: 17
+                                color: tabTile.on ? Theme.accentInk : Theme.t2
+                            }
+                            Text {
+                                id: tabLabel
+                                width: parent.width
+                                horizontalAlignment: Text.AlignHCenter
+                                wrapMode: Text.Wrap
+                                text: tabTile.modelData.label
+                                color: tabTile.on ? Theme.accentInk : Theme.t2
+                                font.family: Theme.fontUi
+                                font.pixelSize: 12
+                                font.weight: tabTile.on ? Font.DemiBold : Font.Medium
+                            }
                         }
                         HoverHandler { id: tabHover; cursorShape: Qt.PointingHandCursor }
-                        TapHandler { onTapped: root.tab = modelData.id }
+                        TapHandler { onTapped: root.tab = tabTile.modelData.id }
                     }
                 }
             }

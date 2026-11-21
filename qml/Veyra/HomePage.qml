@@ -232,13 +232,14 @@ VPage {
             }
             Repeater {
                 id: sourceCards
+                // M$M! frost: each source has its own colour (hue) for its icon tile.
                 model: [
-                    { glyph: "folder", title: qsTr("打开视频"), act: "file" },
-                    { glyph: "video", title: qsTr("采集卡"), act: "capture" },
-                    { glyph: "gamepad", title: qsTr("PS5 串流"), act: "ps5" },
-                    { glyph: "cast", title: qsTr("PC 串流"), act: "moonlight" },
-                    { glyph: "gamepad", title: qsTr("Xbox 串流"), act: "xbox" },
-                    { glyph: "monitor", title: qsTr("屏幕捕获"), act: "screen" }
+                    { glyph: "folder", title: qsTr("打开视频"), act: "file", hue: "#3B82F6" },
+                    { glyph: "video", title: qsTr("采集卡"), act: "capture", hue: "#0EA5A0" },
+                    { glyph: "gamepad", title: qsTr("PS5 串流"), act: "ps5", hue: "#5B5CF0" },
+                    { glyph: "cast", title: qsTr("PC 串流"), act: "moonlight", hue: "#F59E0B" },
+                    { glyph: "gamepad", title: qsTr("Xbox 串流"), act: "xbox", hue: "#16A34A" },
+                    { glyph: "monitor", title: qsTr("屏幕捕获"), act: "screen", hue: "#E0457B" }
                 ]
                 // The layout owns the slot's position, so the card inside it is free to
                 // move its own y for the hover lift (a y set on a layout child is
@@ -272,14 +273,24 @@ VPage {
                         anchors.margins: root.compact ? 8 : 14
                         spacing: 0
                         Rectangle {
-                            // .srccard .ico: 34x34, radius 10, translucent plate.
-                            implicitWidth: 34
-                            implicitHeight: 34
-                            radius: 10
-                            color: Theme.ink(0.06)
+                            // .srccard .ico: 34x34, radius 10, translucent plate. Frost: a
+                            // 40px tile in the source's colour, its icon white.
+                            implicitWidth: Theme.light && !root.compact ? 40 : 34
+                            implicitHeight: implicitWidth
+                            radius: Theme.light ? 13 : 10
+                            color: Theme.light ? "transparent" : Theme.ink(0.06)
+                            gradient: Theme.light ? hueFill : undefined
+                            Gradient {
+                                id: hueFill
+                                orientation: Gradient.Vertical
+                                GradientStop { position: 0; color: Qt.lighter(modelData.hue, 1.25) }
+                                GradientStop { position: 1; color: modelData.hue }
+                            }
                             VIcon {
                                 anchors.centerIn: parent
                                 name: modelData.glyph
+                                size: Theme.light ? 19 : 16
+                                color: Theme.light ? "#FFFFFF" : Theme.t1
                             }
                         }
                         Item { Layout.fillHeight: true }
@@ -293,8 +304,8 @@ VPage {
                                 text: modelData.title
                                 color: Theme.t1
                                 font.family: Theme.fontUi
-                                font.pixelSize: Theme.fsBody
-                                font.weight: Font.Medium
+                                font.pixelSize: Theme.light ? 14 : Theme.fsBody
+                                font.weight: Theme.light ? Font.DemiBold : Font.Medium
                             }
                             Text {
                                 Layout.fillWidth: true
