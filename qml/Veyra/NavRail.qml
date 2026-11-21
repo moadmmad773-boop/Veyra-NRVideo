@@ -19,8 +19,17 @@ Rectangle {
 
     width: 84
     radius: Theme.rCard
+    // Frost: deep blue (navy to the accent's blue) with white icons; the other looks: a card.
+    readonly property bool deep: Theme.frost
+    readonly property color fg: deep ? Qt.rgba(1, 1, 1, 0.78) : Theme.t2
     color: Theme.card
-    border.width: 1
+    gradient: deep ? railFill : undefined
+    Gradient {
+        id: railFill
+        GradientStop { position: 0; color: "#0C2350" }
+        GradientStop { position: 1; color: "#1A56C4" }
+    }
+    border.width: deep ? 0 : 1
     border.color: Theme.stroke
 
     readonly property var items: [
@@ -49,19 +58,20 @@ Rectangle {
             Rectangle {
                 anchors.fill: parent
                 radius: 14
-                color: logoHover.hovered ? Theme.ink(0.06) : "transparent"
+                color: logoHover.hovered ? (rail.deep ? Qt.rgba(1, 1, 1, 0.12) : Theme.ink(0.06)) : "transparent"
                 Behavior on color { ColorAnimation { duration: Theme.d(150) } }
             }
             Image {
                 anchors.centerIn: parent
-                source: Theme.logoImage
+                // On the deep rail a white wordmark.
+                source: rail.deep ? "logo-white.png" : Theme.logoImage
                 sourceSize.width: 52
                 fillMode: Image.PreserveAspectFit
             }
             HoverHandler { id: logoHover; cursorShape: Qt.PointingHandCursor }
             TapHandler { onTapped: rail.requestPage("home") }
         }
-        Rectangle { Layout.alignment: Qt.AlignHCenter; implicitWidth: 36; implicitHeight: 1; color: Theme.stroke2 }
+        Rectangle { Layout.alignment: Qt.AlignHCenter; implicitWidth: 36; implicitHeight: 1; color: rail.deep ? Qt.rgba(1, 1, 1, 0.18) : Theme.stroke2 }
 
         Repeater {
             model: rail.items
@@ -78,14 +88,15 @@ Rectangle {
                 Rectangle {
                     anchors.fill: parent
                     radius: 16
-                    color: entryHover.hovered && !entry.on ? Theme.ink(0.06) : "transparent"
+                    color: entry.on && rail.deep ? "#FFFFFF"
+                         : entryHover.hovered && !entry.on ? (rail.deep ? Qt.rgba(1, 1, 1, 0.12) : Theme.ink(0.06)) : "transparent"
                     Behavior on color { ColorAnimation { duration: Theme.d(150) } }
                 }
                 // The page shown: the accent (its gradient) behind a white icon and name.
                 VAccentFill {
                     anchors.fill: parent
                     radius: 16
-                    opacity: entry.on ? 1 : 0
+                    opacity: entry.on && !rail.deep ? 1 : 0
                     visible: opacity > 0
                     Behavior on opacity { NumberAnimation { duration: Theme.d(200) } }
                 }
@@ -97,7 +108,7 @@ Rectangle {
                         name: entry.modelData.icon
                         size: 20
                         strokeWidth: 1.8
-                        color: entry.on ? Theme.accentInk : Theme.t2
+                        color: entry.on ? (rail.deep ? Theme.accent : Theme.accentInk) : rail.fg
                     }
                     Text {
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -105,7 +116,7 @@ Rectangle {
                         horizontalAlignment: Text.AlignHCenter
                         elide: Text.ElideRight
                         text: entry.modelData.label
-                        color: entry.on ? Theme.accentInk : Theme.t2
+                        color: entry.on ? (rail.deep ? "#0C2350" : Theme.accentInk) : rail.fg
                         font.family: Theme.fontUi
                         font.pixelSize: 11
                         font.weight: entry.on ? Font.DemiBold : Font.Normal
@@ -136,14 +147,15 @@ Rectangle {
                     anchors.fill: parent
                     radius: 15
                     color: !whover.hovered ? "transparent"
-                         : wbtn.modelData.id === "close" ? Qt.rgba(0.9, 0.2, 0.22, 0.14) : Theme.ink(0.07)
+                         : wbtn.modelData.id === "close" ? Qt.rgba(0.9, 0.2, 0.22, rail.deep ? 0.85 : 0.14)
+                         : rail.deep ? Qt.rgba(1, 1, 1, 0.14) : Theme.ink(0.07)
                     Behavior on color { ColorAnimation { duration: Theme.d(150) } }
                 }
                 VIcon {
                     anchors.centerIn: parent
                     name: wbtn.modelData.icon
                     size: 14
-                    color: whover.hovered && wbtn.modelData.id === "close" ? Theme.err : Theme.t2
+                    color: whover.hovered && wbtn.modelData.id === "close" ? (rail.deep ? "#FFFFFF" : Theme.err) : rail.fg
                 }
                 HoverHandler { id: whover; cursorShape: Qt.PointingHandCursor }
                 ToolTip.visible: whover.hovered

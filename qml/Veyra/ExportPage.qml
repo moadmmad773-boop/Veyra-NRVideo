@@ -9,7 +9,7 @@ VPage {
     signal requestPage(string page)
     property string exportKind: "video"
     property int compactTab: 0
-    readonly property var geometry: ExportLayout.calculate(width, height, compactTab)
+    readonly property var geometry: ExportLayout.calculate(width, height, compactTab, Theme.frost)
     readonly property bool compact: geometry.compact
     property double draggedId: 0
     property int dropIndex: -1

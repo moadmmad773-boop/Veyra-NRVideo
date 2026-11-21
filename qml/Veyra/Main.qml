@@ -247,7 +247,7 @@ Window {
         case "node":
             return onPage(nodePage.videoViewport)
         case "exp":
-            return onPage(ExportLayout.calculate(pages.width, pages.height, exportPage.compactTab).video)
+            return onPage(ExportLayout.calculate(pages.width, pages.height, exportPage.compactTab, Theme.frost).video)
         default:
             return { x: 0, y: 0, width: 0, height: 0 }
         }

@@ -15,6 +15,10 @@ VPage {
     readonly property Item onboardingEntry: guideEntry
     readonly property alias sourceViewport: homeScroll
     readonly property bool compact: height < 500
+    // M$M! frost: its own start page - a banner, then the sources as wide tiles in three
+    // columns (the design's centred logo, greeting and row of small cards are not shown).
+    readonly property bool fresh: Theme.frost
+    readonly property real freshWidth: Math.min(1060, root.width - 64)
     function captureCard() {
         for (let i = 0; i < sourceCards.count; ++i) {
             const slot = sourceCards.itemAt(i)
@@ -58,9 +62,80 @@ VPage {
         // The layer is padded 40px on every side so the glow has room (a layer on the
         // bare image clips the shadow to the image's own bounds). Negative margins
         // keep the layout the same as a plain 128px image.
+        // The M$M! banner: name, what it does, the playlist and address buttons.
+        Rectangle {
+            id: hero
+            objectName: "home-hero"
+            visible: root.fresh
+            Layout.alignment: Qt.AlignHCenter
+            Layout.preferredWidth: root.freshWidth
+            implicitHeight: root.compact ? 96 : 196
+            radius: 26
+            gradient: Gradient {
+                orientation: Gradient.Horizontal
+                GradientStop { position: 0; color: "#0C2350" }
+                GradientStop { position: 0.55; color: "#1A56C4" }
+                GradientStop { position: 1; color: "#36B6FF" }
+            }
+            // Rings, all inside the banner (its corners are round, a clip would not be).
+            Rectangle { x: parent.width - 250; y: 22; width: 150; height: 150; radius: 75; color: "transparent"; border.width: 22; border.color: Qt.rgba(1, 1, 1, 0.08); visible: !root.compact }
+            Rectangle { x: parent.width - 120; y: parent.height - 92; width: 70; height: 70; radius: 35; color: Qt.rgba(1, 1, 1, 0.10); visible: !root.compact }
+            Rectangle { x: parent.width - 330; y: parent.height - 52; width: 28; height: 28; radius: 14; color: Qt.rgba(1, 1, 1, 0.16); visible: !root.compact }
+            VIcon {
+                x: parent.width - 200; y: (parent.height - height) / 2
+                visible: !root.compact
+                name: "sparkles"
+                size: 64
+                strokeWidth: 1.4
+                color: Qt.rgba(1, 1, 1, 0.55)
+            }
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.leftMargin: root.compact ? 22 : 36
+                anchors.right: parent.right
+                anchors.rightMargin: root.compact ? 22 : 300
+                anchors.verticalCenter: parent.verticalCenter
+                spacing: root.compact ? 2 : 6
+                Text {
+                    text: "M$M!"
+                    color: "#FFFFFF"
+                    font.family: Theme.fontUi
+                    font.pixelSize: root.compact ? 30 : 56
+                    font.weight: Font.Bold
+                    font.variableAxes: ({ "wght": 700 })
+                }
+                Text {
+                    Layout.fillWidth: true
+                    text: qsTr("采集 · 画质增强 · 实时翻译")
+                    color: Qt.rgba(1, 1, 1, 0.86)
+                    font.family: Theme.fontUi
+                    font.pixelSize: root.compact ? 13 : 17
+                    elide: Text.ElideRight
+                }
+                Row {
+                    visible: !root.compact
+                    Layout.topMargin: 10
+                    spacing: 10
+                    HeroButton { objectName: "home-playlist"; glyph: "list"; text: qsTr("播放列表 · 导入文件夹"); onClicked: veyra.showPlaylist() }
+                    HeroButton { objectName: "home-network"; glyph: "cast"; text: qsTr("播放地址…"); onClicked: veyra.openNetworkDialog() }
+                }
+            }
+        }
+        Text {
+            visible: root.fresh
+            Layout.preferredWidth: root.freshWidth
+            Layout.alignment: Qt.AlignHCenter
+            Layout.topMargin: root.compact ? 0 : 6
+            text: qsTr("选择片源")
+            color: Theme.t1
+            font.family: Theme.fontUi
+            font.pixelSize: root.compact ? 14 : 20
+            font.weight: Font.DemiBold; font.variableAxes: Theme.axesDemiBold
+        }
+
         Item {
             id: mark
-            visible: !Theme.dusk
+            visible: !Theme.dusk && !root.fresh
             Layout.alignment: Qt.AlignHCenter
             Layout.topMargin: -40
             Layout.bottomMargin: -40
@@ -144,6 +219,7 @@ VPage {
         // opens the sponsor section of 设置.
         ColumnLayout {
             id: hello
+            visible: !root.fresh
             Layout.alignment: Qt.AlignHCenter
             spacing: 6
             Text {
@@ -198,7 +274,7 @@ VPage {
         }
 
         VButton {
-            objectName: "home-playlist"
+            visible: !root.fresh
             Layout.alignment: Qt.AlignHCenter
             text: qsTr("播放列表 · 导入文件夹"); iconName: "list"
             onClicked: veyra.showPlaylist()
@@ -209,11 +285,14 @@ VPage {
         Flow {
             id: srcGrid
             Layout.alignment: Qt.AlignHCenter
-            Layout.preferredWidth: Math.min(1044, root.width - 48)
-            spacing: root.compact ? 8 : 12
-            readonly property int cardWidth: root.compact
+            Layout.preferredWidth: root.fresh ? root.freshWidth : Math.min(1044, root.width - 48)
+            spacing: root.compact ? 8 : root.fresh ? 14 : 12
+            // Fresh: three wide tiles a row, the icon beside the name.
+            readonly property bool wide: root.fresh && !root.compact
+            readonly property int cardWidth: wide ? Math.floor((Layout.preferredWidth - 2 * spacing) / 3)
+                : root.compact
                 ? Math.max(1, Math.min(164, Math.floor((Layout.preferredWidth - 5 * spacing) / 6))) : 164
-            readonly property int cardHeight: root.compact ? 80 : 124
+            readonly property int cardHeight: wide ? 96 : root.compact ? 80 : 124
             // Subtitles name what is really there: the device of the last capture
             // session and the saved PS5 host; generic wording when there is none.
             // Only the subtitle follows the live state. The cards themselves are a fixed
@@ -258,26 +337,31 @@ VPage {
                     // .srccard: 164x124, radius 14, content pinned top and bottom.
                     width: slot.width
                     height: slot.height
-                    radius: Theme.rCard
+                    radius: srcGrid.wide ? 22 : Theme.rCard
                     color: cardHover.hovered ? Theme.card2 : Theme.card
-                    border.width: 1
-                    border.color: cardHover.hovered ? Theme.stroke2 : Theme.stroke
+                    border.width: srcGrid.wide && cardHover.hovered ? 2 : 1
+                    border.color: srcGrid.wide && cardHover.hovered ? srcCard.modelData.hue
+                                : cardHover.hovered ? Theme.stroke2 : Theme.stroke
                     // .srccard:hover { transform: translateY(-4px) }
                     y: cardHover.hovered ? -4 : 0
                     Behavior on y { NumberAnimation { duration: Theme.d(500); easing.bezierCurve: Theme.spring } }
                     scale: cardTap.pressed ? 0.97 : 1.0
                     Behavior on scale { NumberAnimation { duration: Theme.d(500); easing.bezierCurve: Theme.spring } }
 
-                    ColumnLayout {
+                    // One column (icon over the name) or, wide, two (icon beside it).
+                    GridLayout {
                         anchors.fill: parent
-                        anchors.margins: root.compact ? 8 : 14
-                        spacing: 0
+                        anchors.margins: root.compact ? 8 : srcGrid.wide ? 18 : 14
+                        columns: srcGrid.wide ? 3 : 1
+                        columnSpacing: 16
+                        rowSpacing: 0
                         Rectangle {
+                            Layout.alignment: srcGrid.wide ? Qt.AlignVCenter : Qt.AlignLeft | Qt.AlignTop
                             // .srccard .ico: 34x34, radius 10, translucent plate. Frost: a
                             // 40px tile in the source's colour, its icon white.
-                            implicitWidth: Theme.light && !root.compact ? 40 : 34
+                            implicitWidth: srcGrid.wide ? 54 : Theme.light && !root.compact ? 40 : 34
                             implicitHeight: implicitWidth
-                            radius: Theme.light ? 13 : 10
+                            radius: srcGrid.wide ? 17 : Theme.light ? 13 : 10
                             color: Theme.light ? srcCard.modelData.hue : Theme.ink(0.06)
                             // A soft light from the top (fixed stops: a gradient bound to the
                             // card's own colour did not draw on the CI screenshots).
@@ -293,12 +377,14 @@ VPage {
                             VIcon {
                                 anchors.centerIn: parent
                                 name: modelData.glyph
-                                size: Theme.light ? 19 : 16
+                                size: srcGrid.wide ? 24 : Theme.light ? 19 : 16
                                 color: Theme.light ? "#FFFFFF" : Theme.t1
                             }
                         }
-                        Item { Layout.fillHeight: true }
+                        Item { Layout.fillHeight: true; visible: !srcGrid.wide }
                         ColumnLayout {
+                            Layout.fillWidth: true
+                            Layout.alignment: Qt.AlignVCenter
                             spacing: 3
                             Text {
                                 Layout.fillWidth: true
@@ -308,7 +394,7 @@ VPage {
                                 text: modelData.title
                                 color: Theme.t1
                                 font.family: Theme.fontUi
-                                font.pixelSize: Theme.light ? 14 : Theme.fsBody
+                                font.pixelSize: srcGrid.wide ? 17 : Theme.light ? 14 : Theme.fsBody
                                 font.weight: Theme.light ? Font.DemiBold : Font.Medium
                             }
                             Text {
@@ -319,8 +405,17 @@ VPage {
                                 text: srcGrid.cardSub(modelData.act)
                                 color: Theme.t3
                                 font.family: Theme.fontUi
-                                font.pixelSize: Theme.fsSmall
+                                font.pixelSize: srcGrid.wide ? 13 : Theme.fsSmall
                             }
+                        }
+                        // Wide tiles: an arrow in the source's colour at the right.
+                        Rectangle {
+                            visible: srcGrid.wide
+                            Layout.alignment: Qt.AlignVCenter
+                            implicitWidth: 30; implicitHeight: 30; radius: 15
+                            color: cardHover.hovered ? srcCard.modelData.hue : Theme.ink(0.05)
+                            Behavior on color { ColorAnimation { duration: Theme.d(150) } }
+                            VIcon { anchors.centerIn: parent; name: "right"; size: 14; color: cardHover.hovered ? "#FFFFFF" : Theme.t3 }
                         }
                     }
                     // PS5 手柄控制 is switched on for the capture card.
@@ -355,7 +450,7 @@ VPage {
         }
 
         VButton {
-            objectName: "home-network"
+            visible: !root.fresh
             Layout.alignment: Qt.AlignHCenter
             text: qsTr("播放地址…")
             iconName: "cast"
@@ -547,7 +642,59 @@ VPage {
         }
     }
 
+    // A glass pill on the banner.
+    component HeroButton: Rectangle {
+        id: hb
+        property string glyph: ""
+        property string text: ""
+        signal clicked()
+        implicitWidth: hbRow.implicitWidth + 30
+        implicitHeight: 38
+        radius: 19
+        color: hbHover.hovered ? Qt.rgba(1, 1, 1, 0.30) : Qt.rgba(1, 1, 1, 0.18)
+        border.width: 1
+        border.color: Qt.rgba(1, 1, 1, 0.35)
+        Behavior on color { ColorAnimation { duration: Theme.d(150) } }
+        scale: hbTap.pressed ? 0.96 : 1
+        Behavior on scale { NumberAnimation { duration: Theme.d(300); easing.bezierCurve: Theme.spring } }
+        Row {
+            id: hbRow
+            anchors.centerIn: parent
+            spacing: 8
+            VIcon { anchors.verticalCenter: parent.verticalCenter; name: hb.glyph; size: 15; color: "#FFFFFF" }
+            Text { anchors.verticalCenter: parent.verticalCenter; text: hb.text; color: "#FFFFFF"; font.family: Theme.fontUi; font.pixelSize: 14; font.weight: Font.Medium }
+        }
+        HoverHandler { id: hbHover; cursorShape: Qt.PointingHandCursor }
+        TapHandler { id: hbTap; onTapped: hb.clicked() }
+    }
+
+    // Fresh: the coffee line at the foot, right (the greeting that carried it is not shown).
+    Item {
+        visible: root.fresh
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.margins: 18
+        implicitWidth: footSponsor.implicitWidth
+        implicitHeight: footSponsor.implicitHeight
+        Row {
+            id: footSponsor
+            spacing: 5
+            VIcon { anchors.verticalCenter: parent.verticalCenter; name: "coffee"; size: 13; color: Theme.accent }
+            Text {
+                anchors.verticalCenter: parent.verticalCenter
+                text: qsTr("请作者喝杯咖啡")
+                color: footHover.hovered ? Theme.accent : Theme.t3
+                font.family: Theme.fontUi
+                font.pixelSize: 12
+                font.underline: footHover.hovered
+            }
+        }
+        HoverHandler { id: footHover; cursorShape: Qt.PointingHandCursor }
+        TapHandler { onTapped: { veyra.logUi("ui-sponsor", "home foot"); root.requestSponsor() } }
+    }
+
     // [data-in] entrance order from pages-a.js (the source cards rise from their delegate, --d 2-5).
+    VRise { target: hero; d: 0 }
     VRise { target: mark; d: 0 }
     VRise { target: hello; d: 1 }
     VRise { target: resume; d: 6 }

@@ -37339,6 +37339,19 @@
    "ru": "Выбрать папку снимков экрана"
   },
   {
+   "zh": "选择片源",
+   "src": "qml/HomePage.qml",
+   "zh-TW": "選擇片源",
+   "en": "Choose a source",
+   "ja": "ソースを選択",
+   "ko": "소스 선택",
+   "es": "Elige una fuente",
+   "fr": "Choisissez une source",
+   "de": "Quelle wählen",
+   "pt-BR": "Escolha uma fonte",
+   "ru": "Выберите источник"
+  },
+  {
    "zh": "选择要处理的图片",
    "src": "src/ui/bridge/Export.cpp",
    "zh-TW": "選擇要處理的圖片",
@@ -37714,6 +37727,19 @@
    "de": "Aufnahme",
    "pt-BR": "Captura",
    "ru": "Захват"
+  },
+  {
+   "zh": "采集 · 画质增强 · 实时翻译",
+   "src": "qml/HomePage.qml",
+   "zh-TW": "擷取 · 畫質增強 · 即時翻譯",
+   "en": "Capture · Enhance · Live translation",
+   "ja": "キャプチャ · 画質向上 · ライブ翻訳",
+   "ko": "캡처 · 화질 향상 · 실시간 번역",
+   "es": "Captura · Mejora · Traducción en vivo",
+   "fr": "Capture · Amélioration · Traduction en direct",
+   "de": "Aufnahme · Verbesserung · Live-Übersetzung",
+   "pt-BR": "Captura · Melhoria · Tradução ao vivo",
+   "ru": "Захват · Улучшение · Живой перевод"
   },
   {
    "zh": "采集: 接收 %1 丢弃 %2 速率 %3 fps",

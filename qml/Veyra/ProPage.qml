@@ -551,7 +551,10 @@ VPage {
     readonly property bool showMeters: root.onboardingActive || pictureSpace >= metersHeight + 10 + 80
     readonly property real videoCardHeight: Math.max(transport.height + 1,
         pictureSpace + transport.height - (showMeters ? metersHeight + 10 : 0))
-    readonly property rect videoViewport: Qt.rect(14, 14 + head.height + 10,
+    // M$M! frost: the parameter panel on the left, the picture and its meters on the right.
+    readonly property bool panelLeft: Theme.frost
+    readonly property real videoX: panelLeft ? 14 + root.inspectorWidth + 10 : 14
+    readonly property rect videoViewport: Qt.rect(root.videoX, 14 + head.height + 10,
         root.videoColumnWidth, root.videoCardHeight - transport.height)
 
     // --- video + transport bar -------------------------------------------
@@ -559,7 +562,7 @@ VPage {
         id: vwrap
         visible: !root.overlay
         anchors.left: parent.left
-        anchors.leftMargin: 14
+        anchors.leftMargin: root.videoX
         anchors.top: head.bottom
         anchors.topMargin: 10
         width: root.videoColumnWidth
@@ -1190,7 +1193,7 @@ VPage {
         id: inspectorSplit
         objectName: "pro-inspector-split"
         visible: !root.overlay
-        x: insp.x - 10
+        x: root.panelLeft ? insp.x + insp.width : insp.x - 10
         y: insp.y
         width: 10
         height: insp.height
@@ -1206,7 +1209,8 @@ VPage {
         }
         onPositionChanged: mouse => {
             if (!pressed) return
-            root.inspectorDrag = Math.max(376, Math.min(root.inspectorMax, pressWidth - (mapToItem(root, mouse.x, 0).x - pressX)))
+            const moved = mapToItem(root, mouse.x, 0).x - pressX
+            root.inspectorDrag = Math.max(376, Math.min(root.inspectorMax, pressWidth + (root.panelLeft ? moved : -moved)))
         }
         onReleased: {
             const width = Math.round(root.inspectorWidth)
@@ -1239,8 +1243,10 @@ VPage {
         objectName: "pro-inspector"
         readonly property bool videoCover: root.overlay
         property real coverRadius: radius
-        anchors.right: parent.right
+        anchors.right: root.panelLeft ? undefined : parent.right
         anchors.rightMargin: 14
+        anchors.left: root.panelLeft ? parent.left : undefined
+        anchors.leftMargin: 14
         anchors.top: head.bottom
         anchors.topMargin: 10
         anchors.bottom: parent.bottom

@@ -95,10 +95,27 @@ Rectangle {
     // Swallow presses on the panel itself so they never reach the scrim
     // below (a passive tap on a control used to close the whole dialog).
     MouseArea { anchors.fill: parent; acceptedButtons: Qt.AllButtons; z: -1 }
-    radius: 16
+    radius: Theme.frost ? 24 : 16
     color: Theme.dialog
-    border.width: 1
+    border.width: Theme.frost ? 0 : 1
     border.color: Theme.stroke2
+
+    // M$M! frost: the title sits on a deep blue band across the top.
+    Rectangle {
+        visible: Theme.frost
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        height: header.implicitHeight + 32
+        topLeftRadius: dlg.radius
+        topRightRadius: dlg.radius
+        gradient: Gradient {
+            orientation: Gradient.Horizontal
+            GradientStop { position: 0; color: "#0C2350" }
+            GradientStop { position: 0.6; color: "#1A56C4" }
+            GradientStop { position: 1; color: "#36B6FF" }
+        }
+    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -110,9 +127,9 @@ Rectangle {
             Layout.margins: 16
             spacing: 12
             Rectangle {
-                implicitWidth: 34; implicitHeight: 34; radius: 10
-                color: Theme.ink(0.06)
-                VIcon { anchors.centerIn: parent; name: dlg.glyph }
+                implicitWidth: 34; implicitHeight: 34; radius: Theme.frost ? 17 : 10
+                color: Theme.frost ? Qt.rgba(1, 1, 1, 0.18) : Theme.ink(0.06)
+                VIcon { anchors.centerIn: parent; name: dlg.glyph; color: Theme.frost ? "#FFFFFF" : Theme.t1 }
             }
             ColumnLayout {
                 Layout.fillWidth: true
@@ -124,7 +141,7 @@ Rectangle {
                     Layout.fillWidth: true
                     elide: Text.ElideRight
                     text: dlg.title
-                    color: Theme.t1
+                    color: Theme.frost ? "#FFFFFF" : Theme.t1
                     font.family: Theme.fontUi
                     font.pixelSize: Theme.fsH2
                     font.weight: Font.DemiBold; font.variableAxes: Theme.axesDemiBold
@@ -133,13 +150,22 @@ Rectangle {
                     Layout.fillWidth: true
                     visible: dlg.sub.length > 0
                     text: dlg.sub
-                    color: Theme.t3
+                    color: Theme.frost ? Qt.rgba(1, 1, 1, 0.8) : Theme.t3
                     font.family: Theme.fontUi
                     font.pixelSize: 12
                     wrapMode: Text.WordWrap
                 }
             }
-            VButton { icon: true; iconName: "x"; ghost: true; onClicked: dialogHost.close() }
+            VButton { visible: !Theme.frost; icon: true; iconName: "x"; ghost: true; onClicked: dialogHost.close() }
+            // Frost: a white close button on the band.
+            Rectangle {
+                visible: Theme.frost
+                implicitWidth: 32; implicitHeight: 32; radius: 16
+                color: closeHover.hovered ? Qt.rgba(1, 1, 1, 0.28) : Qt.rgba(1, 1, 1, 0.14)
+                VIcon { anchors.centerIn: parent; name: "x"; size: 14; color: "#FFFFFF" }
+                HoverHandler { id: closeHover; cursorShape: Qt.PointingHandCursor }
+                TapHandler { onTapped: dialogHost.close() }
+            }
         }
 
         Flickable {

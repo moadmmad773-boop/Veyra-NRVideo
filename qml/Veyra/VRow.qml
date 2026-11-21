@@ -10,8 +10,12 @@ Item {
     // Narrow panels with a wide control (导出 输出设置): the hint runs under the
     // whole row instead of being squeezed beside the control.
     property bool hintBelow: false
+    // M$M! frost: a row in a group's tray is its own white tile, padded inside.
+    readonly property bool tiled: Theme.frost && parent !== null && parent.objectName === "vgroup-body"
+    readonly property int pad: tiled ? 14 : 0
+    readonly property int vpad: tiled ? 7 : 0
     // Width left for the label and hint beside the control.
-    readonly property real textRoom: width - slot.visibleControlWidth - (value.length ? 52 : 0) - 12
+    readonly property real textRoom: width - 2 * pad - slot.visibleControlWidth - (value.length ? 52 : 0) - 12
     readonly property bool stacked: width > 0 && textRoom < Math.min(170, labelMetrics.advanceWidth(label))
     // Longer translations widen the control; a long hint left beside it would be
     // squeezed into a narrow column, so it also runs under the row then.
@@ -35,14 +39,23 @@ Item {
     // A hint that wraps (narrow panels) grows the row instead of running into
     // the next one.
     implicitHeight: Math.max(Theme.rowMinHeight, mainRow.implicitHeight + 8)
-        + (hintUnder ? belowHint.implicitHeight + 6 : 0)
+        + (hintUnder ? belowHint.implicitHeight + 6 : 0) + 2 * vpad
     Layout.preferredHeight: implicitHeight
     Layout.fillWidth: true
+    Rectangle {
+        anchors.fill: parent
+        visible: row.tiled
+        radius: 14
+        color: Theme.card
+    }
     GridLayout {
         id: mainRow
         anchors.left: parent.left
         anchors.right: parent.right
+        anchors.leftMargin: row.pad
+        anchors.rightMargin: row.pad
         anchors.top: parent.top
+        anchors.topMargin: row.vpad + (row.tiled ? 4 : 0)
         columns: row.stacked ? 2 : 3
         columnSpacing: 12
         rowSpacing: 6
@@ -95,6 +108,8 @@ Item {
         visible: row.hintUnder
         anchors.left: parent.left
         anchors.right: parent.right
+        anchors.leftMargin: row.pad
+        anchors.rightMargin: row.pad
         anchors.top: mainRow.bottom
         anchors.topMargin: 6
         text: row.hint

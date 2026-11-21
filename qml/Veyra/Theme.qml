@@ -166,9 +166,13 @@ QtObject {
     // Per interface language (Qt.uiLanguage, set by the bridge): Japanese kana and kanji
     // and Traditional characters read best in their own Windows UI fonts.
     // Korean uses Windows' Hangul UI font instead of Simplified Chinese glyph fallback.
+    // M$M! frost: Bahnschrift (Windows' own DIN-style variable font, in every Windows
+    // 10/11) in place of Noto Sans SC, for Latin-script interface languages; it has the
+    // same wght axis, so the DemiBold axes below still apply.
     readonly property string fontUi: Qt.uiLanguage === "ja" ? "Yu Gothic UI"
                                    : Qt.uiLanguage === "ko" ? "Malgun Gothic"
-                                   : Qt.uiLanguage === "zh-TW" ? "Microsoft JhengHei UI" : "Noto Sans SC"
+                                   : Qt.uiLanguage === "zh-TW" ? "Microsoft JhengHei UI"
+                                   : frost && !Qt.uiLanguage.startsWith("zh") ? "Bahnschrift" : "Noto Sans SC"
     readonly property var axesDemiBold: ({ "wght": 600 })
     // 500: the design's .seek .peek time strip is `font: 500 11px/1 var(--f-mono)`.
     // Same reason as DemiBold - 600 lands on a thin instance, so the axis is set
