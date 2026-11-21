@@ -46,7 +46,8 @@ $shots = @(
     @{ name = '11-home-sky'; args = @('--page', 'home', '--pref-at', '300', 'palette', 'sky') },
     @{ name = '12-menu'; args = @('--page', 'pro', '--menu', 'source', '--video-probe', 'hidden') },
     @{ name = '13-min-dock'; args = @('--page', 'min', '--dock-pinned') },
-    @{ name = '14-settings-play'; args = @('--page', 'set', '--pref-at', '300', 'palette', 'frost') }
+    @{ name = '14-settings-play'; args = @('--page', 'set', '--pref-at', '300', 'palette', 'frost') },
+    @{ name = '15-export-dialog'; args = @('--page', 'exp', '--dialog', 'save', '--video-probe', 'hidden') }
 )
 foreach ($s in $shots) {
     $data = Join-Path $env:RUNNER_TEMP ("shot-data-" + $s.name)
