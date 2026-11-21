@@ -139,13 +139,25 @@ Env OPENSSL_ROOT $ssl
 # --- VI Translator's offline translator: ONNX Runtime + OPUS-MT en->ar -----------
 # ONNX Runtime (MIT): the C API header to build against, onnxruntime.dll for the package.
 $ortRoot = $null
+# The Microsoft.ML.OnnxRuntime NuGet package: the C API headers (build/native/include) and the
+# Windows x64 runtime (runtimes/win-x64/native), laid out here as include/ + lib/.
 foreach ($v in '1.22.0', '1.21.0', '1.20.1') {
-    $oz = Join-Path $deps "onnxruntime-$v.zip"
+    $pkg = Join-Path $deps "onnxruntime-$v.nupkg.zip"
     try {
-        Invoke-WebRequest "https://github.com/microsoft/onnxruntime/releases/download/v$v/onnxruntime-win-x64-$v.zip" -OutFile $oz
-        7z x $oz "-o$(Join-Path $deps 'ort')" -y | Out-Null
-        $ortRoot = Join-Path $deps "ort/onnxruntime-win-x64-$v"
-        Write-Host ("onnxruntime {0} sha256 {1}" -f $v, (Get-FileHash $oz -Algorithm SHA256).Hash)
+        Invoke-WebRequest "https://www.nuget.org/api/v2/package/Microsoft.ML.OnnxRuntime/$v" -OutFile $pkg
+        $x = Join-Path $deps "ort-nuget-$v"
+        7z x $pkg "-o$x" -y | Out-Null
+        $root = Join-Path $deps "ort/onnxruntime-$v"
+        New-Item -ItemType Directory -Force (Join-Path $root 'include'), (Join-Path $root 'lib') | Out-Null
+        Copy-Item (Join-Path $x 'build/native/include/*') (Join-Path $root 'include') -Recurse
+        Copy-Item (Join-Path $x 'runtimes/win-x64/native/onnxruntime.dll') (Join-Path $root 'lib')
+        foreach ($n in 'LICENSE', 'ThirdPartyNotices.txt') {
+            $f = Get-ChildItem $x -Filter $n -ErrorAction SilentlyContinue | Select-Object -First 1
+            if ($f) { Copy-Item $f.FullName (Join-Path $root $n) }
+        }
+        $ortRoot = $root
+        Write-Host ("onnxruntime {0} (NuGet) sha256 {1}; dll sha256 {2}" -f $v, (Get-FileHash $pkg -Algorithm SHA256).Hash,
+            (Get-FileHash (Join-Path $root 'lib/onnxruntime.dll') -Algorithm SHA256).Hash)
         break
     } catch { Write-Host "onnxruntime $v not fetched: $_" }
 }
