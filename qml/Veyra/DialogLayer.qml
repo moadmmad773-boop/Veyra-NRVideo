@@ -106,7 +106,8 @@ Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.top: parent.top
-        height: header.implicitHeight + 32
+        // The band ends 16px under the header as it is laid out (its margins).
+        height: header.y + header.height + 16
         topLeftRadius: dlg.radius
         topRightRadius: dlg.radius
         gradient: Gradient {

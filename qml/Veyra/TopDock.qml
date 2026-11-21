@@ -13,6 +13,9 @@ import QtQuick.Layouts
 
 Item {
     id: dockRoot
+    // M$M! frost: the dock is deep blue like the rail, its icons white.
+    readonly property bool deep: Theme.frost
+    readonly property color fg: deep ? "#FFFFFF" : Theme.inkStrong
     z: 40
     anchors.top: parent ? parent.top : undefined
     width: parent ? parent.width : 0
@@ -94,9 +97,10 @@ Item {
         implicitWidth: content.implicitWidth + 20
         height: 44
         radius: height / 2
-        color: Theme.shade(0, 0, 0)
+        // M$M! frost: deep blue like the rail, white icons.
+        color: dockRoot.deep ? "#0F2B63" : Theme.shade(0, 0, 0)
         border.width: 1
-        border.color: Theme.ink(0.1)
+        border.color: dockRoot.deep ? Qt.rgba(1, 1, 1, 0.14) : Theme.ink(0.1)
         // Over the picture on the cinema page: cut out of the video window.
         objectName: "videoCover"
         property real coverRadius: height / 2
@@ -131,12 +135,12 @@ Item {
                 Rectangle {
                     anchors.fill: parent
                     radius: height / 2
-                    color: logoHover.hovered ? Theme.shade(26, 26, 31) : Theme.shade(26, 26, 31, 0)
+                    color: logoHover.hovered ? (dockRoot.deep ? Qt.rgba(1, 1, 1, 0.14) : Theme.shade(26, 26, 31)) : "transparent"
                     Behavior on color { ColorAnimation { duration: Theme.d(200) } }
                 }
                 Image {
                     anchors.centerIn: parent
-                    source: Theme.logoImage
+                    source: dockRoot.deep ? "logo-white.png" : Theme.logoImage
                     sourceSize.width: 26
                     fillMode: Image.PreserveAspectFit
                 }
@@ -148,7 +152,7 @@ Item {
             }
 
             // .dock-sep
-            Rectangle { implicitWidth: 1; implicitHeight: 16; color: Theme.ink(0.14) }
+            Rectangle { implicitWidth: 1; implicitHeight: 16; color: dockRoot.deep ? Qt.rgba(1, 1, 1, 0.2) : Theme.ink(0.14) }
 
             // .dock-items with the sliding .dock-ind behind the active button.
             Item {
@@ -160,7 +164,7 @@ Item {
                     height: 30
                     radius: 999
                     // Frost: the page's button sits on a soft accent pill and takes the accent.
-                    color: Theme.light ? Theme.accentSoft : Theme.shade(38, 38, 45)
+                    color: dockRoot.deep ? "#FFFFFF" : Theme.light ? Theme.accentSoft : Theme.shade(38, 38, 45)
                     x: {
                         let idx = 0
                         for (let i = 0; i < dockRoot.items.length; ++i)
@@ -189,7 +193,7 @@ Item {
                                 anchors.centerIn: parent
                                 name: btn.modelData.icon
                                 strokeWidth: 1.7
-                                color: Theme.light && dockRoot.currentPage === btn.modelData.id ? Theme.accent : Theme.inkStrong
+                                color: Theme.light && dockRoot.currentPage === btn.modelData.id ? Theme.accent : dockRoot.fg
                                 opacity: dockRoot.currentPage === btn.modelData.id || tip.on ? 1.0 : 0.45
                                 Behavior on opacity { NumberAnimation { duration: Theme.d(200) } }
                             }
@@ -240,7 +244,7 @@ Item {
                 }
             }
 
-            Rectangle { implicitWidth: 1; implicitHeight: 16; color: Theme.ink(0.14) }
+            Rectangle { implicitWidth: 1; implicitHeight: 16; color: dockRoot.deep ? Qt.rgba(1, 1, 1, 0.2) : Theme.ink(0.14) }
 
             // Show / hide the cinema pill (field request 2026-10-01). Only where the pill lives.
             Item {
@@ -253,7 +257,7 @@ Item {
                 VIcon {
                     anchors.centerIn: parent
                     name: dockRoot.pillHidden ? "eye" : "eyeoff"
-                    color: Theme.inkStrong
+                    color: dockRoot.fg
                     opacity: pillHover.hovered ? 1.0 : 0.45
                 }
                 Rectangle {
@@ -292,7 +296,7 @@ Item {
                 VDot { anchors.centerIn: parent; off: !veyra.running; warn: veyra.captureRecovering }
             }
 
-            Rectangle { implicitWidth: 1; implicitHeight: 16; color: Theme.ink(0.14) }
+            Rectangle { implicitWidth: 1; implicitHeight: 16; color: dockRoot.deep ? Qt.rgba(1, 1, 1, 0.2) : Theme.ink(0.14) }
 
             // Window controls: minimize, maximize/restore, close.
             Repeater {
@@ -312,14 +316,15 @@ Item {
                     Rectangle {
                         anchors.fill: parent
                         radius: height / 2
-                        color: whover.hovered ? (wbtn.modelData.id === "close" ? Qt.rgba(1, 0.365, 0.365, 0.22) : Theme.shade(26, 26, 31)) : "transparent"
+                        color: whover.hovered ? (wbtn.modelData.id === "close" ? Qt.rgba(1, 0.365, 0.365, 0.22)
+                                                 : dockRoot.deep ? Qt.rgba(1, 1, 1, 0.14) : Theme.shade(26, 26, 31)) : "transparent"
                         Behavior on color { ColorAnimation { duration: Theme.d(200) } }
                     }
                     VIcon {
                         anchors.centerIn: parent
                         name: wbtn.modelData.icon
                         size: 13
-                        color: whover.hovered && wbtn.modelData.id === "close" ? (Theme.light ? "#D92D33" : "#FF8A8A") : Theme.inkStrong
+                        color: whover.hovered && wbtn.modelData.id === "close" ? (dockRoot.deep ? "#FF8A8A" : Theme.light ? "#D92D33" : "#FF8A8A") : dockRoot.fg
                         opacity: whover.hovered ? 1.0 : 0.45
                         Behavior on opacity { NumberAnimation { duration: Theme.d(200) } }
                     }

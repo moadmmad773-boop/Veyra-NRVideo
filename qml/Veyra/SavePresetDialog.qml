@@ -9,8 +9,10 @@ DialogLayer {
     key: "save"
     glyph: "plus"
     readonly property string kindLabel: veyra.nodeMode === 1 ? qsTr("节点") : qsTr("列表")
-    title: qsTr("另存为") + kindLabel + qsTr("预设")
-    sub: kindLabel + qsTr("预设和") + (veyra.nodeMode === 1 ? qsTr("列表") : qsTr("节点")) + qsTr("预设分开保存，互不影响；应用时只覆盖勾选的部分")
+    // Chinese and Japanese join the words; the other languages need spaces between them.
+    readonly property string gap: Qt.uiLanguage.startsWith("zh") || Qt.uiLanguage === "ja" ? "" : " "
+    title: qsTr("另存为") + gap + kindLabel + gap + qsTr("预设")
+    sub: kindLabel + gap + qsTr("预设和") + gap + (veyra.nodeMode === 1 ? qsTr("列表") : qsTr("节点")) + gap + qsTr("预设分开保存，互不影响；应用时只覆盖勾选的部分")
     dialogWidth: 580
     // presets.js currentItems: what the chain holds right now, one row per
     // node, with the parameters that matter.
@@ -93,7 +95,7 @@ DialogLayer {
             font.pixelSize: 11
         }
     }
-    DialogSection { text: qsTr("将保存的内容 · 当前正在使用的") + saveDialog.kindLabel + qsTr("设置") }
+    DialogSection { text: qsTr("将保存的内容 · 当前正在使用的") + saveDialog.gap + saveDialog.kindLabel + saveDialog.gap + qsTr("设置") }
     // .savelist: every node, a green dot when it runs; the list dims when
     // the effect chain itself is not part of the preset.
     ColumnLayout {
@@ -145,7 +147,7 @@ DialogLayer {
             model: saveDialog.shown ? saveDialog.parts : []
             delegate: VRow {
                 required property var modelData
-                label: qsTr("包含") + modelData.label
+                label: qsTr("包含") + saveDialog.gap + modelData.label
                 hint: modelData.summary
                 VSwitch {
                     objectName: "preset-part-" + modelData.id

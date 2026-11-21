@@ -27771,6 +27771,32 @@
    "ru": "Нажмите, чтобы получить идентификатор учетной записи и скопируйте результат здесь. Принимает цифровой идентификатор или 8-байтовый Base64, а не ваш псевдоним PSN."
   },
   {
+   "zh": "点右侧文件可重新预览（会和导出抢显卡）",
+   "src": "qml/ExportPage.qml",
+   "zh-TW": "點右側檔案可重新預覽（會和匯出搶顯示卡）",
+   "en": "Click a file on the right to preview it again (it competes with the export for the GPU)",
+   "ja": "右のファイルをクリックすると再びプレビューできます（書き出しと GPU を取り合います）",
+   "ko": "오른쪽 파일을 누르면 다시 미리 볼 수 있습니다. 내보내기와 GPU 자원을 나눠 사용합니다.",
+   "es": "Haga clic en un archivo a la derecha para previsualizarlo de nuevo (compite con la exportación por la GPU)",
+   "fr": "Cliquez sur un fichier à droite pour le prévisualiser à nouveau (il rivalise avec l’exportation pour le GPU)",
+   "de": "Klicken Sie rechts auf eine Datei, um sie erneut anzuzeigen (sie konkurriert mit dem Export um die GPU)",
+   "pt-BR": "Clique em um arquivo à direita para visualizá-lo novamente (compete com a exportação pela GPU)",
+   "ru": "Нажмите на файл справа, чтобы снова просмотреть его (он конкурирует с экспортом за GPU)"
+  },
+  {
+   "zh": "点右侧文件预览",
+   "src": "qml/ExportPage.qml",
+   "zh-TW": "點右側檔案預覽",
+   "en": "Click a file on the right to preview",
+   "ja": "右のファイルをクリックしてプレビュー",
+   "ko": "미리 보려면 오른쪽의 파일을 클릭하세요.",
+   "es": "Haga clic en un archivo a la derecha para previsualizar",
+   "fr": "Cliquez sur un fichier à droite pour prévisualiser",
+   "de": "Klicken Sie rechts auf eine Datei zur Vorschau",
+   "pt-BR": "Clique em um arquivo à direita para visualizar",
+   "ru": "Нажмите файл справа для предварительного просмотра"
+  },
+  {
    "zh": "点左侧文件可重新预览（会和导出抢显卡）",
    "src": "qml/ExportPage.qml",
    "zh-TW": "點左側檔案可重新預覽（會和匯出搶顯示卡）",
@@ -41302,6 +41328,19 @@
    "de": "Behält die Schriftgröße standardmäßig; wenn eingeschaltet, schrumpft nur über die Zielanzahl von Zeilen hinaus",
    "pt-BR": "Mantém o tamanho da fonte por omissão; quando ligado, encolhe apenas para além do número de linhas alvo",
    "ru": "Сохраняет размер шрифта по умолчанию; при включении сжимается только за пределами целевого количества строк"
+  },
+  {
+   "zh": "默认保留全部轨道；点击右侧文件可单独选择。",
+   "src": "qml/ExportPage.qml",
+   "zh-TW": "預設保留全部軌道；點擊右側檔案可單獨選擇。",
+   "en": "Keeps all tracks by default; click a file on the right to choose separately.",
+   "ja": "既定ではすべてのトラックを保持します。右のファイルをクリックすると個別に選べます。",
+   "ko": "기본적으로 모든 트랙을 유지합니다. 별도로 선택하려면 오른쪽의 파일을 클릭하세요.",
+   "es": "Mantiene todas las pistas por defecto; haga clic en un archivo a la derecha para elegir por separado.",
+   "fr": "Conserve toutes les pistes par défaut ; cliquez sur un fichier à droite pour choisir séparément.",
+   "de": "Behält standardmäßig alle Spuren; klicken Sie rechts auf eine Datei, um separat auszuwählen.",
+   "pt-BR": "Mantém todas as faixas por padrão; clique em um arquivo à direita para escolher separadamente.",
+   "ru": "Сохраняет все треки по умолчанию; щелкните файл справа, чтобы выбрать отдельно."
   },
   {
    "zh": "默认保留全部轨道；点击左侧文件可单独选择。",
