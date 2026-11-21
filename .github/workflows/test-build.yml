@@ -19,7 +19,7 @@ concurrency:
 env:
   SOURCE_REF: custom/mmm
   # 'true': publish the package as the "mmm" pre-release; otherwise build, test and report only.
-  PUBLISH: 'false'
+  PUBLISH: 'true'
 
   OFFICIAL_TAG: v2.2.0
   DEPS: D:\deps
@@ -101,16 +101,16 @@ jobs:
           - **MMM-2.2.0-NVIDIA.zip**: the full program. Unzip into a new folder and run **M`$M!.exe**.
           - **MMM-update.zip**: only the changed files. Unzip over a folder that already has this program (replace files), then run **M`$M!.exe**.
 
-          What changed: a new face on the default look - Bahnschrift type, a deep blue page rail, a new start page (banner, wide source tiles), settings rows as tiles, dialogs with a blue title band, Pro mode and Export mirrored; translation the way VI Translator does it (offline OPUS-MT English -> Arabic in the package).
+          What changed: the Arena look, the only one now - a dark game-HUD interface (blue-black panels on a faint cyan grid, sharp corners with accent brackets, capitals for headings and tabs), every control redrawn (ON/OFF switches, separate option boxes, field selects, bar knobs), a flush side strip, a full-width top bar and a two-deck control console in the cinema page, dialogs as sheets on the right, segmented gauges; translation the way VI Translator does it (offline OPUS-MT English -> Arabic in the package).
 
-          **التغييرات:** شكل جديد كلياً: خط جديد، وشريط جانبي أزرق غامق، وصفحة رئيسية جديدة (بانر ومربعات عريضة للمصادر)، وكل إعداد في بطاقة لحاله، ونوافذ بشريط عنوان أزرق، والوضع الاحترافي والتصدير معكوسين · والترجمة بطريقة vi-translator بدون إنترنت.
+          **التغييرات:** شكل «أرينا» الجديد كلياً وهو الشكل الوحيد: واجهة داكنة بأسلوب الألعاب (لوحات داكنة على شبكة سماوية خفيفة، حواف حادة بأقواس في الزوايا، عناوين بحروف كبيرة)، كل الأزرار والمفاتيح مرسومة من جديد (مفاتيح ON/OFF، اختيارات في صناديق منفصلة)، شريط جانبي ملاصق، شريط علوي بعرض النافذة ولوحة تشغيل من طابقين في الوضع المبسّط، والنوافذ تطلع من يمين الشاشة · والترجمة بطريقة vi-translator بدون إنترنت.
 
           الملف الكامل: فكّه في مجلد جديد وشغّل M`$M!.exe. ملف التحديث: فكّه فوق المجلد اللي عندك (استبدال الملفات) وشغّل M`$M!.exe.
           "@
           Set-Content "$env:RUNNER_TEMP\notes.md" $notes -Encoding utf8
           foreach ($tag in 'screen-text-test', 'mmm') { gh release delete $tag -R $env:GITHUB_REPOSITORY -y --cleanup-tag 2>$null }
           gh release create mmm $env:PACKAGE $env:UPDATE -R $env:GITHUB_REPOSITORY --prerelease `
-            --title "M`$M! 2.2.0 (new face)" --notes-file "$env:RUNNER_TEMP\notes.md" --target $env:GITHUB_SHA
+            --title "M`$M! 2.2.0 (Arena)" --notes-file "$env:RUNNER_TEMP\notes.md" --target $env:GITHUB_SHA
       - name: Report
         if: always()
         shell: pwsh
