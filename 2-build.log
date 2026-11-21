@@ -1,0 +1,1270 @@
+-- The C compiler identification is MSVC 19.44.35230.0
+-- The CXX compiler identification is MSVC 19.44.35230.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- DeckLink native capture: no SDK configured (DirectShow remains available)
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found OpenSSL: optimized;C:/Program Files/OpenSSL/lib/VC/x64/MD/libcrypto.lib;debug;C:/Program Files/OpenSSL/lib/VC/x64/MDd/libcrypto.lib (found suitable version "3.6.5", minimum required is "1.1.1") found components: Crypto
+-- Offline translator: ONNX Runtime headers from D:/deps/ort/onnxruntime-1.22.0
+-- libass: not configured; ASS effects use the built-in styled renderer
+-- Configuring done (10.6s)
+-- Generating done (0.5s)
+-- Build files have been written to: D:/b
+[1/329] Creating directories for 'veyra_virtualcam_x86'
+[2/329] Building CXX object CMakeFiles\veyra_base.dir\src\base\NgxResult.cpp.obj
+[3/329] Building CXX object CMakeFiles\veyra_base.dir\src\base\RuntimePaths.cpp.obj
+[4/329] Building CXX object CMakeFiles\veyra_base.dir\src\base\FileIdentity.cpp.obj
+[5/329] Building CXX object CMakeFiles\veyra_base.dir\src\base\ThunkHook.cpp.obj
+[6/329] No download step for 'veyra_virtualcam_x86'
+[7/329] Building CXX object CMakeFiles\veyra_base.dir\src\engine\ColorLut.cpp.obj
+[8/329] Building CXX object CMakeFiles\veyra_base.dir\src\base\Log.cpp.obj
+[9/329] Building CXX object CMakeFiles\veyra_base.dir\src\engine\ColorLookStore.cpp.obj
+[10/329] Building CXX object CMakeFiles\veyra_gfx.dir\src\gfx\NvidiaVrrProfile.cpp.obj
+[11/329] Building CXX object CMakeFiles\veyra_gfx.dir\src\gfx\GpuSchedulingPriority.cpp.obj
+[12/329] Linking CXX static library veyra_base.lib
+[13/329] Building CXX object CMakeFiles\veyra_gfx.dir\src\gfx\D3D12DeviceContext.cpp.obj
+[14/329] Building CXX object CMakeFiles\veyra_gfx.dir\src\gfx\CommandSlotRing.cpp.obj
+[15/329] Building CXX object CMakeFiles\veyra_gfx.dir\src\gfx\PresentSink.cpp.obj
+[16/329] Building CXX object CMakeFiles\veyra_gfx.dir\src\gfx\XessPresenter.cpp.obj
+[17/329] Building CXX object CMakeFiles\veyra_gfx.dir\src\gfx\XessMfgUnlock.cpp.obj
+[18/329] Building CXX object CMakeFiles\veyra_gfx.dir\src\gfx\FsrFgPresenter.cpp.obj
+[19/329] Building CXX object CMakeFiles\veyra_gfx.dir\src\gfx\XessPacing.cpp.obj
+[20/329] No update step for 'veyra_virtualcam_x86'
+[21/329] Building CXX object CMakeFiles\veyra_gfx.dir\src\gfx\AmfFrcBackend.cpp.obj
+[22/329] dxc Yuy2ToLinear.hlsl (Release)
+[23/329] Building CXX object CMakeFiles\veyra_ngx.dir\src\ngx\NgxCoreCache.cpp.obj
+[24/329] Building CXX object CMakeFiles\veyra_ngx.dir\src\ngx\NgxCoreHost.cpp.obj
+[25/329] Building CXX object CMakeFiles\veyra_gfx.dir\src\gfx\FsrSrBackend.cpp.obj
+[26/329] Linking CXX static library veyra_gfx.lib
+[27/329] Building CXX object CMakeFiles\veyra_ngx.dir\src\ngx\DlssNrRuntimeAdapter.cpp.obj
+[28/329] Building CXX object CMakeFiles\veyra_ngx.dir\src\ngx\NvapiLifetime.cpp.obj
+[29/329] Building CXX object CMakeFiles\veyra_ngx.dir\src\ngx\VideoSrBackend.cpp.obj
+[30/329] Building CXX object CMakeFiles\veyra_ngx.dir\src\ngx\DlssSrBackend.cpp.obj
+[31/329] Building CXX object CMakeFiles\veyra_ngx.dir\src\ngx\TrueHdrBackend.cpp.obj
+[32/329] Building CXX object CMakeFiles\veyra_ngx.dir\src\ngx\compat\hde\hde64.c.obj
+[33/329] Building CXX object CMakeFiles\veyra_ngx.dir\src\ngx\AnrProvider.cpp.obj
+[34/329] Building CXX object CMakeFiles\veyra_ngx.dir\src\ngx\DlssFgBackend.cpp.obj
+[35/329] Building CXX object CMakeFiles\veyra_ngx.dir\src\ngx\FgCompatibilitySession.cpp.obj
+[36/329] Building CXX object CMakeFiles\veyra_ngx.dir\src\ngx\AdaMfgUnlock.cpp.obj
+[37/329] Building CXX object CMakeFiles\veyra_ngx.dir\src\ngx\NvapiArchSpoof.cpp.obj
+[38/329] Building CXX object CMakeFiles\veyra_nvof.dir\src\ngx\NvOfSession.cpp.obj
+[39/329] Building CXX object CMakeFiles\veyra_ngx.dir\src\ngx\AmpereMfgUnlock.cpp.obj
+[40/329] Building CXX object CMakeFiles\veyra_ngx.dir\src\ngx\DlssgTransfusion.cpp.obj
+[41/329] Building CXX object CMakeFiles\veyra_media.dir\src\media\FFmpegDemuxer.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+D:\deps\ffmpeg\include\libavutil\common.h(213): warning C4244: 'return': conversion from 'int' to 'uint8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(224): warning C4244: 'return': conversion from 'int' to 'int8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(235): warning C4244: 'return': conversion from 'int' to 'uint16_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(246): warning C4244: 'return': conversion from 'int' to 'int16_t', possible loss of data
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\media\FFmpegDemuxer.cpp(436): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+[42/329] Building CXX object CMakeFiles\veyra_media.dir\src\media\FFmpegDeinterlacer.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+D:\deps\ffmpeg\include\libavutil\common.h(213): warning C4244: 'return': conversion from 'int' to 'uint8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(224): warning C4244: 'return': conversion from 'int' to 'int8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(235): warning C4244: 'return': conversion from 'int' to 'uint16_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(246): warning C4244: 'return': conversion from 'int' to 'int16_t', possible loss of data
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\media\FFmpegDeinterlacer.cpp(118): warning C4100: 'fpsDen': unreferenced parameter
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\media\FFmpegDeinterlacer.cpp(118): warning C4100: 'fpsNum': unreferenced parameter
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\media\FFmpegDeinterlacer.cpp(118): warning C4100: 'den': unreferenced parameter
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\media\FFmpegDeinterlacer.cpp(118): warning C4100: 'num': unreferenced parameter
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\media\FFmpegDeinterlacer.cpp(118): warning C4100: 'surface': unreferenced parameter
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\media\FFmpegDeinterlacer.cpp(118): warning C4100: 'frame': unreferenced parameter
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\media\FFmpegDeinterlacer.cpp(161): warning C4100: 'surface': unreferenced parameter
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\media\FFmpegDeinterlacer.cpp(161): warning C4100: 'frame': unreferenced parameter
+[43/329] Building CXX object CMakeFiles\veyra_media.dir\src\media\FFmpegVideoDecoder.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+D:\deps\ffmpeg\include\libavutil\common.h(213): warning C4244: 'return': conversion from 'int' to 'uint8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(224): warning C4244: 'return': conversion from 'int' to 'int8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(235): warning C4244: 'return': conversion from 'int' to 'uint16_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(246): warning C4244: 'return': conversion from 'int' to 'int16_t', possible loss of data
+[44/329] dxc ParityEncode.hlsl (Release)
+[45/329] dxc ParityDecode.hlsl (Release)
+[46/329] dxc Rdna3NrDecode.hlsl (Release)
+[47/329] dxc SrResolve.hlsl (Release)
+[48/329] Building CXX object CMakeFiles\veyra_portable_manifest.dir\src\base\PortableUpdateManifest.cpp.obj
+[49/329] dxc HdrAmdNrEncode.hlsl (Release)
+[50/329] dxc HdrAmdNrRestore.hlsl (Release)
+[51/329] dxc ColorDetailReduce.hlsl (Release)
+[52/329] dxc ColorGradePass.hlsl (Release)
+[53/329] dxc ColorDetailBlur.hlsl (Release)
+[54/329] dxc ColorDetailApply.hlsl (Release)
+[55/329] dxc YuvToLinearRgb.hlsl (Release)
+[56/329] dxc RgbToLinear.hlsl (Release)
+[57/329] dxc ScaleBlit.hlsl (Release)
+[58/329] dxc EffectExclusion.hlsl (Release)
+[59/329] dxc PackedCaptureToLinear.hlsl (Release)
+[60/329] dxc HudLockUpdate.hlsl (Release)
+[61/329] dxc HudLockCompose.hlsl (Release)
+[62/329] dxc Nv12Upload.hlsl (Release)
+[63/329] Building CXX object CMakeFiles\veyra_media.dir\src\media\DemuxSession.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+D:\deps\ffmpeg\include\libavutil\common.h(213): warning C4244: 'return': conversion from 'int' to 'uint8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(224): warning C4244: 'return': conversion from 'int' to 'int8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(235): warning C4244: 'return': conversion from 'int' to 'uint16_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(246): warning C4244: 'return': conversion from 'int' to 'int16_t', possible loss of data
+[64/329] dxc NrDownsample.hlsl (Release)
+[65/329] dxc NvofDensify.hlsl (Release)
+[66/329] dxc NrReuseCompose.hlsl (Release)
+[67/329] dxc NrHold.hlsl (Release)
+[68/329] dxc NrResidualComposite.hlsl (Release)
+[69/329] dxc FlowAdapt.hlsl (Release)
+[70/329] dxc NrReuseWarp.hlsl (Release)
+[71/329] dxc FlowRefine.hlsl (Release)
+[72/329] dxc FlowClaim.hlsl (Release)
+[73/329] dxc FlowFill.hlsl (Release)
+[74/329] dxc VfgShotChange.hlsl (Release)
+[75/329] dxc AaLuma.hlsl (Release)
+[76/329] dxc RgbToNv12.hlsl (Release)
+[77/329] dxc AaFxaa.hlsl -> AaFxaa4.dxil (Release)
+[78/329] dxc AaFxaa.hlsl -> AaFxaa3.dxil (Release)
+[79/329] dxc AaFxaa.hlsl -> AaFxaa5.dxil (Release)
+[80/329] dxc AaSmaaEdges.hlsl (Release)
+[81/329] dxc AaSmaaWeights.hlsl -> AaSmaaWeightsMedium.dxil (Release)
+[82/329] dxc AaSmaaWeights.hlsl -> AaSmaaWeightsLow.dxil (Release)
+[83/329] dxc AaSmaaBlend.hlsl (Release)
+[84/329] dxc AaSmaaWeights.hlsl -> AaSmaaWeightsHigh.dxil (Release)
+[85/329] dxc AaSmaaWeights.hlsl -> AaSmaaWeightsUltra.dxil (Release)
+[86/329] dxc AaTemporalResolve.hlsl (Release)
+[87/329] dxc AaMlaaEdges.hlsl (Release)
+[88/329] dxc NrTemporal.hlsl (Release)
+[89/329] dxc AaMlaaCounts.hlsl (Release)
+[90/329] dxc DlaaHdrRestore.hlsl (Release)
+[91/329] dxc AaMlaaBlend.hlsl (Release)
+[92/329] Generating shaders/dis/dis_d3_structure_hor.dxil
+[93/329] Generating shaders/dis/dis_d3_structure_hor_stride3.dxil
+[94/329] Generating shaders/dis/dis_d2_gradient.dxil
+[95/329] Generating shaders/dis/dis_d3_structure_ver.dxil
+[96/329] Generating shaders/dis/dis_native_luma.dxil
+[97/329] Generating shaders/dis/dis_native_gray.dxil
+[98/329] Generating shaders/dis/dis_d3_structure_ver_stride3.dxil
+[99/329] Generating shaders/dis/dis_native_rgba_gray.dxil
+[100/329] Generating shaders/dis/dis_perfect_final.dxil
+[101/329] Generating shaders/dis/dis_perfect_densify_exact.dxil
+[102/329] Generating shaders/dis/dis_perfect_area.dxil
+D:/a/Veyra-NRVideo/Veyra-NRVideo/src/third_party/gpu-dis/src/gpu/shaders/dis_perfect_area.hlsl:73:25: warning: conversion from larger type 'double' to smaller type 'float', possible loss of data [-Wconversion]
+    int sx1 = (int)ceil(fsx1), sx2 = (int)floor(fsx2);
+                        ^
+D:/a/Veyra-NRVideo/Veyra-NRVideo/src/third_party/gpu-dis/src/gpu/shaders/dis_perfect_area.hlsl:73:49: warning: conversion from larger type 'double' to smaller type 'float', possible loss of data [-Wconversion]
+    int sx1 = (int)ceil(fsx1), sx2 = (int)floor(fsx2);
+                                                ^
+D:/a/Veyra-NRVideo/Veyra-NRVideo/src/third_party/gpu-dis/src/gpu/shaders/dis_perfect_area.hlsl:102:25: warning: conversion from larger type 'double' to smaller type 'float', possible loss of data [-Wconversion]
+    int sy1 = (int)ceil(fsy1), sy2 = (int)floor(fsy2);
+                        ^
+D:/a/Veyra-NRVideo/Veyra-NRVideo/src/third_party/gpu-dis/src/gpu/shaders/dis_perfect_area.hlsl:102:49: warning: conversion from larger type 'double' to smaller type 'float', possible loss of data [-Wconversion]
+    int sy1 = (int)ceil(fsy1), sy2 = (int)floor(fsy2);
+                                                ^
+
+[103/329] Generating shaders/dis/dis_perfect_upsample_ipp.dxil
+[104/329] Generating shaders/dis/dis_perfect_vr_deriv2.dxil
+[105/329] Generating shaders/dis/dis_perfect_patch_parallel.dxil
+D:/a/Veyra-NRVideo/Veyra-NRVideo/src/third_party/gpu-dis/src/gpu/shaders/dis_perfect_patch_exact.hlsl:311:28: warning: implicit truncation of vector type [-Wconversion]
+        seed = Sparse.Load(int3(sj, si, 0));
+                           ^
+D:/a/Veyra-NRVideo/Veyra-NRVideo/src/third_party/gpu-dis/src/gpu/shaders/dis_perfect_patch_exact.hlsl:321:39: warning: implicit truncation of vector type [-Wconversion]
+            float2 cand = Sparse.Load(int3(sj - 1, si, 0));
+                                      ^
+D:/a/Veyra-NRVideo/Veyra-NRVideo/src/third_party/gpu-dis/src/gpu/shaders/dis_perfect_patch_exact.hlsl:330:39: warning: implicit truncation of vector type [-Wconversion]
+            float2 cand = Sparse.Load(int3(sj, si - 1, 0));
+                                      ^
+D:/a/Veyra-NRVideo/Veyra-NRVideo/src/third_party/gpu-dis/src/gpu/shaders/dis_perfect_patch_exact.hlsl:340:39: warning: implicit truncation of vector type [-Wconversion]
+            float2 cand = Sparse.Load(int3(sj + 1, si, 0));
+                                      ^
+D:/a/Veyra-NRVideo/Veyra-NRVideo/src/third_party/gpu-dis/src/gpu/shaders/dis_perfect_patch_exact.hlsl:348:39: warning: implicit truncation of vector type [-Wconversion]
+            float2 cand = Sparse.Load(int3(sj, si + 1, 0));
+                                      ^
+
+[106/329] Generating shaders/dis/dis_perfect_vr_deriv1_cpu.dxil
+[107/329] Generating shaders/dis/dis_perfect_vr_sor_exact.dxil
+[108/329] dxc GpuDisLuma.hlsl (Release)
+[109/329] Generating shaders/dis/dis_perfect_vr_update.dxil
+[110/329] Generating shaders/dis/dis_perfect_vr_zero.dxil
+[111/329] Generating shaders/dis/dis_perfect_vr_system_exact.dxil
+[112/329] dxc GpuDisValidate.hlsl (Release)
+[113/329] dxc BeautyYuNetPointwise.hlsl (Release)
+[114/329] dxc BeautyYuNetPrep.hlsl (Release)
+[115/329] dxc BeautyYuNetStem.hlsl (Release)
+[116/329] dxc BeautyYuNetUpAdd.hlsl (Release)
+[117/329] dxc BeautyYuNetPool.hlsl (Release)
+[118/329] dxc BeautyYuNetDepthwise.hlsl (Release)
+[119/329] dxc BeautyYuNetDecode.hlsl (Release)
+[120/329] dxc BeautyMeshConv.hlsl (Release)
+[121/329] dxc BeautyMeshCrop.hlsl (Release)
+[122/329] dxc BeautyMeshDepthwise.hlsl (Release)
+[123/329] dxc BeautyMeshPointwise.hlsl (Release)
+[124/329] dxc BeautyMeshDecode.hlsl (Release)
+[125/329] dxc BeautyRoi.hlsl (Release)
+[126/329] dxc BeautyTrack.hlsl (Release)
+[127/329] dxc BeautyBlur.hlsl (Release)
+[128/329] dxc BeautyStats.hlsl (Release)
+[129/329] No patch step for 'veyra_virtualcam_x86'
+[130/329] dxc BeautyApply.hlsl (Release)
+[131/329] Building CXX object third_party\soundtouch\CMakeFiles\veyra_soundtouch.dir\source\SoundTouch\AAFilter.cpp.obj
+[132/329] Building CXX object third_party\soundtouch\CMakeFiles\veyra_soundtouch.dir\source\SoundTouch\cpu_detect_x86.cpp.obj
+[133/329] Building CXX object third_party\soundtouch\CMakeFiles\veyra_soundtouch.dir\source\SoundTouch\BPMDetect.cpp.obj
+[134/329] Building CXX object third_party\soundtouch\CMakeFiles\veyra_soundtouch.dir\source\SoundTouch\FIFOSampleBuffer.cpp.obj
+[135/329] Building CXX object third_party\soundtouch\CMakeFiles\veyra_soundtouch.dir\source\SoundTouch\InterpolateCubic.cpp.obj
+[136/329] Building CXX object third_party\soundtouch\CMakeFiles\veyra_soundtouch.dir\source\SoundTouch\FIRFilter.cpp.obj
+[137/329] Building CXX object third_party\soundtouch\CMakeFiles\veyra_soundtouch.dir\source\SoundTouch\PeakFinder.cpp.obj
+[138/329] Building CXX object third_party\soundtouch\CMakeFiles\veyra_soundtouch.dir\source\SoundTouch\InterpolateLinear.cpp.obj
+[139/329] Building CXX object third_party\soundtouch\CMakeFiles\veyra_soundtouch.dir\source\SoundTouch\InterpolateShannon.cpp.obj
+[140/329] Building CXX object third_party\soundtouch\CMakeFiles\veyra_soundtouch.dir\source\SoundTouch\mmx_optimized.cpp.obj
+[141/329] Building CXX object third_party\soundtouch\CMakeFiles\veyra_soundtouch.dir\source\SoundTouch\SoundTouch.cpp.obj
+[142/329] Building CXX object third_party\soundtouch\CMakeFiles\veyra_soundtouch.dir\source\SoundTouch\sse_optimized.cpp.obj
+[143/329] Linking CXX static library veyra_nvof.lib
+[144/329] Building CXX object third_party\soundtouch\CMakeFiles\veyra_soundtouch.dir\source\SoundTouch\RateTransposer.cpp.obj
+[145/329] Linking CXX static library veyra_portable_manifest.lib
+[146/329] Linking CXX static library veyra_ngx.lib
+[147/329] Linking CXX static library veyra_media.lib
+[148/329] Building CXX object third_party\soundtouch\CMakeFiles\veyra_soundtouch.dir\source\SoundTouch\TDStretch.cpp.obj
+[149/329] Building CXX object CMakeFiles\veyra_sinks.dir\src\sink\CaptureAudioDsp.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+D:\deps\ffmpeg\include\libavutil\common.h(213): warning C4244: 'return': conversion from 'int' to 'uint8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(224): warning C4244: 'return': conversion from 'int' to 'int8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(235): warning C4244: 'return': conversion from 'int' to 'uint16_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(246): warning C4244: 'return': conversion from 'int' to 'int16_t', possible loss of data
+[150/329] Building CXX object CMakeFiles\veyra_sinks.dir\src\sink\BitstreamAudio.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+D:\deps\ffmpeg\include\libavutil\common.h(213): warning C4244: 'return': conversion from 'int' to 'uint8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(224): warning C4244: 'return': conversion from 'int' to 'int8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(235): warning C4244: 'return': conversion from 'int' to 'uint16_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(246): warning C4244: 'return': conversion from 'int' to 'int16_t', possible loss of data
+[151/329] Building CXX object CMakeFiles\veyra_sinks.dir\src\sink\BitstreamAudioSink.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(4813): warning C4244: '=': conversion from 'wchar_t' to 'char', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(4813): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\sink\BitstreamAudioSink.cpp(218): note: see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' being compiled
+        with
+        [
+            _Elem=wchar_t,
+            _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+            _Alloc=std::allocator<char>
+        ]
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\sink\BitstreamAudioSink.cpp(216): note: see the first reference to 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string' in 'veyra::sink::BitstreamAudioSink::open'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xstring(812): note: see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct_from_iter<wchar_t*,wchar_t*,_Size_type>(_Iter,const _Sent,_Size)' being compiled
+        with
+        [
+            _Size_type=unsigned __int64,
+            _Iter=wchar_t *,
+            _Sent=wchar_t *,
+            _Size=unsigned __int64
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xstring(968): note: see reference to function template instantiation '_OutIt *std::_Copy_n_unchecked4<wchar_t*,_Size,char*>(_InIt,_SizeTy,_OutIt)' being compiled
+        with
+        [
+            _OutIt=char *,
+            _Size=unsigned __int64,
+            _InIt=wchar_t *,
+            _SizeTy=unsigned __int64
+        ]
+[152/329] Building CXX object CMakeFiles\veyra_sinks.dir\src\sink\WasapiAudioSink.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+D:\deps\ffmpeg\include\libavutil\common.h(213): warning C4244: 'return': conversion from 'int' to 'uint8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(224): warning C4244: 'return': conversion from 'int' to 'int8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(235): warning C4244: 'return': conversion from 'int' to 'uint16_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(246): warning C4244: 'return': conversion from 'int' to 'int16_t', possible loss of data
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\sink\WasapiAudioSink.cpp(1528): warning C4456: declaration of 'firstPts' hides previous local declaration
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\sink\WasapiAudioSink.cpp(1361): note: see declaration of 'firstPts'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(5310): warning C4244: '=': conversion from 'const _Ty' to 'float', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(5310): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\sink\WasapiAudioSink.cpp(1146): note: see reference to function template instantiation 'void std::fill<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,int>(const _FwdIt,const _FwdIt,const int &)' being compiled
+        with
+        [
+            _Ty=float,
+            _FwdIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<float>>>
+        ]
+[153/329] Building CXX object CMakeFiles\veyra_sinks.dir\src\sink\CaptureAudioSession.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+D:\deps\ffmpeg\include\libavutil\common.h(213): warning C4244: 'return': conversion from 'int' to 'uint8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(224): warning C4244: 'return': conversion from 'int' to 'int8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(235): warning C4244: 'return': conversion from 'int' to 'uint16_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(246): warning C4244: 'return': conversion from 'int' to 'int16_t', possible loss of data
+[154/329] Building CXX object CMakeFiles\veyra_sinks.dir\src\sink\ImageExportSink.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[155/329] Building CXX object CMakeFiles\veyra_sinks.dir\src\sink\NvencLiveEncoder.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(4813): warning C4244: '=': conversion from 'wchar_t' to 'char', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(4813): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\sink\NvencLiveEncoder.cpp(46): note: see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' being compiled
+        with
+        [
+            _Elem=wchar_t,
+            _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+            _Alloc=std::allocator<char>
+        ]
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\sink\NvencLiveEncoder.cpp(46): note: see the first reference to 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string' in 'veyra::sink::NvencLiveEncoder::Impl::fail'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xstring(812): note: see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct_from_iter<wchar_t*,wchar_t*,_Size_type>(_Iter,const _Sent,_Size)' being compiled
+        with
+        [
+            _Size_type=unsigned __int64,
+            _Iter=wchar_t *,
+            _Sent=wchar_t *,
+            _Size=unsigned __int64
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xstring(968): note: see reference to function template instantiation '_OutIt *std::_Copy_n_unchecked4<wchar_t*,_Size,char*>(_InIt,_SizeTy,_OutIt)' being compiled
+        with
+        [
+            _OutIt=char *,
+            _Size=unsigned __int64,
+            _InIt=wchar_t *,
+            _SizeTy=unsigned __int64
+        ]
+[156/329] Building CXX object CMakeFiles\veyra_sinks.dir\src\sink\NvencD3D12Encoder.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\sink\NvencD3D12Encoder.cpp(90): warning C4456: declaration of 'supported' hides previous local declaration
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\sink\NvencD3D12Encoder.cpp(63): note: see declaration of 'supported'
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\sink\NvencD3D12Encoder.cpp(128): warning C4457: declaration of 'config' hides function parameter
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\sink\NvencD3D12Encoder.cpp(53): note: see declaration of 'config'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(4813): warning C4244: '=': conversion from 'wchar_t' to 'char', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(4813): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\sink\NvencD3D12Encoder.cpp(23): note: see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' being compiled
+        with
+        [
+            _Elem=wchar_t,
+            _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+            _Alloc=std::allocator<char>
+        ]
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\sink\NvencD3D12Encoder.cpp(23): note: see the first reference to 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string' in 'veyra::sink::NvencD3D12Encoder::Impl::fail'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xstring(812): note: see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct_from_iter<wchar_t*,wchar_t*,_Size_type>(_Iter,const _Sent,_Size)' being compiled
+        with
+        [
+            _Size_type=std::+::_Size_type,
+            _Iter=wchar_t *,
+            _Sent=wchar_t *,
+            _Size=std::+::_Size_type
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xstring(968): note: see reference to function template instantiation '_OutIt *std::_Copy_n_unchecked4<wchar_t*,_Size,char*>(_InIt,_SizeTy,_OutIt)' being compiled
+        with
+        [
+            _OutIt=char *,
+            _Size=std::+::_Size_type,
+            _InIt=wchar_t *,
+            _SizeTy=std::+::_Size_type
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(4813): warning C4244: '=': conversion from 'const wchar_t' to 'char', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(4813): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\sink\NvencD3D12Encoder.cpp(65): note: see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_const_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' being compiled
+        with
+        [
+            _Elem=wchar_t,
+            _Iter=std::_String_const_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+            _Alloc=std::allocator<char>
+        ]
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\sink\NvencD3D12Encoder.cpp(65): note: see the first reference to 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string' in 'veyra::sink::NvencD3D12Encoder::open'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xstring(812): note: see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct_from_iter<const wchar_t*,const wchar_t*,_Size_type>(_Iter,const _Sent,_Size)' being compiled
+        with
+        [
+            _Size_type=std::+::_Size_type,
+            _Iter=const wchar_t *,
+            _Sent=const wchar_t *,
+            _Size=std::+::_Size_type
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xstring(968): note: see reference to function template instantiation '_OutIt *std::_Copy_n_unchecked4<const wchar_t*,_Size,char*>(_InIt,_SizeTy,_OutIt)' being compiled
+        with
+        [
+            _OutIt=char *,
+            _Size=std::+::_Size_type,
+            _InIt=const wchar_t *,
+            _SizeTy=std::+::_Size_type
+        ]
+[157/329] Building CXX object CMakeFiles\veyra_sinks.dir\src\sink\RecordingAudioTap.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[158/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\pipeline\ResetCoordinator.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[159/329] Building CXX object CMakeFiles\veyra_sinks.dir\src\sink\MfVideoEncoder.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(4813): warning C4244: '=': conversion from 'wchar_t' to 'char', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(4813): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\sink\MfVideoEncoder.cpp(296): note: see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' being compiled
+        with
+        [
+            _Elem=wchar_t,
+            _Iter=std::_String_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+            _Alloc=std::allocator<char>
+        ]
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\sink\MfVideoEncoder.cpp(296): note: see the first reference to 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string' in 'veyra::sink::`anonymous-namespace'::MfVideoEncoder::openTransform'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xstring(812): note: see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct_from_iter<wchar_t*,wchar_t*,_Size_type>(_Iter,const _Sent,_Size)' being compiled
+        with
+        [
+            _Size_type=std::+::_Size_type,
+            _Iter=wchar_t *,
+            _Sent=wchar_t *,
+            _Size=std::+::_Size_type
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xstring(968): note: see reference to function template instantiation '_OutIt *std::_Copy_n_unchecked4<wchar_t*,_Size,char*>(_InIt,_SizeTy,_OutIt)' being compiled
+        with
+        [
+            _OutIt=char *,
+            _Size=std::+::_Size_type,
+            _InIt=wchar_t *,
+            _SizeTy=std::+::_Size_type
+        ]
+[160/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\pipeline\ColorGradeTables.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[161/329] Building CXX object CMakeFiles\veyra_sinks.dir\src\sink\VideoEncoderFactory.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[162/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\pipeline\ColorGradeInstance.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[163/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\pipeline\ColorDetailPass.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[164/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\pipeline\SmaaLookupTables.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[165/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\pipeline\AntiAliasPass.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[166/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\pipeline\AmdHipPreflight.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(5310): warning C4244: '=': conversion from 'const _Ty' to 'char', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(5310): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/pipeline/Rdna3HipDevices.h(102): note: see reference to function template instantiation 'void std::fill<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Elem>>>,int>(const _FwdIt,const _FwdIt,const _Ty &)' being compiled
+        with
+        [
+            _Elem=char,
+            _FwdIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<char>>>,
+            _Ty=int
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(5264): warning C4244: 'initializing': conversion from 'const _Ty' to 'char', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(5264): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/pipeline/Rdna3HipDevices.h(102): note: see reference to function template instantiation 'void std::fill<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Elem>>>,int>(const _FwdIt,const _FwdIt,const _Ty &)' being compiled
+        with
+        [
+            _Elem=char,
+            _FwdIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<char>>>,
+            _Ty=int
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(5299): note: see reference to function template instantiation 'void std::_Fill_memset<char*,_Ty>(_CtgIt,const _Ty,const size_t)' being compiled
+        with
+        [
+            _Ty=int,
+            _CtgIt=char *
+        ]
+[167/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\pipeline\NrInstance.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[168/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\pipeline\LmxxfNrBackend.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\pipeline\LmxxfNrBackend.cpp(59): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\pipeline\LmxxfNrBackend.cpp(60): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\pipeline\LmxxfNrBackend.cpp(63): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+[169/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\pipeline\Rdna3NrBackend.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[170/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\pipeline\VfgAmpereCompat.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[171/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\pipeline\VfgBackend.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[172/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\pipeline\VfxSrBackend.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[173/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\pipeline\HudLock.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[174/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\pipeline\NrHoldPass.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[175/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\pipeline\NrTemporalPass.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[176/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\core\SceneCadenceAnalyzer.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[177/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\pipeline\EnhanceGraph.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+D:\deps\ffmpeg\include\libavutil\common.h(213): warning C4244: 'return': conversion from 'int' to 'uint8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(224): warning C4244: 'return': conversion from 'int' to 'int8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(235): warning C4244: 'return': conversion from 'int' to 'uint16_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(246): warning C4244: 'return': conversion from 'int' to 'int16_t', possible loss of data
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\pipeline\EnhanceGraph.cpp(888): warning C4189: 'st': local variable is initialized but not referenced
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\pipeline\EnhanceGraph.cpp(895): warning C4189: 'dSize': local variable is initialized but not referenced
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\pipeline\EnhanceGraph.cpp(1692): warning C4456: declaration of 'st' hides previous local declaration
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\pipeline\EnhanceGraph.cpp(1603): note: see declaration of 'st'
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\pipeline\EnhanceGraph.cpp(3255): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(4813): warning C4244: '=': conversion from 'const wchar_t' to 'char', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(4813): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\pipeline\EnhanceGraph.cpp(1387): note: see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_const_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' being compiled
+        with
+        [
+            _Elem=wchar_t,
+            _Iter=std::_String_const_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+            _Alloc=std::allocator<char>
+        ]
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\pipeline\EnhanceGraph.cpp(1383): note: see the first reference to 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string' in 'veyra::pipeline::EnhanceGraph::applyAdaMfgUnlock'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xstring(812): note: see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct_from_iter<const wchar_t*,const wchar_t*,_Size_type>(_Iter,const _Sent,_Size)' being compiled
+        with
+        [
+            _Size_type=std::+::_Size_type,
+            _Iter=const wchar_t *,
+            _Sent=const wchar_t *,
+            _Size=std::+::_Size_type
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xstring(968): note: see reference to function template instantiation '_OutIt *std::_Copy_n_unchecked4<const wchar_t*,_Size,char*>(_InIt,_SizeTy,_OutIt)' being compiled
+        with
+        [
+            _OutIt=char *,
+            _Size=std::+::_Size_type,
+            _InIt=const wchar_t *,
+            _SizeTy=std::+::_Size_type
+        ]
+[178/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\guidance\AmdOpticalFlow.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[179/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\pipeline\NrReusePass.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[180/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\guidance\GpuDisOpticalFlow.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[181/329] Building CXX object CMakeFiles\veyra_pipeline.dir\third_party\gpu-dis\src\gpu\native_strict_dis_provider.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[182/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\beauty\OnnxLite.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[183/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\beauty\TfliteLite.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[184/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\beauty\FaceTracker.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[185/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\beauty\FaceMeshGpu.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[186/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\pipeline\BeautyPass.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[187/329] Linking CXX static library third_party\soundtouch\veyra_soundtouch.lib
+[188/329] Linking CXX static library veyra_sinks.lib
+[189/329] Building CXX object CMakeFiles\veyra_pipeline.dir\src\beauty\YuNetGpu.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[190/329] Linking CXX static library veyra_pipeline.lib
+[191/329] Building CXX object CMakeFiles\veyra_sources.dir\src\source\NativeCaptureSink.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+D:\deps\ffmpeg\include\libavutil\common.h(213): warning C4244: 'return': conversion from 'int' to 'uint8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(224): warning C4244: 'return': conversion from 'int' to 'int8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(235): warning C4244: 'return': conversion from 'int' to 'uint16_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(246): warning C4244: 'return': conversion from 'int' to 'int16_t', possible loss of data
+[192/329] Building CXX object CMakeFiles\veyra_sources.dir\src\source\MediaFileSource.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+D:\deps\ffmpeg\include\libavutil\common.h(213): warning C4244: 'return': conversion from 'int' to 'uint8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(224): warning C4244: 'return': conversion from 'int' to 'int8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(235): warning C4244: 'return': conversion from 'int' to 'uint16_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(246): warning C4244: 'return': conversion from 'int' to 'int16_t', possible loss of data
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\source\MediaFileSource.cpp(45): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\source\MediaFileSource.cpp(667): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\source\MediaFileSource.cpp(690): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\source\MediaFileSource.cpp(721): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\source\MediaFileSource.cpp(729): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\source\MediaFileSource.cpp(998): warning C4456: declaration of 'params' hides previous local declaration
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\source\MediaFileSource.cpp(861): note: see declaration of 'params'
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\source\MediaFileSource.cpp(1321): warning C4244: 'argument': conversion from 'uint64_t' to 'unsigned int', possible loss of data
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\source\MediaFileSource.cpp(1325): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\source\MediaFileSource.cpp(1458): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\source\MediaFileSource.cpp(1482): warning C4996: 'getenv': This function or variable may be unsafe. Consider using _dupenv_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+[193/329] Building CXX object CMakeFiles\veyra_sources.dir\src\source\DeckLinkDriver.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[194/329] Building CXX object CMakeFiles\veyra_sources.dir\src\source\DeckLinkCapture.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[195/329] Building CXX object CMakeFiles\veyra_sources.dir\src\source\CaptureCardSource.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+D:\deps\ffmpeg\include\libavutil\common.h(213): warning C4244: 'return': conversion from 'int' to 'uint8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(224): warning C4244: 'return': conversion from 'int' to 'int8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(235): warning C4244: 'return': conversion from 'int' to 'uint16_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(246): warning C4244: 'return': conversion from 'int' to 'int16_t', possible loss of data
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\source\CaptureCardSource.cpp(225): warning C4100: 'b': unreferenced parameter
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\source\CaptureCardSource.cpp(1271): warning C4456: declaration of 'deviceName' hides previous local declaration
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\source\CaptureCardSource.cpp(1079): note: see declaration of 'deviceName'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(5310): warning C4244: '=': conversion from 'const _Ty' to 'unsigned char', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(5310): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/source/DirectShowFormatDiscovery.h(97): note: see reference to function template instantiation 'void std::fill<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,int>(const _FwdIt,const _FwdIt,const int &)' being compiled
+        with
+        [
+            _Ty=uint8_t,
+            _FwdIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<uint8_t>>>
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(5264): warning C4244: 'initializing': conversion from 'const _Ty' to 'unsigned char', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(5264): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/source/DirectShowFormatDiscovery.h(97): note: see reference to function template instantiation 'void std::fill<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,int>(const _FwdIt,const _FwdIt,const int &)' being compiled
+        with
+        [
+            _Ty=uint8_t,
+            _FwdIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<uint8_t>>>
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(5299): note: see reference to function template instantiation 'void std::_Fill_memset<unsigned char*,_Ty>(_CtgIt,const _Ty,const size_t)' being compiled
+        with
+        [
+            _Ty=int,
+            _CtgIt=unsigned char *
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(4813): warning C4244: '=': conversion from 'const wchar_t' to 'char', possible loss of data
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xutility(4813): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\source\CaptureCardSource.cpp(1553): note: see reference to function template instantiation 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_const_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)' being compiled
+        with
+        [
+            _Elem=wchar_t,
+            _Iter=std::_String_const_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+            _Alloc=std::allocator<char>
+        ]
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\source\CaptureCardSource.cpp(1552): note: see the first reference to 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string' in 'veyra::source::CaptureCardSource::connectVendorAudio'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xstring(812): note: see reference to function template instantiation 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct_from_iter<const wchar_t*,const wchar_t*,_Size_type>(_Iter,const _Sent,_Size)' being compiled
+        with
+        [
+            _Size_type=std::+::_Size_type,
+            _Iter=const wchar_t *,
+            _Sent=const wchar_t *,
+            _Size=std::+::_Size_type
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\xstring(968): note: see reference to function template instantiation '_OutIt *std::_Copy_n_unchecked4<const wchar_t*,_Size,char*>(_InIt,_SizeTy,_OutIt)' being compiled
+        with
+        [
+            _OutIt=char *,
+            _Size=std::+::_Size_type,
+            _InIt=const wchar_t *,
+            _SizeTy=std::+::_Size_type
+        ]
+[196/329] Building CXX object CMakeFiles\veyra_sources.dir\src\source\VirtualDesktop.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[197/329] Building CXX object CMakeFiles\veyra_sources.dir\src\source\ElgatoHdrControl.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[198/329] Performing configure step for 'veyra_virtualcam_x86'
+-- Selecting Windows SDK version 10.0.26100.0 to target Windows 10.0.20348.
+-- The C compiler identification is MSVC 19.44.35230.0
+-- The CXX compiler identification is MSVC 19.44.35230.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x86/cl.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x86/cl.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (18.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: D:/b/virtualcam-x86
+[199/329] Building CXX object CMakeFiles\veyra_sources.dir\src\source\AverMediaAudioSwitch.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[200/329] Building CXX object CMakeFiles\veyra_sources.dir\src\source\AverMediaVendorAudio.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\source\AverMediaVendorAudio.cpp(66): warning C4324: 'veyra::source::AverMediaVendorAudio::Impl': structure was padded due to alignment specifier
+[201/329] Building CXX object CMakeFiles\veyra_sources.dir\src\source\AverMediaAudioCarrier.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[202/329] Building CXX object CMakeFiles\veyra_sources.dir\src\source\CaptureCompressedDecoder.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+D:\deps\ffmpeg\include\libavutil\common.h(213): warning C4244: 'return': conversion from 'int' to 'uint8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(224): warning C4244: 'return': conversion from 'int' to 'int8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(235): warning C4244: 'return': conversion from 'int' to 'uint16_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(246): warning C4244: 'return': conversion from 'int' to 'int16_t', possible loss of data
+[203/329] dxc HdrVideoSrRestore.hlsl (Release)
+[204/329] dxc PresentBlit.hlsl PS (Release)
+[205/329] Building CXX object CMakeFiles\veyra_sources.dir\src\source\WasapiAudioInput.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\source\WasapiAudioInput.cpp(119): warning C4456: declaration of 'flags' hides previous local declaration
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\src\source\WasapiAudioInput.cpp(83): note: see declaration of 'flags'
+[206/329] dxc PresentMotion.hlsl (Release)
+[207/329] dxc PresentBlit.hlsl VS (Release)
+[208/329] dxc HdrCurveCoverage.hlsl (Release)
+[209/329] Building CXX object CMakeFiles\veyra_sources.dir\src\source\MagewellCapture.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+[210/329] Building CXX object CMakeFiles\veyra_sources.dir\src\source\ScreenCaptureSource.cpp.obj
+cl : Command line warning D9025 : overriding '/WX' with '/WX-'
+D:\deps\ffmpeg\include\libavutil\common.h(213): warning C4244: 'return': conversion from 'int' to 'uint8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(224): warning C4244: 'return': conversion from 'int' to 'int8_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(235): warning C4244: 'return': conversion from 'int' to 'uint16_t', possible loss of data
+D:\deps\ffmpeg\include\libavutil\common.h(246): warning C4244: 'return': conversion from 'int' to 'int16_t', possible loss of data
+[211/329] dxc VirtualCameraNv12.hlsl (Release)
+[212/329] Building C object src\virtualcam\CMakeFiles\veyra_virtualcam_transport.dir\__\__\third_party\obs_virtualcam\ipc\tiny-nv12-scale.c.obj
+[213/329] Automatic MOC for target veyra_update_checker
+[214/329] Linking CXX static library veyra_sources.lib
+[215/329] Building C object src\virtualcam\CMakeFiles\veyra_virtualcam_transport.dir\__\__\third_party\obs_virtualcam\ipc\shared-memory-queue.c.obj
+[216/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\EngineWatchdog.cpp.obj
+[217/329] Building CXX object CMakeFiles\veyra_ui_i18n.dir\src\ui\UiLanguage.cpp.obj
+[218/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\PreviewGpuSession.cpp.obj
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+        and
+        [
+            _Ty1=float
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/engine/PreviewView.h(39): note: see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+        with
+        [
+            _Other1=int,
+            _Other2=int
+        ]
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/engine/PreviewView.h(39): note: see the first reference to 'std::pair<float,float>::pair' in 'veyra::engine::PreviewView::renderedSize'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+        and
+        [
+            _Ty2=float
+        ]
+[219/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\EngineControllerImage.cpp.obj
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+        and
+        [
+            _Ty1=float
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/engine/PreviewView.h(39): note: see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+        with
+        [
+            _Other1=int,
+            _Other2=int
+        ]
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/engine/PreviewView.h(39): note: see the first reference to 'std::pair<float,float>::pair' in 'veyra::engine::PreviewView::renderedSize'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+        and
+        [
+            _Ty2=float
+        ]
+[220/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\PosterFrame.cpp.obj
+[221/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\EffectChain.cpp.obj
+[222/329] Performing build step for 'veyra_virtualcam_x86'
+MSBuild version 17.14.60+43b635718 for .NET Framework
+
+  1>Checking Build System
+  Building Custom Rule D:/a/Veyra-NRVideo/Veyra-NRVideo/src/src/virtualcam/CMakeLists.txt
+  virtualcam-module.cpp
+  virtualcam-filter.cpp
+  output-filter.cpp
+  dshow-formats.cpp
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\third_party\obs_virtualcam\libdshowcapture\source\log.hpp(22,9): warning C4005: 'WIN32_LEAN_AND_MEAN': macro redefinition [D:\b\virtualcam-x86\veyra_virtualcam_module.vcxproj]
+  (compiling source file '../../a/Veyra-NRVideo/Veyra-NRVideo/src/third_party/obs_virtualcam/libdshowcapture/source/output-filter.cpp')
+      D:\a\Veyra-NRVideo\Veyra-NRVideo\src\third_party\obs_virtualcam\libdshowcapture\source\log.hpp(22,9):
+      'WIN32_LEAN_AND_MEAN' previously declared on the command line
+  
+  dshow-media-type.cpp
+  log.cpp
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\third_party\obs_virtualcam\libdshowcapture\source\log.hpp(22,9): warning C4005: 'WIN32_LEAN_AND_MEAN': macro redefinition [D:\b\virtualcam-x86\veyra_virtualcam_module.vcxproj]
+  (compiling source file '../../a/Veyra-NRVideo/Veyra-NRVideo/src/third_party/obs_virtualcam/libdshowcapture/source/log.cpp')
+      D:\a\Veyra-NRVideo\Veyra-NRVideo\src\third_party\obs_virtualcam\libdshowcapture\source\log.hpp(22,9):
+      'WIN32_LEAN_AND_MEAN' previously declared on the command line
+  
+  dshow-error.cpp
+  CameraRegistration.cpp
+  CameraPlaceholder.cpp
+  Generating Code...
+  sleepto.c
+  shared-memory-queue.c
+  tiny-nv12-scale.c
+  Generating Code...
+     Creating library D:/b/virtualcam-x86/Release/veyra-virtualcam32.lib and object D:/b/virtualcam-x86/Release/veyra-virtualcam32.exp
+  veyra_virtualcam_module.vcxproj -> D:\b\virtualcam-x86\virtualcam\veyra-virtualcam32.dll
+[223/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\PresetLibrary.cpp.obj
+[224/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\TiledImageProcessor.cpp.obj
+[225/329] Building CXX object CMakeFiles\veyra_engine.dir\src\ui\PlayerUiFacade.cpp.obj
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+        and
+        [
+            _Ty1=float
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/engine/PreviewView.h(39): note: see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+        with
+        [
+            _Other1=int,
+            _Other2=int
+        ]
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/engine/PreviewView.h(39): note: see the first reference to 'std::pair<float,float>::pair' in 'veyra::engine::PreviewView::renderedSize'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+        and
+        [
+            _Ty2=float
+        ]
+[226/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\PresetStore.cpp.obj
+[227/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\EngineController.cpp.obj
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+        and
+        [
+            _Ty1=float
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/engine/PreviewView.h(39): note: see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+        with
+        [
+            _Other1=int,
+            _Other2=int
+        ]
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/engine/PreviewView.h(39): note: see the first reference to 'std::pair<float,float>::pair' in 'veyra::engine::PreviewView::renderedSize'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+        and
+        [
+            _Ty2=float
+        ]
+[228/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\DisplayStateService.cpp.obj
+[229/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\VideoPresenter.cpp.obj
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+        and
+        [
+            _Ty1=float
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/engine/PreviewView.h(39): note: see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+        with
+        [
+            _Other1=int,
+            _Other2=int
+        ]
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/engine/PreviewView.h(39): note: see the first reference to 'std::pair<float,float>::pair' in 'veyra::engine::PreviewView::renderedSize'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+        and
+        [
+            _Ty2=float
+        ]
+[230/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\ExportQueue.cpp.obj
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+        and
+        [
+            _Ty1=float
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/engine/PreviewView.h(39): note: see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+        with
+        [
+            _Other1=int,
+            _Other2=int
+        ]
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/engine/PreviewView.h(39): note: see the first reference to 'std::pair<float,float>::pair' in 'veyra::engine::PreviewView::renderedSize'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+        and
+        [
+            _Ty2=float
+        ]
+[231/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\ExportStreams.cpp.obj
+[232/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\VideoExportJob.cpp.obj
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+        and
+        [
+            _Ty1=float
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/engine/PreviewView.h(39): note: see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+        with
+        [
+            _Other1=int,
+            _Other2=int
+        ]
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/engine/PreviewView.h(39): note: see the first reference to 'std::pair<float,float>::pair' in 'veyra::engine::PreviewView::renderedSize'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+        and
+        [
+            _Ty2=float
+        ]
+[233/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\ExportJobManager.cpp.obj
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+        and
+        [
+            _Ty1=float
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/engine/PreviewView.h(39): note: see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+        with
+        [
+            _Other1=int,
+            _Other2=int
+        ]
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/engine/PreviewView.h(39): note: see the first reference to 'std::pair<float,float>::pair' in 'veyra::engine::PreviewView::renderedSize'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+        and
+        [
+            _Ty2=float
+        ]
+[234/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\ReplayBuffer.cpp.obj
+[235/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\FgCompatibilityProbe.cpp.obj
+[236/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\Subtitles.cpp.obj
+[237/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\LiveRecorder.cpp.obj
+[238/329] Building CXX object CMakeFiles\veyra_engine.dir\src\virtualcam\CameraRegistration.cpp.obj
+[239/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\MicrophoneCapture.cpp.obj
+[240/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\VirtualCamera.cpp.obj
+[241/329] Building CXX object CMakeFiles\veyra_update_checker.dir\veyra_update_checker_autogen\mocs_compilation.cpp.obj
+[242/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\ScreenText.cpp.obj
+[243/329] Building CXX object src\virtualcam\CMakeFiles\veyra_virtualcam_module.dir\__\__\third_party\obs_virtualcam\module\virtualcam-module.cpp.obj
+[244/329] Building CXX object src\virtualcam\CMakeFiles\veyra_virtualcam_module.dir\__\__\third_party\obs_virtualcam\module\virtualcam-filter.cpp.obj
+[245/329] Building C object src\virtualcam\CMakeFiles\veyra_virtualcam_module.dir\__\__\third_party\obs_virtualcam\module\sleepto.c.obj
+[246/329] Building CXX object CMakeFiles\veyra_update_checker.dir\src\ui\UpdateChecker.cpp.obj
+[247/329] Building CXX object src\virtualcam\CMakeFiles\veyra_virtualcam_module.dir\__\__\third_party\obs_virtualcam\libdshowcapture\source\dshow-formats.cpp.obj
+[248/329] Building CXX object src\virtualcam\CMakeFiles\veyra_virtualcam_module.dir\__\__\third_party\obs_virtualcam\libdshowcapture\source\output-filter.cpp.obj
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\third_party\obs_virtualcam\libdshowcapture\source\log.hpp(22): warning C4005: 'WIN32_LEAN_AND_MEAN': macro redefinition
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\third_party\obs_virtualcam\libdshowcapture\source\log.hpp(22): note: 'WIN32_LEAN_AND_MEAN' previously declared on the command line
+[249/329] Building CXX object CMakeFiles\veyra_update_checker.dir\src\ui\PortableUpdate.cpp.obj
+[250/329] Building CXX object src\virtualcam\CMakeFiles\veyra_virtualcam_module.dir\__\__\third_party\obs_virtualcam\libdshowcapture\source\log.cpp.obj
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\third_party\obs_virtualcam\libdshowcapture\source\log.hpp(22): warning C4005: 'WIN32_LEAN_AND_MEAN': macro redefinition
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\third_party\obs_virtualcam\libdshowcapture\source\log.hpp(22): note: 'WIN32_LEAN_AND_MEAN' previously declared on the command line
+[251/329] Building CXX object src\virtualcam\CMakeFiles\veyra_virtualcam_module.dir\__\__\third_party\obs_virtualcam\libdshowcapture\source\dshow-media-type.cpp.obj
+[252/329] Building C object src\virtualcam\CMakeFiles\veyra_virtualcam_module.dir\__\__\third_party\obs_virtualcam\ipc\tiny-nv12-scale.c.obj
+[253/329] Building C object src\virtualcam\CMakeFiles\veyra_virtualcam_module.dir\__\__\third_party\obs_virtualcam\ipc\shared-memory-queue.c.obj
+[254/329] Building CXX object src\virtualcam\CMakeFiles\veyra_virtualcam_module.dir\CameraPlaceholder.cpp.obj
+[255/329] Linking C static library src\virtualcam\veyra_virtualcam_transport.lib
+[256/329] Performing install step for 'veyra_virtualcam_x86'
+[257/329] Linking CXX static library veyra_update_checker.lib
+[258/329] Linking CXX static library veyra_ui_i18n.lib
+[259/329] Completed 'veyra_virtualcam_x86'
+[260/329] Building CXX object src\virtualcam\CMakeFiles\veyra_virtualcam_module.dir\__\__\third_party\obs_virtualcam\libdshowcapture\source\dshow-error.cpp.obj
+[261/329] Building CXX object CMakeFiles\veyra_engine.dir\src\engine\ScreenTextCapture.cpp.obj
+[262/329] Automatic MOC for target veyra_startup_music
+[263/329] Copying QML
+[264/329] Building CXX object src\virtualcam\CMakeFiles\veyra_virtualcam_module.dir\CameraRegistration.cpp.obj
+[265/329] Linking CXX static library veyra_engine.lib
+[266/329] Linking CXX shared module virtualcam\veyra-virtualcam64.dll
+[267/329] Generating CameraPayloadHashes.h
+[268/329] Automatic MOC for target veyra_qml_bridge
+[269/329] Building CXX object CMakeFiles\veyra_startup_music.dir\veyra_startup_music_autogen\mocs_compilation.cpp.obj
+[270/329] Building CXX object src\virtualcam\CMakeFiles\veyra_virtualcam_setup.dir\CameraSetup.cpp.obj
+[271/329] Building CXX object CMakeFiles\veyra_startup_music.dir\src\ui\StartupMusic.cpp.obj
+[272/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\QmlExportQueueModel.cpp.obj
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+        and
+        [
+            _Ty1=float
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/engine/PreviewView.h(39): note: see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+        with
+        [
+            _Other1=int,
+            _Other2=int
+        ]
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/engine/PreviewView.h(39): note: see the first reference to 'std::pair<float,float>::pair' in 'veyra::engine::PreviewView::renderedSize'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+        and
+        [
+            _Ty2=float
+        ]
+[273/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\veyra_qml_bridge_autogen\mocs_compilation.cpp.obj
+[274/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\PlaylistModel.cpp.obj
+[275/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\ThumbnailProvider.cpp.obj
+[276/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\TranslationAssets.cpp.obj
+[277/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\WinCaptionReader.cpp.obj
+[278/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\LiveTranslation.cpp.obj
+[279/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\QmlPlayerBridge.cpp.obj
+[280/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\UnigramTokenizer.cpp.obj
+[281/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\ViLineText.cpp.obj
+[282/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\media\FormatBadgeWindow.cpp.obj
+[283/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\OpusMt.cpp.obj
+[284/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\apps\veyra\ui\SubtitleOverlay.cpp.obj
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): warning C4244: 'initializing': conversion from '_Ty' to '_Ty1', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+        and
+        [
+            _Ty1=float
+        ]
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): note: the template instantiation context (the oldest one first) is
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/engine/PreviewView.h(39): note: see reference to function template instantiation 'std::pair<float,float>::pair<int,int,0>(_Other1 &&,_Other2 &&) noexcept' being compiled
+        with
+        [
+            _Other1=int,
+            _Other2=int
+        ]
+D:\a\Veyra-NRVideo\Veyra-NRVideo\src\include\veyra/engine/PreviewView.h(39): note: see the first reference to 'std::pair<float,float>::pair' in 'veyra::engine::PreviewView::renderedSize'
+C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.44.35207\include\utility(274): warning C4244: 'initializing': conversion from '_Ty' to '_Ty2', possible loss of data
+        with
+        [
+            _Ty=int
+        ]
+        and
+        [
+            _Ty2=float
+        ]
+[285/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\NvidiaVrrProfileController.cpp.obj
+[286/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\bridge\Hardware.cpp.obj
+[287/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\bridge\Status.cpp.obj
+[288/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\bridge\FrameGeneration.cpp.obj
+[289/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\bridge\Colour.cpp.obj
+[290/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\bridge\VirtualCaptureAudioSetup.cpp.obj
+[291/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\bridge\RemotePlay.cpp.obj
+[292/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\bridge\Preferences.cpp.obj
+[293/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\bridge\Export.cpp.obj
+[294/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\bridge\Capture.cpp.obj
+[295/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\bridge\Subtitles.cpp.obj
+[296/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\bridge\Playback.cpp.obj
+[297/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\bridge\Enhancement.cpp.obj
+[298/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\bridge\Chain.cpp.obj
+[299/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\bridge\Recording.cpp.obj
+[300/329] Building CXX object src\virtualcam\CMakeFiles\veyra_virtualcam_setup.dir\CameraRegistration.cpp.obj
+[301/329] Linking CXX static library veyra_startup_music.lib
+[302/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\bridge\PlaybackServer.cpp.obj
+[303/329] Linking CXX executable virtualcam\veyra-camera-setup.exe
+[304/329] Building CXX object CMakeFiles\veyra_screen_text_tests.dir\tests\unit\ScreenTextTests.cpp.obj
+[305/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\bridge\VirtualCamera.cpp.obj
+[306/329] Building CXX object CMakeFiles\veyra_screen_text_tests.dir\src\engine\ScreenText.cpp.obj
+[307/329] Building CXX object CMakeFiles\veyra_caption_presenter_tests.dir\tests\unit\CaptionPresenterTests.cpp.obj
+[308/329] Building CXX object CMakeFiles\veyra_vi_line_tests.dir\tests\unit\ViLineTextTests.cpp.obj
+[309/329] Building CXX object CMakeFiles\veyra_unigram_tokenizer_tests.dir\tests\unit\UnigramTokenizerTests.cpp.obj
+[310/329] Building CXX object CMakeFiles\veyra_vi_line_tests.dir\src\ui\ViLineText.cpp.obj
+[311/329] Building CXX object CMakeFiles\veyra_unigram_tokenizer_tests.dir\src\ui\UnigramTokenizer.cpp.obj
+[312/329] Building RC object CMakeFiles\veyra_portable_launcher.dir\veyra-portable-version.rc.res
+[313/329] Building CXX object CMakeFiles\veyra_qml_bridge.dir\src\ui\bridge\View.cpp.obj
+[314/329] Linking CXX executable veyra_screen_text_tests.exe
+[315/329] Linking CXX executable veyra_caption_presenter_tests.exe
+[316/329] Linking CXX static library veyra_qml_bridge.lib
+[317/329] Linking CXX executable veyra_vi_line_tests.exe
+[318/329] Running rcc for resource veyra_i18n
+[319/329] Linking CXX executable veyra_unigram_tokenizer_tests.exe
+[320/329] Building CXX object CMakeFiles\veyra_portable_launcher.dir\apps\veyra-portable\Launcher.cpp.obj
+[321/329] Building CXX object CMakeFiles\veyra_qml_ui.dir\src\ui\QmlDataDirectory.cpp.obj
+[322/329] Building CXX object CMakeFiles\veyra_qml_ui.dir\src\ui\QmlDiskCache.cpp.obj
+[323/329] Building RC object CMakeFiles\veyra_qml_ui.dir\veyra-qml-version.rc.res
+[324/329] Building CXX object CMakeFiles\veyra_live_translation_tests.dir\tests\integration\LiveTranslationTests.cpp.obj
+[325/329] Building CXX object CMakeFiles\veyra_qml_ui.dir\.qt\rcc\qrc_veyra_i18n.cpp.obj
+[326/329] Linking CXX executable veyra_portable_launcher.exe
+[327/329] Linking CXX executable veyra_live_translation_tests.exe
+[328/329] Building CXX object CMakeFiles\veyra_qml_ui.dir\apps\veyra-qml\main.cpp.obj
+[329/329] Linking CXX executable veyra_qml_ui.exe
+PASS lost apostrophes put back
+PASS a real 'were' stays
+PASS several contractions in one line
+PASS line start without subject
+PASS plain line untouched
+PASS Arabic menu misread as Latin is not words
+PASS capitals inside lowercase are not words
+PASS a sentence is words
+PASS vowel-less interjection
+PASS acronym
+PASS long consonant run of a real word
+PASS no words at all is left as it is
+PASS glued words split at the dot
+PASS abbreviation kept
+PASS noise is dropped
+PASS non-English text kept with two letters
+PASS missing full stop is the same line
+PASS case-insensitive
+PASS different lines
+PASS empty is never similar
+PASS a missed grey line still agrees
+PASS nothing read by both agrees
+PASS one read nothing
+PASS side panel left out of the subtitle
+PASS panels on both sides are not a subtitle
+PASS a centred line is kept whole
+PASS text only at the side is not a subtitle
+PASS a line across the middle, a little off-centre, is kept whole
+PASS a line on the left side is not a subtitle
+PASS good and bad characters counted
+PASS right-to-left reading detected
+PASS left-to-right reading
+PASS quote fragments dropped
+PASS scenery taller than the text dropped
+PASS two words are left as they are
+PASS no scaling for an 80-row crop
+PASS bright text becomes dark on light
+PASS large crops halved to the engine's limit
+PASS short crops upscaled twice
+PASS agreeing passes read once each and are sure
+PASS disagreeing passes take a third look
+PASS first sight is not shown yet
+PASS still settling
+PASS settled line shown
+PASS same line, no change
+PASS one empty read is a blink
+PASS gone after the clear delay
+PASS unsure reading waits longer
+PASS unsure reading shown after three times the wait
+PASS new line keeps the old one until it settles
+PASS new line replaces the old one
+PASS reset clears
+PASS translation shown when ready
+PASS stays while it has not had the original's time
+PASS taken down as long after the original as it came after it
+PASS next line waits until the current one had its time
+PASS then switches without a gap
+PASS next line switches at once when the current one had its time
+PASS a very late line stays at most the lag limit after its original
+PASS and does not hold up the next line
+PASS clearing takes the line down at once
+PASS nothing left waiting after clearing
+PASS a translation of a cleared line is dropped
+PASS a line read after clearing is shown
+PASS first line shown
+PASS a line whose end was never told keeps its own lag
+PASS then gives way to the next
+PASS a translation after its line left is still taken
+PASS and shown
+PASS for at least the minimum time on screen
+PASS then for as long as its line was up
+PASS a line that left long ago is dropped
+PASS a short line stays long enough to read
+PASS an older line's reply never replaces a newer waiting one
+PASS nor a newer shown one
+PASS only the newest waiting line is kept
+PASS a backlog is skipped to the newest line
+PASS a line still on screen stays
+ALL PASSED (0 failed)
+PASS a cue in front
+PASS a cue after the name
+PASS a cue alone after the name
+PASS a cue at the end
+PASS brackets without letters are not a cue
+PASS no cues
+PASS cues from the Arabic list
+PASS a name split off
+PASS a two-word name
+PASS a colon later is not a name
+PASS known names and titles
+PASS roles are translated
+PASS roles
+PASS names in Arabic letters
+PASS letter by letter
+PASS a language tag
+PASS a misread language matched
+PASS a two-word language
+PASS the tag in Arabic
+PASS not a tag
+PASS terms kept
+PASS the kept terms
+PASS a line without terms
+PASS a term put back (Arabic digits)
+PASS a paragraph sentence by sentence
+PASS one sentence
+PASS harsh words softened
+PASS slang spelt out
+PASS offline: name and cues out, sentence by sentence
+PASS put back together
+PASS an instruction label is not a speaker
+PASS a cue-only line needs no translator
+PASS a language tag in front
+PASS only kept terms: nothing to translate
+PASS network engines get the whole line
+PASS offline: an unknown cue is translated too
+PASS and put back
+ALL PASSED (0 failed)
+PASS a word as one piece, then </s>
+PASS the best-scoring cut (one piece beats go+ing)
+PASS whitespace collapsed, punctuation its own piece
+PASS an unknown character is <unk>
+PASS consecutive unknowns are fused
+PASS a language token found by its text
+PASS decoded: specials left out, U+2581 to spaces
+ALL PASSED (0 failed)
+PASS on-screen text source selectable
+PASS picture not read while translation is off
+PASS enabled source asks the engine to read the picture
+PASS auto source reads English in the centred bottom band
+2026-11-21T15:56:04.680Z t=7612 [INFO ] [live-translation] request provider=1 source=1 http=200 error=0 ms=78 chars=21 line=current
+PASS on-screen line translated through the selected service
+PASS right-to-left reply decoded
+PASS the line is shown with its translation
+PASS a line gone from the picture keeps its translation a moment (time to read it)
+PASS then its translation is taken down
+PASS a repeated line is shown at once from the recent translations without a new request
+PASS an OCR error clears the line and shows as the status
+PASS custom region kept inside the picture
+PASS disabling stops reading the picture
+PASS the last read is offered as a preview
+2026-11-21T15:56:08.249Z t=7612 [INFO ] [live-translation] request provider=1 source=1 http=200 error=0 ms=1568 chars=22 line=earlier
+PASS the first line's translation is shown although it came after the line left
+2026-11-21T15:56:08.515Z t=7612 [INFO ] [live-translation] request provider=1 source=1 http=200 error=0 ms=188 chars=20 line=current
+PASS then the second line's translation follows
+PASS the first request was not aborted and the second waited for it
+PASS a line that comes back is shown from the recent translations
+2026-11-21T15:56:14.152Z t=7612 [INFO ] [live-translation] request provider=1 source=1 http=200 error=0 ms=1558 chars=23 line=earlier
+2026-11-21T15:56:14.417Z t=7612 [INFO ] [live-translation] request provider=1 source=1 http=200 error=0 ms=187 chars=17 line=current
+PASS a translator behind the dialogue goes on with the line on screen now
+2026-11-21T15:56:17.403Z t=7612 [INFO ] [live-translation] request provider=3 source=1 http=429 error=299 ms=640 chars=51 line=current
+2026-11-21T15:56:18.954Z t=7612 [INFO ] [live-translation] request provider=2 source=1 http=200 error=0 ms=1300 chars=51 line=current
+GOOGLE PASS 2.85 s status=\u5b9e\u65f6\u7ffb\u8bd1\u8fd0\u884c\u4e2d chars=43 arabic=34
+PASS M$M! build starts with VI Translator's offline translator
+2026-11-21T15:56:19.330Z t=7648 [INFO ] [opus-mt] model loaded vocab=62802 unk=2 pad=62801 eos=0 prefix=4 specials=3 threads=1 enc_inputs=2 dec_inputs=3
+2026-11-21T15:56:19.610Z t=7612 [INFO ] [live-translation] request provider=4 source=1 parts=1 ms=201 chars=51 line=current ok=true
+OFFLINE PASS 0.65 s arabic=29
+2026-11-21T15:56:20.032Z t=7612 [INFO ] [live-translation] request provider=4 source=1 parts=1 ms=198 chars=52 line=current ok=true
+OFFLINE PASS 2.88 s arabic=36
+2026-11-21T15:56:23.034Z t=7612 [INFO ] [live-translation] request provider=4 source=1 parts=1 ms=134 chars=25 line=current ok=true
+OFFLINE PASS 2.96 s arabic=16
+2026-11-21T15:56:26.209Z t=7612 [INFO ] [live-translation] request provider=4 source=1 parts=1 ms=134 chars=42 line=current ok=true
+OFFLINE PASS 2.00 s arabic=26
+2026-11-21T15:56:28.446Z t=7612 [INFO ] [live-translation] request provider=4 source=1 parts=2 ms=185 chars=41 line=current ok=true
+OFFLINE PASS 2.52 s arabic=22
+2026-11-21T15:56:31.166Z t=7612 [INFO ] [live-translation] request provider=4 source=1 parts=1 ms=158 chars=39 line=current ok=true
+OFFLINE PASS 2.53 s arabic=25
+OFFLINE PASS 2.42 s arabic=10
+2026-11-21T15:56:36.498Z t=7612 [INFO ] [live-translation] request provider=4 source=1 parts=1 ms=135 chars=32 line=current ok=true
+OFFLINE PASS 1.44 s arabic=28
+PASS every line translated into Arabic offline
+SKIP Live Captions unavailable on this Windows build
+veyra_live_translation_tests exit 77

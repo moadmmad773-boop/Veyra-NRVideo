@@ -1,0 +1,85 @@
+Official v2.2.0 assets:
+  SHA256SUMS.txt	500
+  Veyra-2.2.0-AMD-win64-portable.zip	748639635
+  Veyra-2.2.0-AMD-win64-setup.exe	618251968
+  Veyra-2.2.0-NVIDIA-win64-portable.zip	750110975
+  Veyra-2.2.0-NVIDIA-win64-setup.exe	723734889
+  Veyra-portable-update-v1.json	1031
+Using package: Veyra-2.2.0-NVIDIA-win64-portable.zip
+official package restored from cache
+PKG_DIR=D:\deps\official-x\Veyra-2.2.0-NVIDIA-win64-portable\versions\2.2.0
+PKG_NAME=Veyra-2.2.0-NVIDIA-win64-portable.zip
+  dll avcodec-63.dll
+  dll avfilter-12.dll
+  dll avformat-63.dll
+  dll avutil-61.dll
+  dll D3Dcompiler_47.dll
+  dll dav1d.dll
+  dll dolby_vision.dll
+  dll msvcp140.dll
+  dll Qt6Core.dll
+  dll Qt6Gui.dll
+  dll Qt6Network.dll
+  dll Qt6OpenGL.dll
+  dll Qt6Qml.dll
+  dll Qt6QmlMeta.dll
+  dll Qt6QmlModels.dll
+  dll Qt6QmlWorkerScript.dll
+  dll Qt6Quick.dll
+  dll Qt6QuickControls2.dll
+  dll Qt6QuickControls2Basic.dll
+  dll Qt6QuickControls2BasicStyleImpl.dll
+  dll Qt6QuickControls2FluentWinUI3StyleImpl.dll
+  dll Qt6QuickControls2Fusion.dll
+  dll Qt6QuickControls2FusionStyleImpl.dll
+  dll Qt6QuickControls2Imagine.dll
+  dll Qt6QuickControls2ImagineStyleImpl.dll
+  dll Qt6QuickControls2Impl.dll
+  dll Qt6QuickControls2Material.dll
+  dll Qt6QuickControls2MaterialStyleImpl.dll
+  dll Qt6QuickControls2Universal.dll
+  dll Qt6QuickControls2UniversalStyleImpl.dll
+  dll Qt6QuickControls2WindowsStyleImpl.dll
+  dll Qt6QuickEffects.dll
+  dll Qt6QuickLayouts.dll
+  dll Qt6QuickShapes.dll
+  dll Qt6QuickTemplates2.dll
+  dll Qt6Svg.dll
+  dll Qt6Widgets.dll
+  dll swresample-7.dll
+  dll swscale-10.dll
+  dll vcruntime140_1.dll
+  dll vcruntime140.dll
+warning: refs/tags/n9.0.1 501bb49457b9dfb25d6a208832e0a6e6cd53108d is not a commit!
+fetched https://github.com/FFmpeg/FFmpeg@n9.0.1 -> D:\deps\ffsrc
+FFmpeg avformat: 157 exports from avformat-63.dll
+FFmpeg avcodec: 174 exports from avcodec-63.dll
+FFmpeg avutil: 623 exports from avutil-61.dll
+FFmpeg swresample: 23 exports from swresample-7.dll
+FFmpeg swscale: 40 exports from swscale-10.dll
+libavcodec headers major 63, package DLL major 63
+FF_ROOT=D:/deps/ffmpeg
+warning: refs/tags/v310.7.0 95da6df2b9d4aca1ffad241b54a4b1f4fcfb6c69 is not a commit!
+fetched https://github.com/NVIDIA/DLSS@v310.7.0 -> D:\deps\dlss
+DLSS_ROOT=D:/deps/dlss
+NVOF_ROOT=D:/deps/nvof
+warning: refs/tags/n13.0.19.0 57f8cc0bb68e5f16f3787ea92cea59000f7bf97f is not a commit!
+fetched https://github.com/FFmpeg/nv-codec-headers@n13.0.19.0 -> D:\deps\nvenc
+NVENC_ROOT=D:/deps/nvenc
+warning: refs/tags/v3.0.2 5ec517a49a1ba8c4ad640361e4eb5227bf0742a5 is not a commit!
+fetched https://github.com/intel/xess@v3.0.2 -> D:\deps\xess
+XESS_ROOT=D:/deps/xess
+fetched https://github.com/GPUOpen-LibrariesAndSDKs/FidelityFX-SDK@v2.3.0 -> D:\deps\ffx2
+FFX2_ROOT=D:/deps/ffx2/Kits/FidelityFX
+fetched https://github.com/GPUOpen-LibrariesAndSDKs/AMF@v1.5.3 -> D:\deps\amf
+AMF_ROOT=D:/deps/amf/amf/public
+CUDA_INCLUDE=D:/deps/cudart/cuda_cudart-windows-x86_64-12.6.77-archive/include
+OPENSSL_ROOT=C:/Program Files/OpenSSL
+onnxruntime 1.22.0 (NuGet) sha256 D571E63A2329BAACB713F441E65AD75284DE354DB6E1AC435FE4BEBBB417986A; dll sha256 579B636403983254346A5C1D80BD28F1519CD1E284CD204F8D4FF41F8D711559
+ORT_ROOT=D:/deps/ort/onnxruntime-1.22.0
+opus-mt onnx/encoder_model_quantized.onnx 51,773,854 bytes sha256 53c354d87ced44b39085fe8a46a25f09ea4578d442dbce9663f3977228f8a04e
+opus-mt onnx/decoder_model_quantized.onnx 58,707,418 bytes sha256 94e6bdf90866151787d014b7b77be0adb0f036418ee04d235ec01238aa8426b9
+opus-mt tokenizer.json 6,748,848 bytes sha256 109bb62e1c598287f5960616c869e15be54785a3c2906903dafe044241d50b61
+opus-mt config.json 1,389 bytes sha256 8135d646cd810090349e8833b7ba593ac3b72d632f8858cb34925bdbcb6a1bea
+OPUS_DIR=D:\deps\opus\translation
+Dependencies ready.
