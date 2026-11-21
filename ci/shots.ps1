@@ -63,7 +63,7 @@ foreach ($s in $shots) {
         continue
     }
     [Shot]::SetForegroundWindow($h) | Out-Null
-    Start-Sleep -Seconds 7
+    Start-Sleep -Seconds 10
     $r = New-Object Shot+RECT
     [Shot]::GetWindowRect($h, [ref]$r) | Out-Null
     $w = $r.Right - $r.Left; $hgt = $r.Bottom - $r.Top

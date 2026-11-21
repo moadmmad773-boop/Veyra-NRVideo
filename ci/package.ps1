@@ -60,9 +60,10 @@ M$M! 2.2.0 (NVIDIA) - personal test build
 ==========================================
 Based on Veyra 2.2.0 by Likely7 (GPL-3.0, https://github.com/Likely7/Veyra-NRVideo), built by
 GitHub Actions from https://github.com/moadmmad773-boop/Veyra-NRVideo (branch custom/mmm):
-a light "frost" look (the dark looks stay in Settings -> Appearance), the M$M! name and logo,
-and live translation of on-screen text (capture card / PS5 subtitles) with Google Translate
-(free, no key), the local model on the graphics card, and every line's translation shown.
+a new layout (page rail on the left, settings chips, icon tabs) in a light "frost" look (the dark
+looks stay in Settings -> Appearance), the M$M! name and logo, and live translation of on-screen
+text (capture card / PS5 subtitles) the way VI Translator does it: its offline OPUS-MT English ->
+Arabic model in the translation folder (ONNX Runtime, MIT; OPUS-MT by Helsinki-NLP, CC-BY 4.0).
 Start it with M$M!.exe.
 
 Not in this build (they need private build trees): PS5 Remote Play, Moonlight/Sunshine and
@@ -70,9 +71,8 @@ Xbox streaming, NVIDIA Optical Flow guidance, Dolby Vision enhancement-layer RPU
 deinterlace module.
 
 M$M! - نسخة شخصية تجريبية مبنية على Veyra 2.2.0 (للمطوّر Likely7، رخصة GPL-3.0).
-شغّلها من M$M!.exe. فيها الشكل الفاتح الجديد (الألوان الغامقة موجودة في الإعدادات ← المظهر)،
-والاسم والشعار، وترجمة نص الشاشة عن طريق Google Translate (مجاني وبدون مفتاح) أو النموذج المحلي على كرت الشاشة،
-وكل جملة تنعرض ترجمتها.
+شغّلها من M$M!.exe. فيها ترتيب جديد للقوائم والشكل الفاتح (الألوان الغامقة في الإعدادات ← المظهر)،
+والاسم والشعار، وترجمة نص الشاشة بطريقة vi-translator: نموذج OPUS-MT المحلي داخل البرنامج بدون إنترنت.
 غير موجود فيها: PS5 Remote Play وبث Moonlight وXbox.
 '@
 

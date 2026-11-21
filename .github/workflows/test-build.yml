@@ -19,7 +19,7 @@ concurrency:
 env:
   SOURCE_REF: custom/mmm
   # 'true': publish the package as the "mmm" pre-release; otherwise build, test and report only.
-  PUBLISH: 'false'
+  PUBLISH: 'true'
 
   OFFICIAL_TAG: v2.2.0
   DEPS: D:\deps
@@ -101,16 +101,16 @@ jobs:
           - **MMM-2.2.0-NVIDIA.zip**: the full program. Unzip into a new folder and run **M`$M!.exe**.
           - **MMM-update.zip**: only the changed files. Unzip over a folder that already has this program (replace files), then run **M`$M!.exe**.
 
-          What changed: every on-screen line's translation is shown (late ones too), Google Translate engine (free, no key; MyMemory if Google fails), the local model runs on the graphics card, and a new light "frost" look (the dark looks stay in Settings > Appearance).
+          What changed: translation the way VI Translator does it - its offline OPUS-MT English -> Arabic model (in the package, no internet, about 0.2 s a line) with its handling of speaker names, sound cues and game terms; every line's translation shown. New layout: a page rail on the left, settings sections as chips, icon tabs in Pro mode, new menus, the light "frost" look.
 
-          **التغييرات:** كل جملة على الشاشة تنعرض ترجمتها حتى لو تأخرت · محرك Google Translate مجاني وبدون مفتاح (وإذا تعطّل يكمل على MyMemory) · النموذج المحلي يشتغل على كرت الشاشة · شكل جديد فاتح (الألوان الغامقة موجودة في الإعدادات ← المظهر).
+          **التغييرات:** الترجمة بطريقة vi-translator نفسها: نموذج OPUS-MT المحلي (داخل البرنامج، بدون إنترنت، حوالي 0.2 ثانية للجملة) مع معالجته لأسماء المتكلمين والأصوات والمصطلحات، وكل جملة تنعرض ترجمتها · ترتيب جديد للقوائم: شريط صفحات على اليسار، أقسام الإعدادات أزرار فوق، تبويبات بأيقونات في الوضع الاحترافي، قوائم منسدلة جديدة، والشكل الفاتح.
 
           الملف الكامل: فكّه في مجلد جديد وشغّل M`$M!.exe. ملف التحديث: فكّه فوق المجلد اللي عندك (استبدال الملفات) وشغّل M`$M!.exe.
           "@
           Set-Content "$env:RUNNER_TEMP\notes.md" $notes -Encoding utf8
           foreach ($tag in 'screen-text-test', 'mmm') { gh release delete $tag -R $env:GITHUB_REPOSITORY -y --cleanup-tag 2>$null }
           gh release create mmm $env:PACKAGE $env:UPDATE -R $env:GITHUB_REPOSITORY --prerelease `
-            --title "M`$M! 2.2.0 (frost)" --notes-file "$env:RUNNER_TEMP\notes.md" --target $env:GITHUB_SHA
+            --title "M`$M! 2.2.0 (VI Translator + new layout)" --notes-file "$env:RUNNER_TEMP\notes.md" --target $env:GITHUB_SHA
       - name: Report
         if: always()
         shell: pwsh
