@@ -1,0 +1,400 @@
+2026-11-21T17:23:03.283Z t=7988 [INFO ] [perf] compute gpu follow=false wanted=auto using=default order (highest-performance adapter)
+2026-11-21T17:23:03.286Z t=7988 [INFO ] [gpu-priority] requested=4 actual=4 state=1 ntstatus=0x00000000 cap=5
+2026-11-21T17:23:03.288Z t=884 [INFO ] [prewarm] event=disabled released=true
+2026-11-21T17:23:03.306Z t=7988 [INFO ] [i18n] catalog en entries=3226 patterns=123
+2026-11-21T17:23:03.308Z t=7988 [INFO ] [i18n] interface language en
+2026-11-21T17:23:03.308Z t=7988 [INFO ] [ui-settings-request] accepted srTarget=1 quality=2 fgBackend=0 flowBackend=1 srPrescale=0 srOutput=0
+2026-11-21T17:23:03.310Z t=7988 [INFO ] [playback-server] listening on 127.0.0.1:18765
+2026-11-21T17:23:03.371Z t=7988 [INFO ] [qml-cache] folder=C:\Users\runneradmin\AppData\Local\Veyra\Veyra\cache\qmlcache-83688a88881d8047 digest=83688a88881d8047 files=136 bytes=9600879 ms=60.6
+2026-11-21T17:23:03.373Z t=7988 [INFO ] [qml] test switches: dialog,reducedMotion size=1366x820
+2026-11-21T17:23:03.373Z t=7988 [INFO ] [qml-window] probe mode=hidden
+2026-11-21T17:23:03.956Z t=7988 [INFO ] [display-query] query reason=ui monitor=0x10001 generation=1 force=false (background thread; nothing waits for it)
+2026-11-21T17:23:03.989Z t=7988 [INFO ] [display-query] result reason=ui monitor=0x10001 generation=1 refreshHz=64.000 vrrLevel=0 status=0 hdr=off peakNits=270 refreshMs=0.052 vrrMs=0.152 colorMs=0.318 (driver wall time on the worker thread)
+2026-11-21T17:23:04.907Z t=7988 [INFO ] [ui-dialog] open capture (was none)
+2026-11-21T17:23:04.979Z t=7988 [INFO ] [startup-music] loading volume=1.00 muted=false
+2026-11-21T17:23:04.986Z t=7988 [INFO ] [qml-window] taskbar minimise enabled style=0x960A0000
+2026-11-21T17:23:04.992Z t=7988 [INFO ] [subtitle] overlay created ok=true err=0
+2026-11-21T17:23:04.992Z t=7988 [INFO ] [qml-window] source-state session=0 transport=0 running=false image=false failed=false opening=false revision=1
+2026-11-21T17:23:05.004Z t=7988 [INFO ] [app-focus] active=true running=false transport=0 sourceFps=0.00 submitFps=0.00 nr=false sr=false fg=false powerKnown=false control=0x0 state=0x0 err=87
+2026-11-21T17:23:05.182Z t=7988 [INFO ] [capture-ui] devices video=0 audio=0
+2026-11-21T17:23:05.224Z t=7988 [ERROR] [startup-music] engine error 4 hr=0xC00D36FA
+2026-11-21T17:23:07.410Z t=7988 [INFO ] [qml] [update-check-start] automatic api.github.com
+2026-11-21T17:23:07.562Z t=7988 [INFO ] [qml] [update-check] current
+2026-11-21T17:23:15.673Z t=3724 [INFO ] [app] software UI: cached raster paths; normal partial updates; no additional frame requests
+2026-11-21T17:23:15.673Z t=3724 [INFO ] [app] software UI by default (interface drawing preference: software); native D3D12 video unchanged
+2026-11-21T17:23:15.673Z t=3724 [INFO ] [app] RivaTuner running=false injected=false compat=auto OSD in this process=on
+2026-11-21T17:23:15.673Z t=3724 [INFO ] [app] NVIDIA overlay running=false GamePP running=false Douyin companion running=false interface=software
+2026-11-21T17:23:15.673Z t=3724 [INFO ] [app] CUDA compute cache maxSize=4294967296 (compiled VFG kernels are kept between sessions)
+2026-11-21T17:23:15.691Z t=3724 [INFO ] [app-icon] embedded window icon sizes=10
+2026-11-21T17:23:15.691Z t=3724 [INFO ] [app] Veyra QML session started
+2026-11-21T17:23:15.691Z t=3724 [INFO ] [app] test data directory D:\a\_temp\shot-data-10-pro-display
+2026-11-21T17:23:15.694Z t=3724 [INFO ] [nr-default] adapter=Microsoft Basic Render Driver selected=community-SF-RTX20-RTX50
+2026-11-21T17:23:15.694Z t=3724 [INFO ] [ui-prefs] volume restored=1.000 muted=false
+2026-11-21T17:23:15.694Z t=3724 [INFO ] [ui-shortcuts] fullscreen=F gameExit=Ctrl+Alt+Home gamePanel=Home hold=V lock=Ctrl+L playPause=Space record=F8 replay=F9 screenshot=F7 toggleMode=Tab custom=none
+2026-11-21T17:23:15.695Z t=3724 [INFO ] [ui-replay] replay off seconds=60 microphone=off
+2026-11-21T17:23:15.828Z t=3724 [INFO ] [perf] gpu monitor wanted=auto using=all adapters
+2026-11-21T17:23:15.829Z t=3724 [INFO ] [perf] compute gpu follow=false wanted=auto using=default order (highest-performance adapter)
+2026-11-21T17:23:15.832Z t=3724 [INFO ] [gpu-priority] requested=4 actual=4 state=1 ntstatus=0x00000000 cap=5
+2026-11-21T17:23:15.834Z t=1008 [INFO ] [prewarm] event=disabled released=true
+2026-11-21T17:23:15.853Z t=3724 [INFO ] [i18n] catalog en entries=3226 patterns=123
+2026-11-21T17:23:15.854Z t=3724 [INFO ] [i18n] interface language en
+2026-11-21T17:23:15.855Z t=3724 [INFO ] [ui-settings-request] accepted srTarget=1 quality=2 fgBackend=0 flowBackend=1 srPrescale=0 srOutput=0
+2026-11-21T17:23:15.856Z t=3724 [INFO ] [playback-server] listening on 127.0.0.1:18765
+2026-11-21T17:23:15.920Z t=3724 [INFO ] [qml-cache] folder=C:\Users\runneradmin\AppData\Local\Veyra\Veyra\cache\qmlcache-83688a88881d8047 digest=83688a88881d8047 files=136 bytes=9600879 ms=64.0
+2026-11-21T17:23:15.923Z t=3724 [INFO ] [qml] test switches: reducedMotion,tab size=1366x820
+2026-11-21T17:23:15.923Z t=3724 [INFO ] [qml-window] probe mode=hidden
+2026-11-21T17:23:16.496Z t=3724 [INFO ] [display-query] query reason=ui monitor=0x10001 generation=1 force=false (background thread; nothing waits for it)
+2026-11-21T17:23:16.527Z t=3724 [INFO ] [display-query] result reason=ui monitor=0x10001 generation=1 refreshHz=64.000 vrrLevel=0 status=0 hdr=off peakNits=270 refreshMs=0.045 vrrMs=0.155 colorMs=0.368 (driver wall time on the worker thread)
+2026-11-21T17:23:17.452Z t=3724 [INFO ] [startup-music] loading volume=1.00 muted=false
+2026-11-21T17:23:17.460Z t=3724 [INFO ] [qml-window] taskbar minimise enabled style=0x960A0000
+2026-11-21T17:23:17.466Z t=3724 [INFO ] [subtitle] overlay created ok=true err=0
+2026-11-21T17:23:17.466Z t=3724 [INFO ] [qml-window] source-state session=0 transport=0 running=false image=false failed=false opening=false revision=1
+2026-11-21T17:23:17.478Z t=3724 [INFO ] [app-focus] active=true running=false transport=0 sourceFps=0.00 submitFps=0.00 nr=false sr=false fg=false powerKnown=false control=0x0 state=0x0 err=87
+2026-11-21T17:23:17.669Z t=3724 [ERROR] [startup-music] engine error 4 hr=0xC00D36FA
+2026-11-21T17:23:19.915Z t=3724 [INFO ] [qml] [update-check-start] automatic api.github.com
+2026-11-21T17:23:20.065Z t=3724 [INFO ] [qml] [update-check] current
+2026-11-21T17:23:28.231Z t=7364 [INFO ] [app] software UI: cached raster paths; normal partial updates; no additional frame requests
+2026-11-21T17:23:28.231Z t=7364 [INFO ] [app] software UI by default (interface drawing preference: software); native D3D12 video unchanged
+2026-11-21T17:23:28.231Z t=7364 [INFO ] [app] RivaTuner running=false injected=false compat=auto OSD in this process=on
+2026-11-21T17:23:28.231Z t=7364 [INFO ] [app] NVIDIA overlay running=false GamePP running=false Douyin companion running=false interface=software
+2026-11-21T17:23:28.231Z t=7364 [INFO ] [app] CUDA compute cache maxSize=4294967296 (compiled VFG kernels are kept between sessions)
+2026-11-21T17:23:28.247Z t=7364 [INFO ] [app-icon] embedded window icon sizes=10
+2026-11-21T17:23:28.247Z t=7364 [INFO ] [app] Veyra QML session started
+2026-11-21T17:23:28.248Z t=7364 [INFO ] [app] test data directory D:\a\_temp\shot-data-6-translation
+2026-11-21T17:23:28.250Z t=7364 [INFO ] [nr-default] adapter=Microsoft Basic Render Driver selected=community-SF-RTX20-RTX50
+2026-11-21T17:23:28.250Z t=7364 [INFO ] [ui-prefs] volume restored=1.000 muted=false
+2026-11-21T17:23:28.250Z t=7364 [INFO ] [ui-shortcuts] fullscreen=F gameExit=Ctrl+Alt+Home gamePanel=Home hold=V lock=Ctrl+L playPause=Space record=F8 replay=F9 screenshot=F7 toggleMode=Tab custom=none
+2026-11-21T17:23:28.251Z t=7364 [INFO ] [ui-replay] replay off seconds=60 microphone=off
+2026-11-21T17:23:28.377Z t=7364 [INFO ] [perf] gpu monitor wanted=auto using=all adapters
+2026-11-21T17:23:28.377Z t=7364 [INFO ] [perf] compute gpu follow=false wanted=auto using=default order (highest-performance adapter)
+2026-11-21T17:23:28.380Z t=7364 [INFO ] [gpu-priority] requested=4 actual=4 state=1 ntstatus=0x00000000 cap=5
+2026-11-21T17:23:28.382Z t=3468 [INFO ] [prewarm] event=disabled released=true
+2026-11-21T17:23:28.401Z t=7364 [INFO ] [i18n] catalog en entries=3226 patterns=123
+2026-11-21T17:23:28.402Z t=7364 [INFO ] [i18n] interface language en
+2026-11-21T17:23:28.403Z t=7364 [INFO ] [ui-settings-request] accepted srTarget=1 quality=2 fgBackend=0 flowBackend=1 srPrescale=0 srOutput=0
+2026-11-21T17:23:28.404Z t=7364 [INFO ] [playback-server] listening on 127.0.0.1:18765
+2026-11-21T17:23:28.464Z t=7364 [INFO ] [qml-cache] folder=C:\Users\runneradmin\AppData\Local\Veyra\Veyra\cache\qmlcache-83688a88881d8047 digest=83688a88881d8047 files=136 bytes=9600879 ms=59.8
+2026-11-21T17:23:28.467Z t=7364 [INFO ] [qml] test switches: dialog,reducedMotion size=1366x820
+2026-11-21T17:23:28.467Z t=7364 [INFO ] [qml-window] probe mode=normal
+2026-11-21T17:23:29.011Z t=7364 [INFO ] [display-query] query reason=ui monitor=0x10001 generation=1 force=false (background thread; nothing waits for it)
+2026-11-21T17:23:29.040Z t=7364 [INFO ] [display-query] result reason=ui monitor=0x10001 generation=1 refreshHz=64.000 vrrLevel=0 status=0 hdr=off peakNits=270 refreshMs=0.048 vrrMs=0.145 colorMs=0.300 (driver wall time on the worker thread)
+2026-11-21T17:23:29.887Z t=7364 [INFO ] [ui-dialog] open translation (was none)
+2026-11-21T17:23:29.895Z t=7364 [INFO ] [startup-music] loading volume=1.00 muted=false
+2026-11-21T17:23:29.901Z t=7364 [INFO ] [qml-window] taskbar minimise enabled style=0x960A0000
+2026-11-21T17:23:29.908Z t=7364 [INFO ] [subtitle] overlay created ok=true err=0
+2026-11-21T17:23:29.908Z t=7364 [INFO ] [qml-window] source-state session=0 transport=0 running=false image=false failed=false opening=false revision=1
+2026-11-21T17:23:29.947Z t=7364 [INFO ] [app-focus] active=true running=false transport=0 sourceFps=0.00 submitFps=0.00 nr=false sr=false fg=false powerKnown=false control=0x0 state=0x0 err=87
+2026-11-21T17:23:30.111Z t=7364 [ERROR] [startup-music] engine error 4 hr=0xC00D36FA
+2026-11-21T17:23:32.410Z t=7364 [INFO ] [qml] [update-check-start] automatic api.github.com
+2026-11-21T17:23:32.561Z t=7364 [INFO ] [qml] [update-check] current
+2026-11-21T17:23:39.904Z t=7364 [INFO ] [qml-frames] ui presents per 10 s: main=14 controlBar=0
+2026-11-21T17:23:40.792Z t=4456 [INFO ] [app] software UI: cached raster paths; normal partial updates; no additional frame requests
+2026-11-21T17:23:40.792Z t=4456 [INFO ] [app] software UI by default (interface drawing preference: software); native D3D12 video unchanged
+2026-11-21T17:23:40.792Z t=4456 [INFO ] [app] RivaTuner running=false injected=false compat=auto OSD in this process=on
+2026-11-21T17:23:40.792Z t=4456 [INFO ] [app] NVIDIA overlay running=false GamePP running=false Douyin companion running=false interface=software
+2026-11-21T17:23:40.792Z t=4456 [INFO ] [app] CUDA compute cache maxSize=4294967296 (compiled VFG kernels are kept between sessions)
+2026-11-21T17:23:40.808Z t=4456 [INFO ] [app-icon] embedded window icon sizes=10
+2026-11-21T17:23:40.808Z t=4456 [INFO ] [app] Veyra QML session started
+2026-11-21T17:23:40.808Z t=4456 [INFO ] [app] test data directory D:\a\_temp\shot-data-7-export
+2026-11-21T17:23:40.810Z t=4456 [INFO ] [nr-default] adapter=Microsoft Basic Render Driver selected=community-SF-RTX20-RTX50
+2026-11-21T17:23:40.811Z t=4456 [INFO ] [ui-prefs] volume restored=1.000 muted=false
+2026-11-21T17:23:40.811Z t=4456 [INFO ] [ui-shortcuts] fullscreen=F gameExit=Ctrl+Alt+Home gamePanel=Home hold=V lock=Ctrl+L playPause=Space record=F8 replay=F9 screenshot=F7 toggleMode=Tab custom=none
+2026-11-21T17:23:40.811Z t=4456 [INFO ] [ui-replay] replay off seconds=60 microphone=off
+2026-11-21T17:23:40.927Z t=4456 [INFO ] [perf] gpu monitor wanted=auto using=all adapters
+2026-11-21T17:23:40.927Z t=4456 [INFO ] [perf] compute gpu follow=false wanted=auto using=default order (highest-performance adapter)
+2026-11-21T17:23:40.930Z t=4456 [INFO ] [gpu-priority] requested=4 actual=4 state=1 ntstatus=0x00000000 cap=5
+2026-11-21T17:23:40.932Z t=7092 [INFO ] [prewarm] event=disabled released=true
+2026-11-21T17:23:40.950Z t=4456 [INFO ] [i18n] catalog en entries=3226 patterns=123
+2026-11-21T17:23:40.951Z t=4456 [INFO ] [i18n] interface language en
+2026-11-21T17:23:40.951Z t=4456 [INFO ] [ui-settings-request] accepted srTarget=1 quality=2 fgBackend=0 flowBackend=1 srPrescale=0 srOutput=0
+2026-11-21T17:23:40.953Z t=4456 [INFO ] [playback-server] listening on 127.0.0.1:18765
+2026-11-21T17:23:41.010Z t=4456 [INFO ] [qml-cache] folder=C:\Users\runneradmin\AppData\Local\Veyra\Veyra\cache\qmlcache-83688a88881d8047 digest=83688a88881d8047 files=136 bytes=9600879 ms=57.3
+2026-11-21T17:23:41.013Z t=4456 [INFO ] [qml] test switches: reducedMotion size=1366x820
+2026-11-21T17:23:41.013Z t=4456 [INFO ] [qml-window] probe mode=normal
+2026-11-21T17:23:41.520Z t=4456 [INFO ] [display-query] query reason=ui monitor=0x10001 generation=1 force=false (background thread; nothing waits for it)
+2026-11-21T17:23:41.549Z t=4456 [INFO ] [display-query] result reason=ui monitor=0x10001 generation=1 refreshHz=64.000 vrrLevel=0 status=0 hdr=off peakNits=270 refreshMs=0.044 vrrMs=0.146 colorMs=0.302 (driver wall time on the worker thread)
+2026-11-21T17:23:42.369Z t=4456 [INFO ] [startup-music] loading volume=1.00 muted=false
+2026-11-21T17:23:42.376Z t=4456 [INFO ] [qml-window] taskbar minimise enabled style=0x960A0000
+2026-11-21T17:23:42.383Z t=4456 [INFO ] [subtitle] overlay created ok=true err=0
+2026-11-21T17:23:42.383Z t=4456 [INFO ] [qml-window] source-state session=0 transport=0 running=false image=false failed=false opening=false revision=1
+2026-11-21T17:23:42.419Z t=4456 [INFO ] [app-focus] active=true running=false transport=0 sourceFps=0.00 submitFps=0.00 nr=false sr=false fg=false powerKnown=false control=0x0 state=0x0 err=87
+2026-11-21T17:23:42.584Z t=4456 [ERROR] [startup-music] engine error 4 hr=0xC00D36FA
+2026-11-21T17:23:44.892Z t=4456 [INFO ] [qml] [update-check-start] automatic api.github.com
+2026-11-21T17:23:45.132Z t=4456 [INFO ] [qml] [update-check] current
+2026-11-21T17:23:52.366Z t=4456 [INFO ] [qml-frames] ui presents per 10 s: main=10 controlBar=0
+2026-11-21T17:23:53.348Z t=6976 [INFO ] [app] software UI: cached raster paths; normal partial updates; no additional frame requests
+2026-11-21T17:23:53.348Z t=6976 [INFO ] [app] software UI by default (interface drawing preference: software); native D3D12 video unchanged
+2026-11-21T17:23:53.348Z t=6976 [INFO ] [app] RivaTuner running=false injected=false compat=auto OSD in this process=on
+2026-11-21T17:23:53.348Z t=6976 [INFO ] [app] NVIDIA overlay running=false GamePP running=false Douyin companion running=false interface=software
+2026-11-21T17:23:53.348Z t=6976 [INFO ] [app] CUDA compute cache maxSize=4294967296 (compiled VFG kernels are kept between sessions)
+2026-11-21T17:23:53.364Z t=6976 [INFO ] [app-icon] embedded window icon sizes=10
+2026-11-21T17:23:53.364Z t=6976 [INFO ] [app] Veyra QML session started
+2026-11-21T17:23:53.364Z t=6976 [INFO ] [app] test data directory D:\a\_temp\shot-data-8-pro-fg
+2026-11-21T17:23:53.366Z t=6976 [INFO ] [nr-default] adapter=Microsoft Basic Render Driver selected=community-SF-RTX20-RTX50
+2026-11-21T17:23:53.367Z t=6976 [INFO ] [ui-prefs] volume restored=1.000 muted=false
+2026-11-21T17:23:53.367Z t=6976 [INFO ] [ui-shortcuts] fullscreen=F gameExit=Ctrl+Alt+Home gamePanel=Home hold=V lock=Ctrl+L playPause=Space record=F8 replay=F9 screenshot=F7 toggleMode=Tab custom=none
+2026-11-21T17:23:53.367Z t=6976 [INFO ] [ui-replay] replay off seconds=60 microphone=off
+2026-11-21T17:23:53.505Z t=6976 [INFO ] [perf] gpu monitor wanted=auto using=all adapters
+2026-11-21T17:23:53.505Z t=6976 [INFO ] [perf] compute gpu follow=false wanted=auto using=default order (highest-performance adapter)
+2026-11-21T17:23:53.508Z t=6976 [INFO ] [gpu-priority] requested=4 actual=4 state=1 ntstatus=0x00000000 cap=5
+2026-11-21T17:23:53.510Z t=1568 [INFO ] [prewarm] event=disabled released=true
+2026-11-21T17:23:53.528Z t=6976 [INFO ] [i18n] catalog en entries=3226 patterns=123
+2026-11-21T17:23:53.529Z t=6976 [INFO ] [i18n] interface language en
+2026-11-21T17:23:53.530Z t=6976 [INFO ] [ui-settings-request] accepted srTarget=1 quality=2 fgBackend=0 flowBackend=1 srPrescale=0 srOutput=0
+2026-11-21T17:23:53.531Z t=6976 [INFO ] [playback-server] listening on 127.0.0.1:18765
+2026-11-21T17:23:53.590Z t=6976 [INFO ] [qml-cache] folder=C:\Users\runneradmin\AppData\Local\Veyra\Veyra\cache\qmlcache-83688a88881d8047 digest=83688a88881d8047 files=136 bytes=9600879 ms=58.5
+2026-11-21T17:23:53.593Z t=6976 [INFO ] [qml] test switches: reducedMotion,tab size=1366x820
+2026-11-21T17:23:53.593Z t=6976 [INFO ] [qml-window] probe mode=hidden
+2026-11-21T17:23:54.125Z t=6976 [INFO ] [display-query] query reason=ui monitor=0x10001 generation=1 force=false (background thread; nothing waits for it)
+2026-11-21T17:23:54.154Z t=6976 [INFO ] [display-query] result reason=ui monitor=0x10001 generation=1 refreshHz=64.000 vrrLevel=0 status=0 hdr=off peakNits=270 refreshMs=0.043 vrrMs=0.129 colorMs=0.336 (driver wall time on the worker thread)
+2026-11-21T17:23:55.097Z t=6976 [INFO ] [startup-music] loading volume=1.00 muted=false
+2026-11-21T17:23:55.104Z t=6976 [INFO ] [qml-window] taskbar minimise enabled style=0x960A0000
+2026-11-21T17:23:55.111Z t=6976 [INFO ] [subtitle] overlay created ok=true err=0
+2026-11-21T17:23:55.111Z t=6976 [INFO ] [qml-window] source-state session=0 transport=0 running=false image=false failed=false opening=false revision=1
+2026-11-21T17:23:55.122Z t=6976 [INFO ] [app-focus] active=true running=false transport=0 sourceFps=0.00 submitFps=0.00 nr=false sr=false fg=false powerKnown=false control=0x0 state=0x0 err=87
+2026-11-21T17:23:55.313Z t=6976 [ERROR] [startup-music] engine error 4 hr=0xC00D36FA
+2026-11-21T17:23:57.548Z t=6976 [INFO ] [qml] [update-check-start] automatic api.github.com
+2026-11-21T17:23:57.736Z t=6976 [INFO ] [qml] [update-check] current
+2026-11-21T17:24:05.107Z t=6976 [INFO ] [qml-frames] ui presents per 10 s: main=14 controlBar=0
+2026-11-21T17:24:05.908Z t=2464 [INFO ] [app] software UI: cached raster paths; normal partial updates; no additional frame requests
+2026-11-21T17:24:05.908Z t=2464 [INFO ] [app] software UI by default (interface drawing preference: software); native D3D12 video unchanged
+2026-11-21T17:24:05.908Z t=2464 [INFO ] [app] RivaTuner running=false injected=false compat=auto OSD in this process=on
+2026-11-21T17:24:05.908Z t=2464 [INFO ] [app] NVIDIA overlay running=false GamePP running=false Douyin companion running=false interface=software
+2026-11-21T17:24:05.908Z t=2464 [INFO ] [app] CUDA compute cache maxSize=4294967296 (compiled VFG kernels are kept between sessions)
+2026-11-21T17:24:05.925Z t=2464 [INFO ] [app-icon] embedded window icon sizes=10
+2026-11-21T17:24:05.925Z t=2464 [INFO ] [app] Veyra QML session started
+2026-11-21T17:24:05.926Z t=2464 [INFO ] [app] test data directory D:\a\_temp\shot-data-11-ps5
+2026-11-21T17:24:05.928Z t=2464 [INFO ] [nr-default] adapter=Microsoft Basic Render Driver selected=community-SF-RTX20-RTX50
+2026-11-21T17:24:05.928Z t=2464 [INFO ] [ui-prefs] volume restored=1.000 muted=false
+2026-11-21T17:24:05.929Z t=2464 [INFO ] [ui-shortcuts] fullscreen=F gameExit=Ctrl+Alt+Home gamePanel=Home hold=V lock=Ctrl+L playPause=Space record=F8 replay=F9 screenshot=F7 toggleMode=Tab custom=none
+2026-11-21T17:24:05.929Z t=2464 [INFO ] [ui-replay] replay off seconds=60 microphone=off
+2026-11-21T17:24:06.071Z t=2464 [INFO ] [perf] gpu monitor wanted=auto using=all adapters
+2026-11-21T17:24:06.071Z t=2464 [INFO ] [perf] compute gpu follow=false wanted=auto using=default order (highest-performance adapter)
+2026-11-21T17:24:06.075Z t=2464 [INFO ] [gpu-priority] requested=4 actual=4 state=1 ntstatus=0x00000000 cap=5
+2026-11-21T17:24:06.077Z t=7644 [INFO ] [prewarm] event=disabled released=true
+2026-11-21T17:24:06.096Z t=2464 [INFO ] [i18n] catalog en entries=3226 patterns=123
+2026-11-21T17:24:06.097Z t=2464 [INFO ] [i18n] interface language en
+2026-11-21T17:24:06.098Z t=2464 [INFO ] [ui-settings-request] accepted srTarget=1 quality=2 fgBackend=0 flowBackend=1 srPrescale=0 srOutput=0
+2026-11-21T17:24:06.099Z t=2464 [INFO ] [playback-server] listening on 127.0.0.1:18765
+2026-11-21T17:24:06.159Z t=2464 [INFO ] [qml-cache] folder=C:\Users\runneradmin\AppData\Local\Veyra\Veyra\cache\qmlcache-83688a88881d8047 digest=83688a88881d8047 files=136 bytes=9600879 ms=59.4
+2026-11-21T17:24:06.162Z t=2464 [INFO ] [qml] test switches: dialog,reducedMotion size=1366x820
+2026-11-21T17:24:06.162Z t=2464 [INFO ] [qml-window] probe mode=normal
+2026-11-21T17:24:06.738Z t=2464 [INFO ] [display-query] query reason=ui monitor=0x10001 generation=1 force=false (background thread; nothing waits for it)
+2026-11-21T17:24:06.770Z t=2464 [INFO ] [display-query] result reason=ui monitor=0x10001 generation=1 refreshHz=64.000 vrrLevel=0 status=0 hdr=off peakNits=270 refreshMs=0.036 vrrMs=0.141 colorMs=0.342 (driver wall time on the worker thread)
+2026-11-21T17:24:07.642Z t=2464 [INFO ] [ui-dialog] open ps5 (was none)
+2026-11-21T17:24:07.657Z t=2464 [INFO ] [startup-music] loading volume=1.00 muted=false
+2026-11-21T17:24:07.664Z t=2464 [INFO ] [qml-window] taskbar minimise enabled style=0x960A0000
+2026-11-21T17:24:07.670Z t=2464 [INFO ] [subtitle] overlay created ok=true err=0
+2026-11-21T17:24:07.670Z t=2464 [INFO ] [qml-window] source-state session=0 transport=0 running=false image=false failed=false opening=false revision=1
+2026-11-21T17:24:07.707Z t=2464 [INFO ] [app-focus] active=true running=false transport=0 sourceFps=0.00 submitFps=0.00 nr=false sr=false fg=false powerKnown=false control=0x0 state=0x0 err=87
+2026-11-21T17:24:07.871Z t=2464 [ERROR] [startup-music] engine error 4 hr=0xC00D36FA
+2026-11-21T17:24:10.195Z t=2464 [INFO ] [qml] [update-check-start] automatic api.github.com
+2026-11-21T17:24:10.375Z t=2464 [INFO ] [qml] [update-check] current
+2026-11-21T17:24:17.662Z t=2464 [INFO ] [qml-frames] ui presents per 10 s: main=10 controlBar=0
+2026-11-21T17:24:18.464Z t=7516 [INFO ] [app] software UI: cached raster paths; normal partial updates; no additional frame requests
+2026-11-21T17:24:18.464Z t=7516 [INFO ] [app] software UI by default (interface drawing preference: software); native D3D12 video unchanged
+2026-11-21T17:24:18.464Z t=7516 [INFO ] [app] RivaTuner running=false injected=false compat=auto OSD in this process=on
+2026-11-21T17:24:18.464Z t=7516 [INFO ] [app] NVIDIA overlay running=false GamePP running=false Douyin companion running=false interface=software
+2026-11-21T17:24:18.464Z t=7516 [INFO ] [app] CUDA compute cache maxSize=4294967296 (compiled VFG kernels are kept between sessions)
+2026-11-21T17:24:18.481Z t=7516 [INFO ] [app-icon] embedded window icon sizes=10
+2026-11-21T17:24:18.481Z t=7516 [INFO ] [app] Veyra QML session started
+2026-11-21T17:24:18.481Z t=7516 [INFO ] [app] test data directory D:\a\_temp\shot-data-12-menu
+2026-11-21T17:24:18.484Z t=7516 [INFO ] [nr-default] adapter=Microsoft Basic Render Driver selected=community-SF-RTX20-RTX50
+2026-11-21T17:24:18.484Z t=7516 [INFO ] [ui-prefs] volume restored=1.000 muted=false
+2026-11-21T17:24:18.484Z t=7516 [INFO ] [ui-shortcuts] fullscreen=F gameExit=Ctrl+Alt+Home gamePanel=Home hold=V lock=Ctrl+L playPause=Space record=F8 replay=F9 screenshot=F7 toggleMode=Tab custom=none
+2026-11-21T17:24:18.485Z t=7516 [INFO ] [ui-replay] replay off seconds=60 microphone=off
+2026-11-21T17:24:18.608Z t=7516 [INFO ] [perf] gpu monitor wanted=auto using=all adapters
+2026-11-21T17:24:18.608Z t=7516 [INFO ] [perf] compute gpu follow=false wanted=auto using=default order (highest-performance adapter)
+2026-11-21T17:24:18.611Z t=7516 [INFO ] [gpu-priority] requested=4 actual=4 state=1 ntstatus=0x00000000 cap=5
+2026-11-21T17:24:18.613Z t=5788 [INFO ] [prewarm] event=disabled released=true
+2026-11-21T17:24:18.632Z t=7516 [INFO ] [i18n] catalog en entries=3226 patterns=123
+2026-11-21T17:24:18.633Z t=7516 [INFO ] [i18n] interface language en
+2026-11-21T17:24:18.633Z t=7516 [INFO ] [ui-settings-request] accepted srTarget=1 quality=2 fgBackend=0 flowBackend=1 srPrescale=0 srOutput=0
+2026-11-21T17:24:18.635Z t=7516 [INFO ] [playback-server] listening on 127.0.0.1:18765
+2026-11-21T17:24:18.695Z t=7516 [INFO ] [qml-cache] folder=C:\Users\runneradmin\AppData\Local\Veyra\Veyra\cache\qmlcache-83688a88881d8047 digest=83688a88881d8047 files=136 bytes=9600879 ms=59.9
+2026-11-21T17:24:18.698Z t=7516 [INFO ] [qml] test switches: menu,reducedMotion size=1366x820
+2026-11-21T17:24:18.698Z t=7516 [INFO ] [qml-window] probe mode=hidden
+2026-11-21T17:24:19.264Z t=7516 [INFO ] [display-query] query reason=ui monitor=0x10001 generation=1 force=false (background thread; nothing waits for it)
+2026-11-21T17:24:19.295Z t=7516 [INFO ] [display-query] result reason=ui monitor=0x10001 generation=1 refreshHz=64.000 vrrLevel=0 status=0 hdr=off peakNits=270 refreshMs=0.046 vrrMs=0.203 colorMs=0.329 (driver wall time on the worker thread)
+2026-11-21T17:24:20.208Z t=7516 [INFO ] [startup-music] loading volume=1.00 muted=false
+2026-11-21T17:24:20.215Z t=7516 [INFO ] [qml-window] taskbar minimise enabled style=0x960A0000
+2026-11-21T17:24:20.259Z t=7516 [INFO ] [subtitle] overlay created ok=true err=0
+2026-11-21T17:24:20.259Z t=7516 [INFO ] [qml-window] source-state session=0 transport=0 running=false image=false failed=false opening=false revision=1
+2026-11-21T17:24:20.271Z t=7516 [INFO ] [app-focus] active=true running=false transport=0 sourceFps=0.00 submitFps=0.00 nr=false sr=false fg=false powerKnown=false control=0x0 state=0x0 err=87
+2026-11-21T17:24:20.442Z t=7516 [ERROR] [startup-music] engine error 4 hr=0xC00D36FA
+2026-11-21T17:24:22.708Z t=7516 [INFO ] [qml] [update-check-start] automatic api.github.com
+2026-11-21T17:24:22.857Z t=7516 [INFO ] [qml] [update-check] current
+2026-11-21T17:24:30.208Z t=7516 [INFO ] [qml-frames] ui presents per 10 s: main=13 controlBar=0
+2026-11-21T17:24:31.024Z t=5080 [INFO ] [app] software UI: cached raster paths; normal partial updates; no additional frame requests
+2026-11-21T17:24:31.024Z t=5080 [INFO ] [app] software UI by default (interface drawing preference: software); native D3D12 video unchanged
+2026-11-21T17:24:31.024Z t=5080 [INFO ] [app] RivaTuner running=false injected=false compat=auto OSD in this process=on
+2026-11-21T17:24:31.024Z t=5080 [INFO ] [app] NVIDIA overlay running=false GamePP running=false Douyin companion running=false interface=software
+2026-11-21T17:24:31.024Z t=5080 [INFO ] [app] CUDA compute cache maxSize=4294967296 (compiled VFG kernels are kept between sessions)
+2026-11-21T17:24:31.040Z t=5080 [INFO ] [app-icon] embedded window icon sizes=10
+2026-11-21T17:24:31.040Z t=5080 [INFO ] [app] Veyra QML session started
+2026-11-21T17:24:31.041Z t=5080 [INFO ] [app] test data directory D:\a\_temp\shot-data-13-min-dock
+2026-11-21T17:24:31.043Z t=5080 [INFO ] [nr-default] adapter=Microsoft Basic Render Driver selected=community-SF-RTX20-RTX50
+2026-11-21T17:24:31.043Z t=5080 [INFO ] [ui-prefs] volume restored=1.000 muted=false
+2026-11-21T17:24:31.043Z t=5080 [INFO ] [ui-shortcuts] fullscreen=F gameExit=Ctrl+Alt+Home gamePanel=Home hold=V lock=Ctrl+L playPause=Space record=F8 replay=F9 screenshot=F7 toggleMode=Tab custom=none
+2026-11-21T17:24:31.044Z t=5080 [INFO ] [ui-replay] replay off seconds=60 microphone=off
+2026-11-21T17:24:31.179Z t=5080 [INFO ] [perf] gpu monitor wanted=auto using=all adapters
+2026-11-21T17:24:31.179Z t=5080 [INFO ] [perf] compute gpu follow=false wanted=auto using=default order (highest-performance adapter)
+2026-11-21T17:24:31.181Z t=5080 [INFO ] [gpu-priority] requested=4 actual=4 state=1 ntstatus=0x00000000 cap=5
+2026-11-21T17:24:31.184Z t=7940 [INFO ] [prewarm] event=disabled released=true
+2026-11-21T17:24:31.202Z t=5080 [INFO ] [i18n] catalog en entries=3226 patterns=123
+2026-11-21T17:24:31.203Z t=5080 [INFO ] [i18n] interface language en
+2026-11-21T17:24:31.204Z t=5080 [INFO ] [ui-settings-request] accepted srTarget=1 quality=2 fgBackend=0 flowBackend=1 srPrescale=0 srOutput=0
+2026-11-21T17:24:31.205Z t=5080 [INFO ] [playback-server] listening on 127.0.0.1:18765
+2026-11-21T17:24:31.265Z t=5080 [INFO ] [qml-cache] folder=C:\Users\runneradmin\AppData\Local\Veyra\Veyra\cache\qmlcache-83688a88881d8047 digest=83688a88881d8047 files=136 bytes=9600879 ms=60.2
+2026-11-21T17:24:31.268Z t=5080 [INFO ] [qml] test switches: dockPinned,reducedMotion size=1366x820
+2026-11-21T17:24:31.268Z t=5080 [INFO ] [qml-window] probe mode=normal
+2026-11-21T17:24:31.800Z t=5080 [INFO ] [display-query] query reason=ui monitor=0x10001 generation=1 force=false (background thread; nothing waits for it)
+2026-11-21T17:24:31.828Z t=5080 [INFO ] [display-query] result reason=ui monitor=0x10001 generation=1 refreshHz=64.000 vrrLevel=0 status=0 hdr=off peakNits=270 refreshMs=0.038 vrrMs=0.138 colorMs=0.297 (driver wall time on the worker thread)
+2026-11-21T17:24:32.660Z t=5080 [INFO ] [startup-music] loading volume=1.00 muted=false
+2026-11-21T17:24:32.666Z t=5080 [INFO ] [qml-window] taskbar minimise enabled style=0x960A0000
+2026-11-21T17:24:32.672Z t=5080 [INFO ] [subtitle] overlay created ok=true err=0
+2026-11-21T17:24:32.672Z t=5080 [INFO ] [qml-window] source-state session=0 transport=0 running=false image=false failed=false opening=false revision=1
+2026-11-21T17:24:32.709Z t=5080 [INFO ] [app-focus] active=true running=false transport=0 sourceFps=0.00 submitFps=0.00 nr=false sr=false fg=false powerKnown=false control=0x0 state=0x0 err=87
+2026-11-21T17:24:32.874Z t=5080 [ERROR] [startup-music] engine error 4 hr=0xC00D36FA
+2026-11-21T17:24:35.196Z t=5080 [INFO ] [qml] [update-check-start] automatic api.github.com
+2026-11-21T17:24:35.346Z t=5080 [INFO ] [qml] [update-check] current
+2026-11-21T17:24:42.663Z t=5080 [INFO ] [qml-frames] ui presents per 10 s: main=10 controlBar=0
+2026-11-21T17:24:43.572Z t=2284 [INFO ] [app] software UI: cached raster paths; normal partial updates; no additional frame requests
+2026-11-21T17:24:43.572Z t=2284 [INFO ] [app] software UI by default (interface drawing preference: software); native D3D12 video unchanged
+2026-11-21T17:24:43.572Z t=2284 [INFO ] [app] RivaTuner running=false injected=false compat=auto OSD in this process=on
+2026-11-21T17:24:43.572Z t=2284 [INFO ] [app] NVIDIA overlay running=false GamePP running=false Douyin companion running=false interface=software
+2026-11-21T17:24:43.572Z t=2284 [INFO ] [app] CUDA compute cache maxSize=4294967296 (compiled VFG kernels are kept between sessions)
+2026-11-21T17:24:43.588Z t=2284 [INFO ] [app-icon] embedded window icon sizes=10
+2026-11-21T17:24:43.588Z t=2284 [INFO ] [app] Veyra QML session started
+2026-11-21T17:24:43.588Z t=2284 [INFO ] [app] test data directory D:\a\_temp\shot-data-14-settings-play
+2026-11-21T17:24:43.590Z t=2284 [INFO ] [nr-default] adapter=Microsoft Basic Render Driver selected=community-SF-RTX20-RTX50
+2026-11-21T17:24:43.591Z t=2284 [INFO ] [ui-prefs] volume restored=1.000 muted=false
+2026-11-21T17:24:43.591Z t=2284 [INFO ] [ui-shortcuts] fullscreen=F gameExit=Ctrl+Alt+Home gamePanel=Home hold=V lock=Ctrl+L playPause=Space record=F8 replay=F9 screenshot=F7 toggleMode=Tab custom=none
+2026-11-21T17:24:43.591Z t=2284 [INFO ] [ui-replay] replay off seconds=60 microphone=off
+2026-11-21T17:24:43.708Z t=2284 [INFO ] [perf] gpu monitor wanted=auto using=all adapters
+2026-11-21T17:24:43.708Z t=2284 [INFO ] [perf] compute gpu follow=false wanted=auto using=default order (highest-performance adapter)
+2026-11-21T17:24:43.711Z t=2284 [INFO ] [gpu-priority] requested=4 actual=4 state=1 ntstatus=0x00000000 cap=5
+2026-11-21T17:24:43.713Z t=1928 [INFO ] [prewarm] event=disabled released=true
+2026-11-21T17:24:43.730Z t=2284 [INFO ] [i18n] catalog en entries=3226 patterns=123
+2026-11-21T17:24:43.731Z t=2284 [INFO ] [i18n] interface language en
+2026-11-21T17:24:43.732Z t=2284 [INFO ] [ui-settings-request] accepted srTarget=1 quality=2 fgBackend=0 flowBackend=1 srPrescale=0 srOutput=0
+2026-11-21T17:24:43.734Z t=2284 [INFO ] [playback-server] listening on 127.0.0.1:18765
+2026-11-21T17:24:43.792Z t=2284 [INFO ] [qml-cache] folder=C:\Users\runneradmin\AppData\Local\Veyra\Veyra\cache\qmlcache-83688a88881d8047 digest=83688a88881d8047 files=136 bytes=9600879 ms=58.1
+2026-11-21T17:24:43.794Z t=2284 [INFO ] [qml] test switches: reducedMotion size=1366x820
+2026-11-21T17:24:43.794Z t=2284 [INFO ] [qml-window] probe mode=normal
+2026-11-21T17:24:44.315Z t=2284 [INFO ] [display-query] query reason=ui monitor=0x10001 generation=1 force=false (background thread; nothing waits for it)
+2026-11-21T17:24:44.346Z t=2284 [INFO ] [display-query] result reason=ui monitor=0x10001 generation=1 refreshHz=64.000 vrrLevel=0 status=0 hdr=off peakNits=270 refreshMs=0.040 vrrMs=0.110 colorMs=0.300 (driver wall time on the worker thread)
+2026-11-21T17:24:45.227Z t=2284 [INFO ] [startup-music] loading volume=1.00 muted=false
+2026-11-21T17:24:45.234Z t=2284 [INFO ] [qml-window] taskbar minimise enabled style=0x960A0000
+2026-11-21T17:24:45.240Z t=2284 [INFO ] [subtitle] overlay created ok=true err=0
+2026-11-21T17:24:45.240Z t=2284 [INFO ] [qml-window] source-state session=0 transport=0 running=false image=false failed=false opening=false revision=1
+2026-11-21T17:24:45.245Z t=2284 [INFO ] [qml-test] pref-at palette=frost
+2026-11-21T17:24:45.246Z t=2284 [INFO ] [ui-prefs] palette=frost
+2026-11-21T17:24:45.290Z t=2284 [INFO ] [app-focus] active=true running=false transport=0 sourceFps=0.00 submitFps=0.00 nr=false sr=false fg=false powerKnown=false control=0x0 state=0x0 err=87
+2026-11-21T17:24:45.441Z t=2284 [ERROR] [startup-music] engine error 4 hr=0xC00D36FA
+2026-11-21T17:24:47.738Z t=2284 [INFO ] [qml] [update-check-start] automatic api.github.com
+2026-11-21T17:24:47.892Z t=2284 [INFO ] [qml] [update-check] current
+2026-11-21T17:24:55.230Z t=2284 [INFO ] [qml-frames] ui presents per 10 s: main=14 controlBar=0
+2026-11-21T17:24:56.130Z t=7524 [INFO ] [app] software UI: cached raster paths; normal partial updates; no additional frame requests
+2026-11-21T17:24:56.130Z t=7524 [INFO ] [app] software UI by default (interface drawing preference: software); native D3D12 video unchanged
+2026-11-21T17:24:56.130Z t=7524 [INFO ] [app] RivaTuner running=false injected=false compat=auto OSD in this process=on
+2026-11-21T17:24:56.130Z t=7524 [INFO ] [app] NVIDIA overlay running=false GamePP running=false Douyin companion running=false interface=software
+2026-11-21T17:24:56.130Z t=7524 [INFO ] [app] CUDA compute cache maxSize=4294967296 (compiled VFG kernels are kept between sessions)
+2026-11-21T17:24:56.146Z t=7524 [INFO ] [app-icon] embedded window icon sizes=10
+2026-11-21T17:24:56.146Z t=7524 [INFO ] [app] Veyra QML session started
+2026-11-21T17:24:56.146Z t=7524 [INFO ] [app] test data directory D:\a\_temp\shot-data-15-export-dialog
+2026-11-21T17:24:56.148Z t=7524 [INFO ] [nr-default] adapter=Microsoft Basic Render Driver selected=community-SF-RTX20-RTX50
+2026-11-21T17:24:56.149Z t=7524 [INFO ] [ui-prefs] volume restored=1.000 muted=false
+2026-11-21T17:24:56.149Z t=7524 [INFO ] [ui-shortcuts] fullscreen=F gameExit=Ctrl+Alt+Home gamePanel=Home hold=V lock=Ctrl+L playPause=Space record=F8 replay=F9 screenshot=F7 toggleMode=Tab custom=none
+2026-11-21T17:24:56.149Z t=7524 [INFO ] [ui-replay] replay off seconds=60 microphone=off
+2026-11-21T17:24:56.288Z t=7524 [INFO ] [perf] gpu monitor wanted=auto using=all adapters
+2026-11-21T17:24:56.288Z t=7524 [INFO ] [perf] compute gpu follow=false wanted=auto using=default order (highest-performance adapter)
+2026-11-21T17:24:56.291Z t=7524 [INFO ] [gpu-priority] requested=4 actual=4 state=1 ntstatus=0x00000000 cap=5
+2026-11-21T17:24:56.293Z t=944 [INFO ] [prewarm] event=disabled released=true
+2026-11-21T17:24:56.310Z t=7524 [INFO ] [i18n] catalog en entries=3226 patterns=123
+2026-11-21T17:24:56.311Z t=7524 [INFO ] [i18n] interface language en
+2026-11-21T17:24:56.312Z t=7524 [INFO ] [ui-settings-request] accepted srTarget=1 quality=2 fgBackend=0 flowBackend=1 srPrescale=0 srOutput=0
+2026-11-21T17:24:56.313Z t=7524 [INFO ] [playback-server] listening on 127.0.0.1:18765
+2026-11-21T17:24:56.372Z t=7524 [INFO ] [qml-cache] folder=C:\Users\runneradmin\AppData\Local\Veyra\Veyra\cache\qmlcache-83688a88881d8047 digest=83688a88881d8047 files=136 bytes=9600879 ms=59.1
+2026-11-21T17:24:56.375Z t=7524 [INFO ] [qml] test switches: dialog,reducedMotion size=1366x820
+2026-11-21T17:24:56.375Z t=7524 [INFO ] [qml-window] probe mode=hidden
+2026-11-21T17:24:56.908Z t=7524 [INFO ] [display-query] query reason=ui monitor=0x10001 generation=1 force=false (background thread; nothing waits for it)
+2026-11-21T17:24:56.936Z t=7524 [INFO ] [display-query] result reason=ui monitor=0x10001 generation=1 refreshHz=64.000 vrrLevel=0 status=0 hdr=off peakNits=270 refreshMs=0.043 vrrMs=0.137 colorMs=0.334 (driver wall time on the worker thread)
+2026-11-21T17:24:57.791Z t=7524 [INFO ] [ui-dialog] open save (was none)
+2026-11-21T17:24:57.802Z t=7524 [INFO ] [startup-music] loading volume=1.00 muted=false
+2026-11-21T17:24:57.808Z t=7524 [INFO ] [qml-window] taskbar minimise enabled style=0x960A0000
+2026-11-21T17:24:57.814Z t=7524 [INFO ] [subtitle] overlay created ok=true err=0
+2026-11-21T17:24:57.815Z t=7524 [INFO ] [qml-window] source-state session=0 transport=0 running=false image=false failed=false opening=false revision=1
+2026-11-21T17:24:57.853Z t=7524 [INFO ] [app-focus] active=true running=false transport=0 sourceFps=0.00 submitFps=0.00 nr=false sr=false fg=false powerKnown=false control=0x0 state=0x0 err=87
+2026-11-21T17:24:58.018Z t=7524 [ERROR] [startup-music] engine error 4 hr=0xC00D36FA
+2026-11-21T17:25:00.316Z t=7524 [INFO ] [qml] [update-check-start] automatic api.github.com
+2026-11-21T17:25:00.495Z t=7524 [INFO ] [qml] [update-check] current
+2026-11-21T17:25:07.804Z t=7524 [INFO ] [qml-frames] ui presents per 10 s: main=14 controlBar=0
+2026-11-21T17:25:08.691Z t=2624 [INFO ] [app] software UI: cached raster paths; normal partial updates; no additional frame requests
+2026-11-21T17:25:08.691Z t=2624 [INFO ] [app] software UI by default (interface drawing preference: software); native D3D12 video unchanged
+2026-11-21T17:25:08.691Z t=2624 [INFO ] [app] RivaTuner running=false injected=false compat=auto OSD in this process=on
+2026-11-21T17:25:08.691Z t=2624 [INFO ] [app] NVIDIA overlay running=false GamePP running=false Douyin companion running=false interface=software
+2026-11-21T17:25:08.691Z t=2624 [INFO ] [app] CUDA compute cache maxSize=4294967296 (compiled VFG kernels are kept between sessions)
+2026-11-21T17:25:08.708Z t=2624 [INFO ] [app-icon] embedded window icon sizes=10
+2026-11-21T17:25:08.708Z t=2624 [INFO ] [app] Veyra QML session started
+2026-11-21T17:25:08.709Z t=2624 [INFO ] [app] test data directory D:\a\_temp\shot-data-17-min-menu
+2026-11-21T17:25:08.711Z t=2624 [INFO ] [nr-default] adapter=Microsoft Basic Render Driver selected=community-SF-RTX20-RTX50
+2026-11-21T17:25:08.711Z t=2624 [INFO ] [ui-prefs] volume restored=1.000 muted=false
+2026-11-21T17:25:08.711Z t=2624 [INFO ] [ui-shortcuts] fullscreen=F gameExit=Ctrl+Alt+Home gamePanel=Home hold=V lock=Ctrl+L playPause=Space record=F8 replay=F9 screenshot=F7 toggleMode=Tab custom=none
+2026-11-21T17:25:08.712Z t=2624 [INFO ] [ui-replay] replay off seconds=60 microphone=off
+2026-11-21T17:25:08.854Z t=2624 [INFO ] [perf] gpu monitor wanted=auto using=all adapters
+2026-11-21T17:25:08.855Z t=2624 [INFO ] [perf] compute gpu follow=false wanted=auto using=default order (highest-performance adapter)
+2026-11-21T17:25:08.857Z t=2624 [INFO ] [gpu-priority] requested=4 actual=4 state=1 ntstatus=0x00000000 cap=5
+2026-11-21T17:25:08.860Z t=7324 [INFO ] [prewarm] event=disabled released=true
+2026-11-21T17:25:08.878Z t=2624 [INFO ] [i18n] catalog en entries=3226 patterns=123
+2026-11-21T17:25:08.879Z t=2624 [INFO ] [i18n] interface language en
+2026-11-21T17:25:08.880Z t=2624 [INFO ] [ui-settings-request] accepted srTarget=1 quality=2 fgBackend=0 flowBackend=1 srPrescale=0 srOutput=0
+2026-11-21T17:25:08.882Z t=2624 [INFO ] [playback-server] listening on 127.0.0.1:18765
+2026-11-21T17:25:08.943Z t=2624 [INFO ] [qml-cache] folder=C:\Users\runneradmin\AppData\Local\Veyra\Veyra\cache\qmlcache-83688a88881d8047 digest=83688a88881d8047 files=136 bytes=9600879 ms=61.2
+2026-11-21T17:25:08.946Z t=2624 [INFO ] [qml] test switches: menu,reducedMotion size=1366x820
+2026-11-21T17:25:08.946Z t=2624 [INFO ] [qml-window] probe mode=normal
+2026-11-21T17:25:09.527Z t=2624 [INFO ] [display-query] query reason=ui monitor=0x10001 generation=1 force=false (background thread; nothing waits for it)
+2026-11-21T17:25:09.557Z t=2624 [INFO ] [display-query] result reason=ui monitor=0x10001 generation=1 refreshHz=64.000 vrrLevel=0 status=0 hdr=off peakNits=270 refreshMs=0.046 vrrMs=0.141 colorMs=0.306 (driver wall time on the worker thread)
+2026-11-21T17:25:10.476Z t=2624 [INFO ] [startup-music] loading volume=1.00 muted=false
+2026-11-21T17:25:10.484Z t=2624 [INFO ] [qml-window] taskbar minimise enabled style=0x960A0000
+2026-11-21T17:25:10.492Z t=2624 [INFO ] [subtitle] overlay created ok=true err=0
+2026-11-21T17:25:10.492Z t=2624 [INFO ] [qml-window] source-state session=0 transport=0 running=false image=false failed=false opening=false revision=1
+2026-11-21T17:25:10.531Z t=2624 [INFO ] [app-focus] active=true running=false transport=0 sourceFps=0.00 submitFps=0.00 nr=false sr=false fg=false powerKnown=false control=0x0 state=0x0 err=87
+2026-11-21T17:25:10.692Z t=2624 [ERROR] [startup-music] engine error 4 hr=0xC00D36FA
+2026-11-21T17:25:13.001Z t=2624 [INFO ] [qml] [update-check-start] automatic api.github.com
+2026-11-21T17:25:13.149Z t=2624 [INFO ] [qml] [update-check] current
+2026-11-21T17:25:21.247Z t=7440 [INFO ] [app] software UI: cached raster paths; normal partial updates; no additional frame requests
+2026-11-21T17:25:21.247Z t=7440 [INFO ] [app] software UI by default (interface drawing preference: software); native D3D12 video unchanged
+2026-11-21T17:25:21.247Z t=7440 [INFO ] [app] RivaTuner running=false injected=false compat=auto OSD in this process=on
+2026-11-21T17:25:21.247Z t=7440 [INFO ] [app] NVIDIA overlay running=false GamePP running=false Douyin companion running=false interface=software
+2026-11-21T17:25:21.247Z t=7440 [INFO ] [app] CUDA compute cache maxSize=4294967296 (compiled VFG kernels are kept between sessions)
+2026-11-21T17:25:21.265Z t=7440 [INFO ] [app-icon] embedded window icon sizes=10
+2026-11-21T17:25:21.265Z t=7440 [INFO ] [app] Veyra QML session started
+2026-11-21T17:25:21.265Z t=7440 [INFO ] [app] test data directory D:\a\_temp\shot-data-16-min-deck
+2026-11-21T17:25:21.268Z t=7440 [INFO ] [nr-default] adapter=Microsoft Basic Render Driver selected=community-SF-RTX20-RTX50
+2026-11-21T17:25:21.268Z t=7440 [INFO ] [ui-prefs] volume restored=1.000 muted=false
+2026-11-21T17:25:21.269Z t=7440 [INFO ] [ui-shortcuts] fullscreen=F gameExit=Ctrl+Alt+Home gamePanel=Home hold=V lock=Ctrl+L playPause=Space record=F8 replay=F9 screenshot=F7 toggleMode=Tab custom=none
+2026-11-21T17:25:21.269Z t=7440 [INFO ] [ui-replay] replay off seconds=60 microphone=off
+2026-11-21T17:25:21.411Z t=7440 [INFO ] [perf] gpu monitor wanted=auto using=all adapters
+2026-11-21T17:25:21.411Z t=7440 [INFO ] [perf] compute gpu follow=false wanted=auto using=default order (highest-performance adapter)
+2026-11-21T17:25:21.414Z t=7440 [INFO ] [gpu-priority] requested=4 actual=4 state=1 ntstatus=0x00000000 cap=5
+2026-11-21T17:25:21.416Z t=1956 [INFO ] [prewarm] event=disabled released=true
+2026-11-21T17:25:21.434Z t=7440 [INFO ] [i18n] catalog en entries=3226 patterns=123
+2026-11-21T17:25:21.435Z t=7440 [INFO ] [i18n] interface language en
+2026-11-21T17:25:21.436Z t=7440 [INFO ] [ui-settings-request] accepted srTarget=1 quality=2 fgBackend=0 flowBackend=1 srPrescale=0 srOutput=0
+2026-11-21T17:25:21.437Z t=7440 [INFO ] [playback-server] listening on 127.0.0.1:18765
+2026-11-21T17:25:21.497Z t=7440 [INFO ] [qml-cache] folder=C:\Users\runneradmin\AppData\Local\Veyra\Veyra\cache\qmlcache-83688a88881d8047 digest=83688a88881d8047 files=136 bytes=9600879 ms=59.9
+2026-11-21T17:25:21.500Z t=7440 [INFO ] [qml] test switches: dockPinned,fullBar,reducedMotion size=960x540
+2026-11-21T17:25:21.500Z t=7440 [INFO ] [qml-window] probe mode=normal
+2026-11-21T17:25:22.047Z t=7440 [INFO ] [display-query] query reason=ui monitor=0x10001 generation=1 force=false (background thread; nothing waits for it)
+2026-11-21T17:25:22.077Z t=7440 [INFO ] [display-query] result reason=ui monitor=0x10001 generation=1 refreshHz=64.000 vrrLevel=0 status=0 hdr=off peakNits=270 refreshMs=0.034 vrrMs=0.153 colorMs=0.312 (driver wall time on the worker thread)
+2026-11-21T17:25:22.934Z t=7440 [INFO ] [ui-fullscreen] control window visible=true
+2026-11-21T17:25:22.944Z t=7440 [INFO ] [startup-music] loading volume=1.00 muted=false
+2026-11-21T17:25:22.950Z t=7440 [INFO ] [qml-window] taskbar minimise enabled style=0x960A0000
+2026-11-21T17:25:22.956Z t=7440 [INFO ] [subtitle] overlay created ok=true err=0
+2026-11-21T17:25:22.956Z t=7440 [INFO ] [qml-window] source-state session=0 transport=0 running=false image=false failed=false opening=false revision=1
+2026-11-21T17:25:22.993Z t=7440 [INFO ] [app-focus] active=true running=false transport=0 sourceFps=0.00 submitFps=0.00 nr=false sr=false fg=false powerKnown=false control=0x0 state=0x0 err=87
+2026-11-21T17:25:23.160Z t=7440 [ERROR] [startup-music] engine error 4 hr=0xC00D36FA
+2026-11-21T17:25:25.455Z t=7440 [INFO ] [qml] [update-check-start] automatic api.github.com
+2026-11-21T17:25:25.635Z t=7440 [INFO ] [qml] [update-check] current
+2026-11-21T17:25:32.948Z t=7440 [INFO ] [qml-frames] ui presents per 10 s: main=10 controlBar=2

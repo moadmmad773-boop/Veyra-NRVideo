@@ -1,0 +1,55 @@
+package root D:\deps\official-x\Veyra-2.2.0-NVIDIA-win64-portable; program folder D:\stage\MMM-2.2.0-NVIDIA\versions\2.2.0
+  root versions
+  root current-version.txt
+  root portable-package.txt
+  root portable-update-trust.json
+  root START-HERE.txt
+  root Veyra.exe
+offline translator 124 MB
+shaders replaced: 72
+WARNING: api-ms-win-core-processenvironment-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-file-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-handle-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-errorhandling-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-processthreads-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-processthreads-l1-1-3.dll not found for the package
+WARNING: api-ms-win-core-sysinfo-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-memory-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-libraryloader-l1-2-0.dll not found for the package
+WARNING: api-ms-win-core-heap-l2-1-0.dll not found for the package
+WARNING: api-ms-win-shcore-obsolete-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-toolhelp-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-synch-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-kernel32-legacy-l1-1-5.dll not found for the package
+WARNING: api-ms-win-ntuser-sysparams-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-synch-l1-2-0.dll not found for the package
+WARNING: api-ms-win-core-file-l2-1-0.dll not found for the package
+WARNING: api-ms-win-core-namedpipe-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-processthreads-l1-1-1.dll not found for the package
+WARNING: api-ms-win-core-psapi-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-string-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-job-l2-1-0.dll not found for the package
+WARNING: api-ms-win-core-largeinteger-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-rtlsupport-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-synch-l1-2-1.dll not found for the package
+WARNING: api-ms-win-core-profile-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-localization-l1-2-0.dll not found for the package
+WARNING: api-ms-win-core-com-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-registry-l1-1-0.dll not found for the package
+added libcrypto-3-x64.dll from C:\Program Files\OpenSSL
+WARNING: api-ms-win-core-file-l1-2-2.dll not found for the package
+WARNING: api-ms-win-core-file-l2-1-2.dll not found for the package
+WARNING: api-ms-win-core-sysinfo-l1-2-0.dll not found for the package
+WARNING: api-ms-win-core-threadpool-l1-2-0.dll not found for the package
+WARNING: api-ms-win-core-util-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-debug-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-interlocked-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-heap-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-fibers-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-datetime-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-console-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-timezone-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-winrt-l1-1-0.dll not found for the package
+WARNING: api-ms-win-core-winrt-error-l1-1-1.dll not found for the package
+package D:\stage\MMM-2.2.0-NVIDIA.zip 764 MB sha256 8761DC2E1E15F06D30ED2BF3B12A98FE8E37878D3A88AFB9FE897FAC1E3C5F0C
+update D:\stage\MMM-update.zip 87.3 MB

@@ -1,0 +1,17 @@
+shot 1-home: 1366x820 printwindow=True -> D:\logs\shots\1-home.png
+shot 2-settings: 1366x820 printwindow=True -> D:\logs\shots\2-settings.png
+shot 3-pro: 1366x820 printwindow=True -> D:\logs\shots\3-pro.png
+shot 4-pro-colour: 1366x820 printwindow=True -> D:\logs\shots\4-pro-colour.png
+shot 5-minimal: 1366x666 printwindow=True -> D:\logs\shots\5-minimal.png
+shot 9-capture: 1366x820 printwindow=True -> D:\logs\shots\9-capture.png
+shot 10-pro-display: 1366x820 printwindow=True -> D:\logs\shots\10-pro-display.png
+shot 6-translation: 1366x820 printwindow=True -> D:\logs\shots\6-translation.png
+shot 7-export: 1366x820 printwindow=True -> D:\logs\shots\7-export.png
+shot 8-pro-fg: 1366x820 printwindow=True -> D:\logs\shots\8-pro-fg.png
+shot 11-ps5: 1366x820 printwindow=True -> D:\logs\shots\11-ps5.png
+shot 12-menu: 1366x820 printwindow=True -> D:\logs\shots\12-menu.png
+shot 13-min-dock: 1366x666 printwindow=True -> D:\logs\shots\13-min-dock.png
+shot 14-settings-play: 1366x820 printwindow=True -> D:\logs\shots\14-settings-play.png
+shot 15-export-dialog: 1366x820 printwindow=True -> D:\logs\shots\15-export-dialog.png
+shot 17-min-menu: 1366x666 printwindow=True -> D:\logs\shots\17-min-menu.png
+shot 16-min-deck: 960x610 printwindow=screen -> D:\logs\shots\16-min-deck.png
