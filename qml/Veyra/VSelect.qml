@@ -16,17 +16,19 @@ Rectangle {
 
     implicitWidth: 150
     implicitHeight: compactLabel ? 30 : Math.max(30, valueLabel.implicitHeight + 8)
-    radius: Theme.light ? height / 2 : 9
-    color: hover.hovered ? Theme.ink(0.09) : Theme.ink(0.05)
+    // M$M! arena: a sharp field with a cyan chevron in its own box at the right end.
+    readonly property bool hud: Theme.arena
+    radius: hud ? 2 : Theme.light ? height / 2 : 9
+    color: hud ? (hover.hovered ? Theme.card3 : Theme.card2) : hover.hovered ? Theme.ink(0.09) : Theme.ink(0.05)
     border.width: 1
-    border.color: Theme.stroke
+    border.color: hud ? (hover.hovered ? Theme.accent : Theme.stroke2) : Theme.stroke
     HoverHandler { id: hover; cursorShape: Qt.PointingHandCursor }
     TapHandler { gesturePolicy: TapHandler.WithinBounds; onTapped: menu.openAt(sel, "down") }
 
     RowLayout {
         anchors.fill: parent
         anchors.leftMargin: Theme.light ? 14 : 12
-        anchors.rightMargin: Theme.light ? 4 : 10
+        anchors.rightMargin: sel.hud ? 0 : Theme.light ? 4 : 10
         Text {
             id: valueLabel
             Layout.fillWidth: true
@@ -39,7 +41,15 @@ Rectangle {
             wrapMode: sel.compactLabel ? Text.NoWrap : Text.Wrap
             elide: sel.compactLabel ? Text.ElideRight : Text.ElideNone
         }
-        VIcon { visible: !Theme.light; name: "down"; size: 14; color: Theme.t3 }
+        VIcon { visible: !Theme.light && !sel.hud; name: "down"; size: 14; color: Theme.t3 }
+        Rectangle {
+            visible: sel.hud
+            Layout.fillHeight: true
+            implicitWidth: 26
+            color: "transparent"
+            Rectangle { width: 1; height: parent.height; color: Theme.stroke2 }
+            VIcon { anchors.centerIn: parent; name: "down"; size: 12; color: Theme.accent }
+        }
         Rectangle {
             visible: Theme.light
             implicitWidth: 22; implicitHeight: 22; radius: 11

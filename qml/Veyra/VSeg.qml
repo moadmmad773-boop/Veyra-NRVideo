@@ -8,11 +8,14 @@ Rectangle {
     property string current: ""
     signal picked(string id)
 
-    implicitWidth: segRow.implicitWidth + 6
-    implicitHeight: 30
+    // M$M! arena: no tray and no sliding indicator - each option is its own sharp box,
+    // the chosen one outlined and lettered in the accent.
+    readonly property bool hud: Theme.arena
+    implicitWidth: segRow.implicitWidth + (hud ? 0 : 6)
+    implicitHeight: hud ? 28 : 30
     radius: Theme.rCtl
-    color: Theme.ink(0.05)
-    border.width: 1
+    color: hud ? "transparent" : Theme.ink(0.05)
+    border.width: hud ? 0 : 1
     border.color: Theme.stroke
 
     readonly property int currentIndex: {
@@ -32,7 +35,7 @@ Rectangle {
     // .5s --spring), instead of each button lighting its own background.
     Rectangle {
         id: indicator
-        visible: seg.currentItem !== null
+        visible: seg.currentItem !== null && !seg.hud
         x: seg.currentItem ? segRow.x + seg.currentItem.x : 3
         y: 3
         width: seg.currentItem ? seg.currentItem.width : 0
@@ -73,7 +76,7 @@ Rectangle {
     RowLayout {
         id: segRow
         anchors.centerIn: parent
-        spacing: 0
+        spacing: seg.hud ? 4 : 0
         Repeater {
             id: segRepeater
             model: seg.options
@@ -81,8 +84,18 @@ Rectangle {
                 required property var modelData
                 enabled: modelData.disabled !== true
                 opacity: enabled ? 1 : 0.4
-                implicitWidth: segContent.implicitWidth + 20
-                implicitHeight: 24
+                readonly property bool chosen: seg.current === modelData.id
+                implicitWidth: segContent.implicitWidth + (seg.hud ? 18 : 20)
+                implicitHeight: seg.hud ? 28 : 24
+                Rectangle {
+                    visible: seg.hud
+                    anchors.fill: parent
+                    radius: 2
+                    color: parent.chosen ? Theme.accentSoft : (optHover.hovered ? Theme.ink(0.05) : "transparent")
+                    border.width: 1
+                    border.color: parent.chosen ? Theme.accent : optHover.hovered ? Theme.stroke2 : Theme.stroke
+                    Behavior on color { ColorAnimation { duration: Theme.d(150) } }
+                }
                 // { id, label, icon? }: the design's 列表 / 节点 toggle carries icons.
                 Row {
                     id: segContent
@@ -99,14 +112,16 @@ Rectangle {
                         id: segLabel
                         anchors.verticalCenter: parent.verticalCenter
                         text: modelData.label
-                        color: seg.current === modelData.id ? (Theme.light ? Theme.accentInk : Theme.t1) : Theme.t2
+                        color: seg.current === modelData.id ? (seg.hud ? Theme.accent : Theme.light ? Theme.accentInk : Theme.t1) : Theme.t2
                         Behavior on color { ColorAnimation { duration: Theme.d(200) } }
                         font.family: Theme.fontUi
-                        font.pixelSize: Theme.fsBody
+                        font.pixelSize: seg.hud ? 12 : Theme.fsBody
                         font.weight: Font.Medium
+                        font.capitalization: Theme.capsMode
+                        font.letterSpacing: Theme.spacing(0.8)
                     }
                 }
-                HoverHandler { cursorShape: Qt.PointingHandCursor }
+                HoverHandler { id: optHover; cursorShape: Qt.PointingHandCursor }
                 TapHandler { enabled: parent.enabled; gesturePolicy: TapHandler.WithinBounds; onTapped: seg.picked(modelData.id) }
             }
         }

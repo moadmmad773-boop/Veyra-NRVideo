@@ -12404,6 +12404,19 @@
    "ru": "Shares pairings с потоковой передачей PS5"
   },
   {
+   "zh": "品红",
+   "src": "qml/SettingsPage.qml",
+   "zh-TW": "品紅",
+   "en": "Magenta",
+   "ja": "マゼンタ",
+   "ko": "마젠타",
+   "es": "Magenta",
+   "fr": "Magenta",
+   "de": "Magenta",
+   "pt-BR": "Magenta",
+   "ru": "Пурпурный"
+  },
+  {
    "zh": "唤醒",
    "src": "qml/Ps5SourceDialog.qml",
    "zh-TW": "喚醒",
@@ -21830,6 +21843,19 @@
    "ru": "Нет"
   },
   {
+   "zh": "无信号",
+   "src": "qml/MinimalPage.qml",
+   "zh-TW": "無訊號",
+   "en": "No signal",
+   "ja": "信号なし",
+   "ko": "신호 없음",
+   "es": "Sin señal",
+   "fr": "Aucun signal",
+   "de": "Kein Signal",
+   "pt-BR": "Sem sinal",
+   "ru": "Нет сигнала"
+  },
+  {
    "zh": "无增强层",
    "src": "qml/ProDisplayPanel.qml",
    "zh-TW": "無增強層",
@@ -27158,6 +27184,19 @@
    "de": "Hellgrün",
    "pt-BR": "Verde-claro",
    "ru": "Светло-зелёный"
+  },
+  {
+   "zh": "深色网格背景的强度与抖动（防色带）",
+   "src": "qml/SettingsPage.qml",
+   "zh-TW": "深色網格背景的強度與抖動（防色帶）",
+   "en": "How strong the dark grid background is, dithered against banding",
+   "ja": "暗いグリッド背景の強さ（ディザで色の段差を防止）",
+   "ko": "어두운 격자 배경의 강도(디더링으로 밴딩 방지)",
+   "es": "Intensidad del fondo de cuadrícula oscuro, con tramado contra el bandeado",
+   "fr": "Intensité du fond quadrillé sombre, tramé contre les effets de bandes",
+   "de": "Stärke des dunklen Rasterhintergrunds, gedithert gegen Streifenbildung",
+   "pt-BR": "Intensidade do fundo escuro em grade, com pontilhado contra faixas",
+   "ru": "Яркость тёмного фона-сетки, с дизерингом против полос"
   },
   {
    "zh": "深黑底上的极轻渐变与抖动（防色带）",
@@ -39105,6 +39144,19 @@
    "de": "Neustart erforderlich",
    "pt-BR": "É preciso reiniciar",
    "ru": "Нужен перезапуск"
+  },
+  {
+   "zh": "青色",
+   "src": "qml/SettingsPage.qml",
+   "zh-TW": "青色",
+   "en": "Cyan",
+   "ja": "シアン",
+   "ko": "시안",
+   "es": "Cian",
+   "fr": "Cyan",
+   "de": "Cyan",
+   "pt-BR": "Ciano",
+   "ru": "Голубой"
   },
   {
    "zh": "静态曲线：抬暗部、定中灰、压高光",

@@ -15,6 +15,10 @@ Item {
     id: dockRoot
     // M$M! frost: the dock is deep blue like the rail, its icons white.
     readonly property bool deep: Theme.frost
+    // M$M! arena: not a capsule but a full-width HUD bar across the top of the picture -
+    // the wordmark at the left, the pages with their names in the middle (the page shown
+    // underlined in the accent), the window buttons at the right.
+    readonly property bool hud: Theme.arena
     readonly property color fg: deep ? "#FFFFFF" : Theme.inkStrong
     z: 40
     anchors.top: parent ? parent.top : undefined
@@ -93,17 +97,26 @@ Item {
         id: bar
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
-        anchors.topMargin: dockRoot.opened ? 8 : -56
+        anchors.topMargin: dockRoot.opened ? (dockRoot.hud ? 0 : 8) : -56
         implicitWidth: content.implicitWidth + 20
+        width: dockRoot.hud ? dockRoot.width : implicitWidth
         height: 44
-        radius: height / 2
+        radius: dockRoot.hud ? 0 : height / 2
         // M$M! frost: deep blue like the rail, white icons.
-        color: dockRoot.deep ? "#0F2B63" : Theme.shade(0, 0, 0)
-        border.width: 1
+        color: dockRoot.hud ? Qt.rgba(0.027, 0.043, 0.071, 0.97) : dockRoot.deep ? "#0F2B63" : Theme.shade(0, 0, 0)
+        border.width: dockRoot.hud ? 0 : 1
         border.color: dockRoot.deep ? Qt.rgba(1, 1, 1, 0.14) : Theme.ink(0.1)
         // Over the picture on the cinema page: cut out of the video window.
         objectName: "videoCover"
-        property real coverRadius: height / 2
+        property real coverRadius: dockRoot.hud ? 0 : height / 2
+        Rectangle {
+            visible: dockRoot.hud
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+            height: 1
+            color: Theme.stroke2
+        }
         // .dock { transform: translate(-50%,-120%); transition: transform .55s spring }
         Behavior on anchors.topMargin {
             NumberAnimation { duration: Theme.d(550); easing.bezierCurve: Theme.spring }
@@ -122,13 +135,18 @@ Item {
 
         RowLayout {
             id: content
-            anchors.centerIn: parent
-            spacing: 2
+            anchors.centerIn: dockRoot.hud ? undefined : parent
+            anchors.left: dockRoot.hud ? parent.left : undefined
+            anchors.right: dockRoot.hud ? parent.right : undefined
+            anchors.verticalCenter: dockRoot.hud ? parent.verticalCenter : undefined
+            anchors.leftMargin: 12
+            anchors.rightMargin: 8
+            spacing: dockRoot.hud ? 4 : 2
 
             // .dock .logo: 40x30, returns to the empty state.
             // M3: background .2s, :active scale .9 over .4s --spring.
             Item {
-                implicitWidth: 40
+                implicitWidth: dockRoot.hud ? 58 : 40
                 implicitHeight: 30
                 scale: logoTap.pressed ? 0.9 : 1
                 Behavior on scale { NumberAnimation { duration: Theme.d(400); easing.bezierCurve: Theme.spring } }
@@ -141,7 +159,7 @@ Item {
                 Image {
                     anchors.centerIn: parent
                     source: dockRoot.deep ? "logo-white.png" : Theme.logoImage
-                    sourceSize.width: 26
+                    sourceSize.width: dockRoot.hud ? 48 : 26
                     fillMode: Image.PreserveAspectFit
                 }
                 HoverHandler { id: logoHover; cursorShape: Qt.PointingHandCursor }
@@ -152,7 +170,8 @@ Item {
             }
 
             // .dock-sep
-            Rectangle { implicitWidth: 1; implicitHeight: 16; color: dockRoot.deep ? Qt.rgba(1, 1, 1, 0.2) : Theme.ink(0.14) }
+            Rectangle { implicitWidth: 1; implicitHeight: 16; color: dockRoot.deep ? Qt.rgba(1, 1, 1, 0.2) : dockRoot.hud ? Theme.stroke2 : Theme.ink(0.14) }
+            Item { visible: dockRoot.hud; Layout.fillWidth: true }
 
             // .dock-items with the sliding .dock-ind behind the active button.
             Item {
@@ -171,7 +190,7 @@ Item {
                             if (dockRoot.items[i].id === dockRoot.currentPage) idx = i
                         return idx * 34
                     }
-                    visible: dockRoot.currentPage !== "home"
+                    visible: dockRoot.currentPage !== "home" && !dockRoot.hud
                     // .dock-ind { transition: transform .55s var(--spring) }
                     Behavior on x { NumberAnimation { duration: Theme.d(550); easing.bezierCurve: Theme.spring } }
                 }
@@ -183,25 +202,56 @@ Item {
                         delegate: Item {
                             id: btn
                             required property var modelData
-                            width: 32
+                            readonly property bool current: dockRoot.currentPage === modelData.id
+                            width: dockRoot.hud ? hudLabel.implicitWidth + 44 : 32
                             height: 30
+                            // Arena: the page's name beside its icon, the page shown underlined.
+                            Rectangle {
+                                visible: dockRoot.hud
+                                anchors.fill: parent
+                                radius: 2
+                                color: btn.current ? Theme.accentSoft : btnHover.hovered ? Theme.ink(0.05) : "transparent"
+                            }
+                            Rectangle {
+                                visible: dockRoot.hud && btn.current
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                anchors.bottom: parent.bottom
+                                height: 2
+                                color: Theme.accent
+                            }
+                            Text {
+                                id: hudLabel
+                                visible: dockRoot.hud
+                                anchors.verticalCenter: parent.verticalCenter
+                                x: 32
+                                text: btn.modelData.tip
+                                color: btn.current ? Theme.accent : btnHover.hovered ? Theme.t1 : Theme.t2
+                                font.family: Theme.fontUi
+                                font.pixelSize: 11
+                                font.weight: Font.Medium
+                                font.capitalization: Theme.capsMode
+                                font.letterSpacing: Theme.spacing(1)
+                            }
                             // M4: .dock-btn:active scale .86 over .45s --spring.
                             scale: btnTap.pressed ? 0.86 : 1
                             Behavior on scale { NumberAnimation { duration: Theme.d(450); easing.bezierCurve: Theme.spring } }
                             // .dock-btn: color rgba(255,255,255,.45), hover or selected #fff.
                             VIcon {
-                                anchors.centerIn: parent
+                                anchors.verticalCenter: parent.verticalCenter
+                                x: dockRoot.hud ? 10 : (btn.width - width) / 2
                                 name: btn.modelData.icon
                                 strokeWidth: 1.7
-                                color: Theme.light && dockRoot.currentPage === btn.modelData.id ? Theme.accent : dockRoot.fg
-                                opacity: dockRoot.currentPage === btn.modelData.id || tip.on ? 1.0 : 0.45
+                                color: (Theme.light || dockRoot.hud) && btn.current ? Theme.accent : dockRoot.fg
+                                opacity: dockRoot.hud ? (btn.current || btnHover.hovered ? 1.0 : 0.7)
+                                                      : dockRoot.currentPage === btn.modelData.id || tip.on ? 1.0 : 0.45
                                 Behavior on opacity { NumberAnimation { duration: Theme.d(200) } }
                             }
                             // M5: .tip 38px below, opacity .15s, scale .85 -> 1 over .3s
                             // --spring from its top centre.
                             Rectangle {
                                 id: tip
-                                readonly property bool on: btnHover.hovered || dockRoot.forcedTip === btn.modelData.id
+                                readonly property bool on: !dockRoot.hud && (btnHover.hovered || dockRoot.forcedTip === btn.modelData.id)
                                 // Below the dock it sits over the video: cut out of it.
                                 objectName: "videoCover"
                                 property real coverRadius: 7
@@ -244,7 +294,8 @@ Item {
                 }
             }
 
-            Rectangle { implicitWidth: 1; implicitHeight: 16; color: dockRoot.deep ? Qt.rgba(1, 1, 1, 0.2) : Theme.ink(0.14) }
+            Item { visible: dockRoot.hud; Layout.fillWidth: true }
+            Rectangle { implicitWidth: 1; implicitHeight: 16; color: dockRoot.deep ? Qt.rgba(1, 1, 1, 0.2) : dockRoot.hud ? Theme.stroke2 : Theme.ink(0.14) }
 
             // Show / hide the cinema pill (field request 2026-10-01). Only where the pill lives.
             Item {
@@ -296,7 +347,7 @@ Item {
                 VDot { anchors.centerIn: parent; off: !veyra.running; warn: veyra.captureRecovering }
             }
 
-            Rectangle { implicitWidth: 1; implicitHeight: 16; color: dockRoot.deep ? Qt.rgba(1, 1, 1, 0.2) : Theme.ink(0.14) }
+            Rectangle { implicitWidth: 1; implicitHeight: 16; color: dockRoot.deep ? Qt.rgba(1, 1, 1, 0.2) : dockRoot.hud ? Theme.stroke2 : Theme.ink(0.14) }
 
             // Window controls: minimize, maximize/restore, close.
             Repeater {
@@ -315,7 +366,9 @@ Item {
                     Behavior on scale { NumberAnimation { duration: Theme.d(450); easing.bezierCurve: Theme.spring } }
                     Rectangle {
                         anchors.fill: parent
-                        radius: height / 2
+                        radius: dockRoot.hud ? 2 : height / 2
+                        border.width: dockRoot.hud ? 1 : 0
+                        border.color: whover.hovered ? (wbtn.modelData.id === "close" ? Theme.err : Theme.accent) : Theme.stroke
                         color: whover.hovered ? (wbtn.modelData.id === "close" ? Qt.rgba(1, 0.365, 0.365, 0.22)
                                                  : dockRoot.deep ? Qt.rgba(1, 1, 1, 0.14) : Theme.shade(26, 26, 31)) : "transparent"
                         Behavior on color { ColorAnimation { duration: Theme.d(200) } }

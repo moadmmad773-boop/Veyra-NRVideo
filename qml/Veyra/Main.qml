@@ -71,7 +71,9 @@ Window {
     }
     Binding { target: Theme; property: "reduced"; value: veyra.reducedMotion || root.test.reducedMotion === true }
     Binding { target: Theme; property: "accentName"; value: veyra.preferences.accent || "orange" }
-    Binding { target: Theme; property: "paletteName"; value: veyra.preferences.palette || "frost" }
+    // M$M!: one look only (竞技场 / arena); a palette saved by an older build is ignored,
+    // so nothing of the earlier looks comes back.
+    Binding { target: Theme; property: "paletteName"; value: "arena" }
     Binding { target: Theme; property: "backdropLevel"; value: veyra.preferences.backdrop !== undefined ? veyra.preferences.backdrop : 1 }
 
     // Cinema geometry: the main window ends at the picture. The independent pill
@@ -247,7 +249,7 @@ Window {
         case "node":
             return onPage(nodePage.videoViewport)
         case "exp":
-            return onPage(ExportLayout.calculate(pages.width, pages.height, exportPage.compactTab, Theme.frost).video)
+            return onPage(ExportLayout.calculate(pages.width, pages.height, exportPage.compactTab, Theme.fresh).video)
         default:
             return { x: 0, y: 0, width: 0, height: 0 }
         }
@@ -337,9 +339,10 @@ Window {
     NavRail {
         id: navRail
         visible: root.railShown
-        x: 10
-        y: 10
-        height: parent.height - 20
+        // Arena: flush with the window's left edge, full height.
+        x: Theme.arena ? 0 : 10
+        y: Theme.arena ? 0 : 10
+        height: parent.height - (Theme.arena ? 0 : 20)
         currentPage: root.page === "node" ? "pro" : root.page
         maximized: root.maximized
         onRequestPage: p => root.goPage(p)
@@ -830,10 +833,12 @@ Window {
         // an open dialog, which lives in the main window below it.
         cinema: root.cinema && !root.fullscreen
         pillTop: (root.maximized ? root.height : root.pictureHeight) - 46
-        shown: !root.onboardingActive && veyra.hasSource && !screenCrop.editing && !root.pillHidden && !veyra.gameInputActive && (root.fullscreen ? root.fullControls && !root.fullLocked
+        // --full-bar cine puts the pill up on an empty cinema page, for review shots.
+        shown: (root.test.fullBar === "cine" && root.cinema && !root.fullscreen && root.shownPage === "min")
+               || (!root.onboardingActive && veyra.hasSource && !screenCrop.editing && !root.pillHidden && !veyra.gameInputActive && (root.fullscreen ? root.fullControls && !root.fullLocked
                                                    : root.cinema && root.shownPage === "min"
                                                      && root.leavingPage === "" && dialogs.dialog === ""
-                                                     && root.visibility !== Window.Minimized)
+                                                     && root.visibility !== Window.Minimized))
         onRequestPage: p => { if (root.fullscreen) root.toggleFullscreen(); root.goPage(p) }
         onRequestDialog: k => dialogs.open(k)
         onRequestFullscreen: root.toggleFullscreen()
@@ -1155,8 +1160,8 @@ Window {
             vyMusic.play()
         }
         if (root.test.menu !== undefined) testMenuTimer.start()
-        if (root.test.fullBar !== undefined) testFullTimer.start()
-        if ((veyra.preferences.palette || "frost") === "dusk" && veyra.preferences.introAnimation !== false
+        if (root.test.fullBar !== undefined && root.test.fullBar !== "cine") testFullTimer.start()
+        if (Theme.dusk && veyra.preferences.introAnimation !== false
                 && !veyra.reducedMotion && root.page === "home" && Object.keys(root.test).length === 0) {
             homePage.introHold = true
             introLoader.active = true

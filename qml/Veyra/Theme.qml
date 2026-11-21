@@ -15,30 +15,38 @@ import QtQuick
 
 QtObject {
     // --- palette ------------------------------------------------------------
-    property string paletteName: "frost"
-    // M$M! build: 冰蓝 (frost), the default here - a light interface: white and ice-blue
-    // surfaces, deep navy text, a vivid blue accent, rounder cards and pill controls.
-    // 天蓝 (sky) is the earlier M$M! look: deep navy depths and a light blue accent.
-    // Both take the classic layout (logo + title, no intro) with their own colours.
+    property string paletteName: "arena"
+    // M$M! build: 竞技场 (arena), the only look since 2026-11-21 (the user picked it from
+    // three directions): a dark game-HUD interface - blue-black surfaces, thin cyan
+    // lines, sharp 2-4px corners, corner brackets on panels, upper-case labels.
+    // Main.qml pins it; the older palettes below stay only as code paths.
+    // 冰蓝 (frost) was the light M$M! look before it, 天蓝 (sky) the one before that.
+    readonly property bool arena: paletteName === "arena"
     readonly property bool frost: paletteName === "frost"
     readonly property bool sky: paletteName === "sky"
-    readonly property bool dusk: paletteName !== "classic" && !sky && !frost
+    readonly property bool dusk: paletteName !== "classic" && !sky && !frost && !arena
+    // The M$M! layout (rail, start banner, mirrored pages, setting tiles): both new looks.
+    readonly property bool fresh: frost || arena
     // Light surfaces: foreground tints are dark (ink) instead of white.
     readonly property bool light: frost
+    // Arena: headings, tabs and labels are set in capitals, spaced out.
+    readonly property bool caps: arena
+    readonly property int capsMode: caps ? Font.AllUppercase : Font.MixedCase
+    function spacing(px) { return caps ? px : 0 }
 
     // --- surfaces (app.css .vy) -------------------------------------------
-    readonly property color card: frost ? "#FFFFFF" : sky ? "#0F1A2C" : dusk ? "#161425" : "#131317"
-    readonly property color card2: frost ? "#F3F8FE" : sky ? "#14223A" : dusk ? "#1C192C" : "#19191E"
-    readonly property color card3: frost ? "#E6EFFA" : sky ? "#1C2E4A" : dusk ? "#262238" : "#24242A"
-    readonly property color popover: frost ? "#FFFFFF" : sky ? "#13213A" : dusk ? "#1D1A2D" : "#1B1B20"
-    readonly property color dialog: frost ? "#FBFDFF" : sky ? "#101B2F" : dusk ? "#171526" : "#141418"
-    readonly property color stroke: frost ? Qt.rgba(0.05, 0.16, 0.33, 0.11) : sky ? Qt.rgba(0.78, 0.9, 1, 0.10) : dusk ? Qt.rgba(0.88, 0.84, 1, 0.09) : Qt.rgba(1, 1, 1, 0.07)
-    readonly property color stroke2: frost ? Qt.rgba(0.05, 0.16, 0.33, 0.20) : sky ? Qt.rgba(0.78, 0.9, 1, 0.18) : dusk ? Qt.rgba(0.88, 0.84, 1, 0.16) : Qt.rgba(1, 1, 1, 0.13)
+    readonly property color card: arena ? "#0C121B" : frost ? "#FFFFFF" : sky ? "#0F1A2C" : dusk ? "#161425" : "#131317"
+    readonly property color card2: arena ? "#101824" : frost ? "#F3F8FE" : sky ? "#14223A" : dusk ? "#1C192C" : "#19191E"
+    readonly property color card3: arena ? "#172333" : frost ? "#E6EFFA" : sky ? "#1C2E4A" : dusk ? "#262238" : "#24242A"
+    readonly property color popover: arena ? "#0D1520" : frost ? "#FFFFFF" : sky ? "#13213A" : dusk ? "#1D1A2D" : "#1B1B20"
+    readonly property color dialog: arena ? "#0A1019" : frost ? "#FBFDFF" : sky ? "#101B2F" : dusk ? "#171526" : "#141418"
+    readonly property color stroke: arena ? Qt.rgba(0.133, 0.827, 0.933, 0.15) : frost ? Qt.rgba(0.05, 0.16, 0.33, 0.11) : sky ? Qt.rgba(0.78, 0.9, 1, 0.10) : dusk ? Qt.rgba(0.88, 0.84, 1, 0.09) : Qt.rgba(1, 1, 1, 0.07)
+    readonly property color stroke2: arena ? Qt.rgba(0.133, 0.827, 0.933, 0.32) : frost ? Qt.rgba(0.05, 0.16, 0.33, 0.20) : sky ? Qt.rgba(0.78, 0.9, 1, 0.18) : dusk ? Qt.rgba(0.88, 0.84, 1, 0.16) : Qt.rgba(1, 1, 1, 0.13)
     // The app background: a radial gradient in the prototype, approximated here
     // with the three stops it interpolates between.
-    readonly property color bgOuter: frost ? "#DDEBF9" : sky ? "#08111F" : dusk ? "#100E1D" : "#070709"
-    readonly property color bgMid: frost ? "#EAF3FD" : sky ? "#0D1A2E" : dusk ? "#161328" : "#0C0C10"
-    readonly property color bgInner: frost ? "#F8FBFF" : sky ? "#14284A" : dusk ? "#201B34" : "#17171C"
+    readonly property color bgOuter: arena ? "#05080D" : frost ? "#DDEBF9" : sky ? "#08111F" : dusk ? "#100E1D" : "#070709"
+    readonly property color bgMid: arena ? "#080C13" : frost ? "#EAF3FD" : sky ? "#0D1A2E" : dusk ? "#161328" : "#0C0C10"
+    readonly property color bgInner: arena ? "#0C121C" : frost ? "#F8FBFF" : sky ? "#14284A" : dusk ? "#201B34" : "#17171C"
     readonly property color videoBlack: "#000000"
     // Text on the black picture area (no source yet): light in every palette.
     readonly property color onVideo2: Qt.rgba(0.953, 0.953, 0.961, 0.62)
@@ -50,6 +58,8 @@ QtObject {
         const alpha = a === undefined ? 1 : a
         // Frost turns the dark neutrals into light ones, ice-tinted: the darker the original,
         // the closer to white (a black dock is white, a hover a touch darker than it).
+        // Arena: the dark neutrals sink into the blue-black of its panels.
+        if (arena) return Qt.rgba((r * 0.5 + 6) / 255, (g * 0.62 + 10) / 255, (b * 0.8 + 17) / 255, alpha)
         if (frost) return Qt.rgba((255 - r * 0.95) / 255, (255 - g * 0.72) / 255, (255 - b * 0.42) / 255, alpha)
         if (sky) return Qt.rgba(Math.max(0, r - 4) / 255, Math.min(255, g + 4) / 255, Math.min(255, b + 22) / 255, alpha)
         return dusk ? Qt.rgba(Math.min(255, r + 2) / 255, Math.max(0, g - 1) / 255, Math.min(255, b + 14) / 255, alpha)
@@ -58,58 +68,58 @@ QtObject {
 
     // A foreground tint at alpha a: white on the dark palettes (exactly the
     // Qt.rgba(1, 1, 1, a) the components used to spell out), deep navy on frost.
-    function ink(a) { return light ? Qt.rgba(0.04, 0.11, 0.22, a) : Qt.rgba(1, 1, 1, a) }
+    function ink(a) { return light ? Qt.rgba(0.04, 0.11, 0.22, a) : arena ? Qt.rgba(0.80, 0.95, 1, a) : Qt.rgba(1, 1, 1, a) }
     // Full-strength foreground for icons and text on the app's own surfaces.
-    readonly property color inkStrong: light ? "#0A1A30" : "#FFFFFF"
+    readonly property color inkStrong: light ? "#0A1A30" : arena ? "#E8FBFF" : "#FFFFFF"
     // A knob or thumb on a track: white, with a ring on light surfaces.
     readonly property color knob: "#FFFFFF"
     readonly property color knobRing: light ? Qt.rgba(0.04, 0.11, 0.22, 0.18) : "transparent"
 
     // --- text -------------------------------------------------------------
-    readonly property color t1: frost ? "#0A1A30" : sky ? "#F1F7FF" : dusk ? "#F7F4FC" : "#F3F3F5"
-    readonly property color t2: frost ? Qt.rgba(0.04, 0.10, 0.19, 0.70) : sky ? Qt.rgba(0.945, 0.969, 1, 0.66) : dusk ? Qt.rgba(0.969, 0.957, 0.988, 0.64) : Qt.rgba(0.953, 0.953, 0.961, 0.62)
-    readonly property color t3: frost ? Qt.rgba(0.04, 0.10, 0.19, 0.48) : sky ? Qt.rgba(0.945, 0.969, 1, 0.42) : dusk ? Qt.rgba(0.969, 0.957, 0.988, 0.40) : Qt.rgba(0.953, 0.953, 0.961, 0.38)
+    readonly property color t1: arena ? "#E4F6FA" : frost ? "#0A1A30" : sky ? "#F1F7FF" : dusk ? "#F7F4FC" : "#F3F3F5"
+    readonly property color t2: arena ? Qt.rgba(0.80, 0.91, 0.95, 0.72) : frost ? Qt.rgba(0.04, 0.10, 0.19, 0.70) : sky ? Qt.rgba(0.945, 0.969, 1, 0.66) : dusk ? Qt.rgba(0.969, 0.957, 0.988, 0.64) : Qt.rgba(0.953, 0.953, 0.961, 0.62)
+    readonly property color t3: arena ? Qt.rgba(0.62, 0.77, 0.84, 0.52) : frost ? Qt.rgba(0.04, 0.10, 0.19, 0.48) : sky ? Qt.rgba(0.945, 0.969, 1, 0.42) : dusk ? Qt.rgba(0.969, 0.957, 0.988, 0.40) : Qt.rgba(0.953, 0.953, 0.961, 0.38)
 
     // --- accent and state -------------------------------------------------
     // 设置 → 强调色: orange (default; the sunset accent in the dusk palette) or
     // the design's .accent-white variant (a neon white with a pink glow in dusk).
     property string accentName: "orange"
     readonly property bool accentWhite: accentName === "white"
-    readonly property color accent: frost ? (accentWhite ? "#0A1A30" : "#1C86FF") : sky ? (accentWhite ? "#F4FAFF" : "#7CC6FF") : accentWhite ? (dusk ? "#FFF6FB" : "#F3F3F5") : (dusk ? "#F287A7" : "#FF8A3D")
-    readonly property color accentInk: frost ? "#FFFFFF" : sky ? "#04182C" : accentWhite ? (dusk ? "#1E0B1A" : "#0B0B0E") : (dusk ? "#2A0B1E" : "#1B0E04")
-    readonly property color accentSoft: frost ? Qt.rgba(0.11, 0.53, 1, accentWhite ? 0.08 : 0.12) : sky ? Qt.rgba(0.486, 0.776, 1, accentWhite ? 0.10 : 0.16) : accentWhite ? Qt.rgba(1, 1, 1, 0.1)
+    readonly property color accent: arena ? (accentWhite ? "#FF3DA6" : "#22D3EE") : frost ? (accentWhite ? "#0A1A30" : "#1C86FF") : sky ? (accentWhite ? "#F4FAFF" : "#7CC6FF") : accentWhite ? (dusk ? "#FFF6FB" : "#F3F3F5") : (dusk ? "#F287A7" : "#FF8A3D")
+    readonly property color accentInk: arena ? (accentWhite ? "#24020F" : "#021317") : frost ? "#FFFFFF" : sky ? "#04182C" : accentWhite ? (dusk ? "#1E0B1A" : "#0B0B0E") : (dusk ? "#2A0B1E" : "#1B0E04")
+    readonly property color accentSoft: arena ? (accentWhite ? Qt.rgba(1, 0.24, 0.65, 0.13) : Qt.rgba(0.133, 0.827, 0.933, 0.12)) : frost ? Qt.rgba(0.11, 0.53, 1, accentWhite ? 0.08 : 0.12) : sky ? Qt.rgba(0.486, 0.776, 1, accentWhite ? 0.10 : 0.16) : accentWhite ? Qt.rgba(1, 1, 1, 0.1)
                                       : dusk ? Qt.rgba(0.949, 0.529, 0.655, 0.15) : Qt.rgba(1, 0.541, 0.239, 0.14)
-    readonly property color accentGlow: frost ? Qt.rgba(0.11, 0.53, 1, 0.28) : sky ? Qt.rgba(0.486, 0.776, 1, 0.40) : accentWhite ? (dusk ? Qt.rgba(0.96, 0.62, 0.82, 0.42) : Qt.rgba(1, 1, 1, 0.35))
+    readonly property color accentGlow: arena ? (accentWhite ? Qt.rgba(1, 0.24, 0.65, 0.40) : Qt.rgba(0.133, 0.827, 0.933, 0.40)) : frost ? Qt.rgba(0.11, 0.53, 1, 0.28) : sky ? Qt.rgba(0.486, 0.776, 1, 0.40) : accentWhite ? (dusk ? Qt.rgba(0.96, 0.62, 0.82, 0.42) : Qt.rgba(1, 1, 1, 0.35))
                                       : dusk ? Qt.rgba(0.949, 0.529, 0.655, 0.38) : Qt.rgba(1, 0.541, 0.239, 0.35)
     // The sunset accent fills as a gradient (VAccentFill.qml): peach -> pink,
     // on to lilac along the seek bars.
-    readonly property bool accentGradient: (dusk || sky || frost) && !accentWhite
-    readonly property color accentFrom: frost ? "#36C2FF" : sky ? "#B4ECFF" : "#F0B17B"
-    readonly property color accentTo: frost ? "#2A62F5" : sky ? "#5AA8FF" : "#EF6FA3"
-    readonly property color accentFar: frost ? "#6C5CF6" : sky ? "#8FA2FF" : "#BB96F3"
+    readonly property bool accentGradient: (dusk || sky || frost) && !accentWhite && !arena
+    readonly property color accentFrom: arena ? "#22D3EE" : frost ? "#36C2FF" : sky ? "#B4ECFF" : "#F0B17B"
+    readonly property color accentTo: arena ? "#0EA5C6" : frost ? "#2A62F5" : sky ? "#5AA8FF" : "#EF6FA3"
+    readonly property color accentFar: arena ? "#7C5CFF" : frost ? "#6C5CF6" : sky ? "#8FA2FF" : "#BB96F3"
     // 设置 → 背景渐变强度: 0 none, 1 light (the design default), 2 medium.
     property int backdropLevel: 1
-    readonly property string backdropImage: (frost ? "backdrop-frost" : sky ? "backdrop-sky" : dusk ? "backdrop-dusk" : "backdrop") + (backdropLevel === 2 ? "-strong" : "") + ".png"
+    readonly property string backdropImage: (arena ? "backdrop-arena" : frost ? "backdrop-frost" : sky ? "backdrop-sky" : dusk ? "backdrop-dusk" : "backdrop") + (backdropLevel === 2 ? "-strong" : "") + ".png"
     // The logo: the neon gradient gamepad in the dusk palette (tools/qt_probe/make-logo-dusk.py,
     // from assets/veyra-logo-dusk.webp), the original white one in classic. Same canvas and box.
-    readonly property string logoImage: frost ? "logo-frost.png" : sky ? "logo-sky.png" : dusk ? "logo-dusk.png" : "logo.png"
-    readonly property color ok: frost ? "#0E9F6A" : dusk ? "#5ED4B2" : "#3DDC84"
+    readonly property string logoImage: arena ? "logo-arena.png" : frost ? "logo-frost.png" : sky ? "logo-sky.png" : dusk ? "logo-dusk.png" : "logo.png"
+    readonly property color ok: arena ? "#2EE59D" : frost ? "#0E9F6A" : dusk ? "#5ED4B2" : "#3DDC84"
     readonly property color okGlow: dusk ? Qt.rgba(0.369, 0.831, 0.698, 0.16) : Qt.rgba(0.239, 0.863, 0.518, 0.16)
-    readonly property color warn: frost ? "#C98A00" : "#F5C84B"
+    readonly property color warn: arena ? "#FFC24B" : frost ? "#C98A00" : "#F5C84B"
     readonly property color warnGlow: Qt.rgba(0.961, 0.784, 0.294, 0.16)
-    readonly property color err: frost ? "#E0393E" : "#FF5D5D"
+    readonly property color err: arena ? "#FF4D6D" : frost ? "#E0393E" : "#FF5D5D"
     readonly property color errGlow: Qt.rgba(1, 0.365, 0.365, 0.16)
-    readonly property color exp: frost ? "#7350F0" : "#B79BFF"
+    readonly property color exp: arena ? "#A78BFA" : frost ? "#7350F0" : "#B79BFF"
     readonly property color expSoft: Qt.rgba(0.718, 0.608, 1.0, 0.14)
 
     // --- geometry (--r-win / --r-card / --r-ctl) --------------------------
     // The window radius is 8px, small, because Windows' own default is small.
     // The video surface is NEVER rounded: .video in the prototype carries
     // border-radius:0!important because rounding crops the picture.
-    readonly property int rWindow: 8
+    readonly property int rWindow: arena ? 4 : 8
     // Frost: rounder cards, and controls drawn as pills (half their 32px height).
-    readonly property int rCard: frost ? 20 : 14
-    readonly property int rCtl: frost ? 16 : 10
+    readonly property int rCard: arena ? 4 : frost ? 20 : 14
+    readonly property int rCtl: arena ? 3 : frost ? 16 : 10
 
     // --- motion (--spring / --spring-soft / --out) ------------------------
     // easing.bezierCurve takes whole cubic segments, six numbers each
@@ -172,7 +182,7 @@ QtObject {
     readonly property string fontUi: Qt.uiLanguage === "ja" ? "Yu Gothic UI"
                                    : Qt.uiLanguage === "ko" ? "Malgun Gothic"
                                    : Qt.uiLanguage === "zh-TW" ? "Microsoft JhengHei UI"
-                                   : frost && !Qt.uiLanguage.startsWith("zh") ? "Bahnschrift" : "Noto Sans SC"
+                                   : fresh && !Qt.uiLanguage.startsWith("zh") ? "Bahnschrift" : "Noto Sans SC"
     readonly property var axesDemiBold: ({ "wght": 600 })
     // 500: the design's .seek .peek time strip is `font: 500 11px/1 var(--f-mono)`.
     // Same reason as DemiBold - 600 lands on a thin instance, so the axis is set
@@ -189,11 +199,13 @@ QtObject {
     // --- component metrics from the CSS -----------------------------------
     readonly property int ctlHeight: 32      // .btn / .pill
     readonly property int rowMinHeight: 38   // .row
-    readonly property int switchWidth: 34    // .sw
+    readonly property int switchWidth: arena ? 44 : 34    // .sw
     readonly property int switchHeight: 20
     readonly property int switchKnob: 14
     readonly property int sliderKnob: 13
     readonly property int tagHeight: 20
+    // Arena: the HUD corner brackets on panels (VCorners.qml).
+    readonly property int cornerSize: 9
     readonly property int dialogWidth: 640
     readonly property int popoverMinWidth: 220
 }

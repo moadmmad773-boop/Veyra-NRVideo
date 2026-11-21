@@ -12,8 +12,10 @@ Item {
     property bool hintBelow: false
     // M$M! frost: a row in a group's tray is its own white tile, padded inside.
     readonly property bool tiled: Theme.frost && parent !== null && parent.objectName === "vgroup-body"
+    // M$M! arena: rows in a group are split by a hairline, with a little more air.
+    readonly property bool lined: Theme.arena && parent !== null && parent.objectName === "vgroup-body"
     readonly property int pad: tiled ? 14 : 0
-    readonly property int vpad: tiled ? 7 : 0
+    readonly property int vpad: tiled ? 7 : lined ? 4 : 0
     // Width left for the label and hint beside the control.
     readonly property real textRoom: width - 2 * pad - slot.visibleControlWidth - (value.length ? 52 : 0) - 12
     readonly property bool stacked: width > 0 && textRoom < Math.min(170, labelMetrics.advanceWidth(label))
@@ -47,6 +49,15 @@ Item {
         visible: row.tiled
         radius: 14
         color: Theme.card
+    }
+    // The hairline above every row but the group's first.
+    Rectangle {
+        visible: row.lined && row.y > 1
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        height: 1
+        color: Theme.stroke
     }
     GridLayout {
         id: mainRow

@@ -93,10 +93,13 @@ Rectangle {
     // (field report 2026-10-05).
     readonly property int bodyTopGap: 8
     implicitHeight: headerHeight + (open ? body.implicitHeight + bodyTopGap + 8 : 0)
-    radius: 12
-    color: Theme.card2
+    // M$M! arena: a sharp HUD module - a bar in the effect's hue down its left edge,
+    // brackets at the corners while it is open, the title in spaced capitals.
+    readonly property bool hud: Theme.arena
+    radius: hud ? Theme.rCard : 12
+    color: hud ? Theme.card : Theme.card2
     border.width: 1
-    border.color: open ? Theme.stroke2 : Theme.stroke
+    border.color: open ? (hud ? Theme.accentGlow : Theme.stroke2) : Theme.stroke
     Behavior on border.color { ColorAnimation { duration: Theme.d(250) } }
     Behavior on implicitHeight {
         enabled: !acc.instantExpansion
@@ -133,8 +136,10 @@ Rectangle {
                     visible: !leadingTools.visible
                     implicitWidth: 26
                     implicitHeight: 26
-                    radius: 8
-                    color: Qt.rgba(acc.hue.r, acc.hue.g, acc.hue.b, 0.16)
+                    radius: acc.hud ? 2 : 8
+                    color: Qt.rgba(acc.hue.r, acc.hue.g, acc.hue.b, acc.hud ? 0.10 : 0.16)
+                    border.width: acc.hud ? 1 : 0
+                    border.color: Qt.rgba(acc.hue.r, acc.hue.g, acc.hue.b, 0.55)
                     VIcon {
                         anchors.centerIn: parent
                         name: acc.glyph
@@ -154,7 +159,9 @@ Rectangle {
                         color: acc.bypassed ? Theme.t3 : Theme.t1
                         font.strikeout: acc.bypassed
                         font.family: Theme.fontUi
-                        font.pixelSize: 13
+                        font.pixelSize: acc.hud ? 12 : 13
+                        font.capitalization: Theme.capsMode
+                        font.letterSpacing: Theme.spacing(1)
                         font.weight: Font.DemiBold; font.variableAxes: Theme.axesDemiBold
                         Layout.minimumWidth: 0
                         wrapMode: Text.Wrap
@@ -242,6 +249,14 @@ Rectangle {
         }
     }
 
+    Rectangle {
+        visible: acc.hud
+        x: 0; y: 0
+        width: 3
+        height: acc.headerHeight
+        color: acc.bypassed || !acc.on ? Theme.stroke2 : acc.hue
+    }
+    VCorners { anchors.fill: parent; visible: acc.hud && acc.open; z: 11 }
     // A hairline between the header and the body, as in the design.
     Rectangle {
         anchors.left: parent.left

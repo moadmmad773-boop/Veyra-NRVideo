@@ -680,7 +680,7 @@ VPage {
                         const a = root.endpoint(edge.from, true), b = root.endpoint(edge.to, false)
                         if (!a || !b) continue
                         const hot = edge.from === root.hotFrom && edge.to === root.hotTo
-                        ctx.strokeStyle = hot ? (Theme.dusk || Theme.frost ? Theme.accent : "#FF8A3D") : "#8291AA"; ctx.lineWidth = (hot ? 4 : 2) / root.zoom
+                        ctx.strokeStyle = hot ? (Theme.dusk || Theme.fresh ? Theme.accent : "#FF8A3D") : "#8291AA"; ctx.lineWidth = (hot ? 4 : 2) / root.zoom
                         curve(a, b)
                     }
                     // Rubber band from the chosen output port to the pointer.
@@ -688,7 +688,7 @@ VPage {
                         const a = root.endpoint(root.wireFrom, true)
                         if (a) {
                             ctx.setLineDash([6 / root.zoom, 4 / root.zoom])
-                            ctx.strokeStyle = Theme.dusk || Theme.frost ? Theme.accent : "#FF8A3D"; ctx.lineWidth = 2 / root.zoom
+                            ctx.strokeStyle = Theme.dusk || Theme.fresh ? Theme.accent : "#FF8A3D"; ctx.lineWidth = 2 / root.zoom
                             curve(a, root.pointerWorld)
                             ctx.setLineDash([])
                         }

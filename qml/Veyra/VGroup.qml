@@ -20,10 +20,14 @@ Rectangle {
     Layout.fillWidth: true
     // M$M! frost: an ice-blue tray holding each row as its own white tile (VRow.tiled).
     readonly property bool tray: Theme.frost
-    radius: tray ? 20 : 12
-    color: tray ? "#E9F1FB" : Theme.card2
+    // M$M! arena: a dark HUD panel with corner brackets; its rows are split by hairlines
+    // (VRow.lined).
+    readonly property bool hud: Theme.arena
+    radius: tray ? 20 : hud ? Theme.rCard : 12
+    color: tray ? "#E9F1FB" : hud ? Theme.card : Theme.card2
     border.width: tray ? 0 : 1
     border.color: Theme.stroke
+    VCorners { anchors.fill: parent; color: Theme.stroke2; size: 7; thickness: 1.5 }
     // Rows carry their own vertical padding. A note, button or plain layout at
     // either end of the card does not, and sat on its border (导出 音轨 card,
     // field report 2026-10-05), so those ends get the padding a row would have.
@@ -36,8 +40,8 @@ Rectangle {
         }
         return true
     }
-    readonly property int topPad: tray ? 8 : edgeIsRow(false) ? 3 : 10
-    readonly property int bottomPad: tray ? 8 : edgeIsRow(true) ? 3 : 10
+    readonly property int topPad: tray ? 8 : edgeIsRow(false) ? (hud ? 4 : 3) : 10
+    readonly property int bottomPad: tray ? 8 : edgeIsRow(true) ? (hud ? 4 : 3) : 10
     implicitHeight: inner2.height + topPad + bottomPad
 
     ColumnLayout {

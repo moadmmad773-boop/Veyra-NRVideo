@@ -109,17 +109,18 @@ Item {
         id: track
         anchors.verticalCenter: parent.verticalCenter
         width: Math.max(1, parent.width - (slider.resettable ? 28 : 0))
-        height: 4
-        radius: 9
-        color: Theme.ink(0.12)
+        // M$M! arena: a hairline track with a sharp fill and a bar for a knob.
+        height: Theme.arena && !slider.trackGradient ? 2 : 4
+        radius: Theme.arena ? 0 : 9
+        color: Theme.arena ? Theme.stroke2 : Theme.ink(0.12)
         gradient: slider.trackGradient
     }
     // The accent, or the sunset gradient laid along the whole track.
     VAccentFill {
         objectName: "vslider-fill"
         anchors.verticalCenter: track.verticalCenter
-        height: 4
-        radius: 9
+        height: Theme.arena ? 2 : 4
+        radius: Theme.arena ? 0 : 9
         visible: (!slider.center || slider.showCenterFill) && !slider.trackGradient
         width: track.width * (slider.center ? Math.abs(slider.frac - 0.5) : slider.frac)
         x: slider.center ? track.width * Math.min(0.5, slider.frac) : 0
@@ -128,15 +129,15 @@ Item {
     }
     Rectangle {
         id: knob
-        width: Theme.sliderKnob
-        height: Theme.sliderKnob
-        radius: width / 2
-        color: "#FFFFFF"
+        width: Theme.arena ? 6 : Theme.sliderKnob
+        height: Theme.arena ? 16 : Theme.sliderKnob
+        radius: Theme.arena ? 1 : width / 2
+        color: Theme.arena ? (drag.active || hover.hovered ? Theme.accent : Theme.t1) : "#FFFFFF"
         anchors.verticalCenter: track.verticalCenter
         x: track.width * slider.frac - width / 2
-        scale: drag.active || hover.hovered ? 1.25 : 1.0
-        border.width: slider.activeFocus ? 2 : 0
-        border.color: Theme.accent
+        scale: Theme.arena ? 1.0 : drag.active || hover.hovered ? 1.25 : 1.0
+        border.width: slider.activeFocus ? (Theme.arena ? 1 : 2) : 0
+        border.color: Theme.arena ? Theme.accentInk : Theme.accent
         Behavior on scale { NumberAnimation { duration: Theme.d(350); easing.bezierCurve: Theme.spring } }
     }
     // box-shadow: 0 2px 6px rgba(0,0,0,.5). A sibling MultiEffect, not layer.effect: Qt recreates a layer's effect item on

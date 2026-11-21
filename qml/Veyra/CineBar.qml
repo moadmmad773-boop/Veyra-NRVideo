@@ -49,155 +49,23 @@ Rectangle {
         onActiveChanged: if (active) bar.requestMove()
     }
     implicitHeight: 92
-    radius: 30
-    color: Theme.shade(22, 22, 26, 0.86)
+    readonly property bool hud: Theme.arena
+    radius: hud ? 3 : 30
+    color: hud ? Qt.rgba(0.027, 0.043, 0.071, 0.95) : Theme.shade(22, 22, 26, 0.86)
     border.width: 1
-    border.color: Theme.ink(0.1)
+    border.color: hud ? Theme.stroke2 : Theme.ink(0.1)
+    VCorners { anchors.fill: parent; size: 12; thickness: 2 }
 
-    RowLayout {
+    // M$M! arena: two decks - the seek rail with its times across the whole bar on top,
+    // and under it the title at the left, the transport in the middle and the preset,
+    // volume and window buttons at the right. Same controls and ids as before.
+    ColumnLayout {
         anchors.fill: parent
         anchors.leftMargin: 16
         anchors.rightMargin: 16
-        spacing: 18
-
-        // --- left: artwork + title (230px) ---------------------------
-        RowLayout {
-            Layout.preferredWidth: 230; Layout.minimumWidth: 140; Layout.maximumWidth: 230
-            Layout.fillHeight: true
-            spacing: 10
-            // The file's own cover art when it carries one (MP4 covr, MKV image
-            // attachment); otherwise the plate stays black - never a stand-in.
-            Rectangle {
-                id: coverPlate
-                implicitWidth: 46; implicitHeight: 46; radius: 12
-                color: Theme.videoBlack
-                border.width: 1
-                border.color: Theme.stroke
-                clip: true
-                Image {
-                    id: coverArt
-                    objectName: "cine-cover"
-                    anchors.fill: parent
-                    anchors.margins: 1
-                    // Drawn through the masking effect below, never directly.
-                    visible: false
-                    fillMode: Image.PreserveAspectCrop
-                    asynchronous: true
-                    cache: false
-                    source: veyra.hasSource && !veyra.isCapture ? "image://veyra-thumb/cover/" + veyra.thumbnailGeneration : ""
-                }
-                // A sibling MultiEffect, not layer.effect: Qt recreates a layer's effect item on
-                // a screen DPI change while it walks the parent's children, and the walk then touched
-                // the deleted item (crash moving the window to a 200 % monitor, field 2026-10-01).
-                MultiEffect {
-                    source: coverArt
-                    anchors.fill: coverArt
-                    visible: coverArt.status === Image.Ready
-                    maskEnabled: true
-                    maskSource: coverMask
-                }
-                Rectangle { id: coverMask; anchors.fill: coverArt; radius: 11; visible: false; layer.enabled: true }
-            }
-            ColumnLayout {
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignVCenter
-                spacing: 2
-                Text {
-                    Layout.fillWidth: true
-                    text: veyra.sourceName.length > 0 ? veyra.sourceName : qsTr("未打开")
-                    color: Theme.t1
-                    font.family: Theme.fontUi
-                    font.pixelSize: 13
-                    font.weight: Font.DemiBold; font.variableAxes: Theme.axesDemiBold
-                    elide: Text.ElideRight
-                }
-                Text {
-                    Layout.fillWidth: true
-                    text: veyra.sourceSummary
-                    color: Theme.t3
-                    font.family: Theme.fontUi
-                    font.pixelSize: 11
-                    elide: Text.ElideRight
-                }
-            }
-            VButton {
-                objectName: "cine-playlist"
-                icon: true; iconName: "list"; tip: qsTr("播放列表")
-                implicitWidth: 32; implicitHeight: 32
-                onClicked: bar.requestPlaylist()
-            }
-        }
-
-        // --- middle: transport + seek --------------------------------
-        ColumnLayout {
-            Layout.fillWidth: true
-            Layout.alignment: Qt.AlignVCenter
-            spacing: 4
-
-            RowLayout {
-                Layout.alignment: Qt.AlignHCenter
-                spacing: 10
-
-                // .cbtn: 32px round, muted, brightens on hover.
-                component CBtn: Item {
-                    id: cbtn
-                    property string glyph: ""
-                    property string tip: ""
-                    // The signal has to be declared: an inline component does not
-                    // inherit the TapHandler's signal, so callers cannot assign
-                    // onTapped without it.
-                    signal tapped()
-                    implicitWidth: 32
-                    implicitHeight: 32
-                    Rectangle {
-                        anchors.fill: parent
-                        radius: 16
-                        color: cHover.hovered ? Theme.ink(0.08) : "transparent"
-                    }
-                    VIcon {
-                        anchors.centerIn: parent
-                        name: glyph
-                        color: cHover.hovered ? Theme.inkStrong : Theme.t2
-                    }
-                    scale: cTap.pressed ? 0.86 : 1.0
-                    Behavior on scale { NumberAnimation { duration: Theme.d(400); easing.bezierCurve: Theme.spring } }
-                    HoverHandler { id: cHover; cursorShape: Qt.PointingHandCursor }
-                    ToolTip.visible: cHover.hovered && cbtn.tip.length > 0
-                    ToolTip.text: cbtn.tip
-                    TapHandler { id: cTap; gesturePolicy: TapHandler.WithinBounds; onTapped: cbtn.tapped() }
-                }
-
-                // 载入 (field request 2026-10-02): the home page's sources without leaving 极简.
-                CBtn { objectName: "cine-load"; glyph: "folder"; tip: qsTr("载入片源"); onTapped: loadMenu.openAt(this, "up") }
-                CBtn { glyph: "cc"; onTapped: ccMenu.openAt(this, "up") }
-                CBtn { glyph: "back10"; onTapped: veyra.seekBy(-10) }
-
-                // .play: 40px white circle with the play/pause glyph.
-                Item {
-                    implicitWidth: 40
-                    implicitHeight: 40
-                    Rectangle {
-                        anchors.fill: parent
-                        radius: 20
-                        // Frost: a blue disc with a white glyph (white on white would vanish).
-                        color: Theme.light ? Theme.accent : "#FFFFFF"
-                    }
-                    VIcon {
-                        anchors.centerIn: parent
-                        name: (veyra.running && !veyra.paused) ? "pausefill" : "playfill"
-                        filled: true
-                        color: Theme.light ? "#FFFFFF" : "#0A0A0C"
-                    }
-                    scale: playTap.pressed ? 0.88 : (playHover.hovered ? 1.06 : 1.0)
-                    Behavior on scale { NumberAnimation { duration: Theme.d(450); easing.bezierCurve: Theme.spring } }
-                    HoverHandler { id: playHover; cursorShape: Qt.PointingHandCursor }
-                    TapHandler { id: playTap; gesturePolicy: TapHandler.WithinBounds; onTapped: veyra.togglePlayPause() }
-                }
-
-                CBtn { glyph: "fwd10"; onTapped: veyra.seekBy(10) }
-                CBtn { glyph: "music"; onTapped: audioMenu.openAt(this, "up") }
-                PlaybackRateButton { id: playbackRate; objectName: "cine-playback-rate"; menuBottomLimit: bar.menuBottomLimit }
-            }
+        anchors.topMargin: 10
+        anchors.bottomMargin: 10
+        spacing: 6
 
             // .seekrow: mono times either side of the rail.
             RowLayout {
@@ -205,9 +73,9 @@ Rectangle {
                 spacing: 10
                 Text {
                     text: veyra.positionText
-                    color: Theme.t3
+                    color: Theme.arena ? Theme.accent : Theme.t3
                     font.family: Theme.fontMono
-                    font.pixelSize: 10
+                    font.pixelSize: Theme.arena ? 11 : 10
                 }
                 Item {
                     id: seekArea
@@ -262,16 +130,16 @@ Rectangle {
                         id: rail
                         anchors.verticalCenter: parent.verticalCenter
                         width: parent.width
-                        height: seekMouse.containsMouse ? 6 : 3
-                        radius: 9
-                        color: Theme.ink(0.14)
+                        height: seekMouse.containsMouse ? (Theme.arena ? 4 : 6) : (Theme.arena ? 2 : 3)
+                        radius: Theme.arena ? 0 : 9
+                        color: Theme.arena ? Theme.stroke2 : Theme.ink(0.14)
                         Behavior on height { NumberAnimation { duration: Theme.d(300); easing.bezierCurve: Theme.spring } }
                         // White; the sunset gradient along the rail in the dusk palette.
                         Rectangle {
                             width: parent.width * seekArea.frac
                             height: parent.height
-                            radius: 9
-                            color: Theme.inkStrong
+                            radius: Theme.arena ? 0 : 9
+                            color: Theme.arena ? Theme.accent : Theme.inkStrong
                             visible: !Theme.accentGradient
                         }
                         VAccentFill {
@@ -285,8 +153,8 @@ Rectangle {
                     }
                     // .seek .thumb: 11px dot, scale 0 -> 1 over .4s --spring on hover.
                     Rectangle {
-                        width: 11; height: 11; radius: 5.5
-                        color: "#FFFFFF"
+                        width: Theme.arena ? 4 : 11; height: Theme.arena ? 14 : 11; radius: Theme.arena ? 0 : 5.5
+                        color: Theme.arena ? Theme.accent : "#FFFFFF"
                         border.width: Theme.light ? 2 : 0
                         border.color: Theme.accent
                         x: seekArea.frac * seekArea.width - width / 2
@@ -300,10 +168,10 @@ Rectangle {
                         visible: opacity > 0.01
                         width: veyra.liveTimeshift.available ? 84 : 144
                         height: veyra.liveTimeshift.available ? 26 : 104
-                        radius: 8
+                        radius: Theme.arena ? 2 : 8
                         color: "#000000"
                         border.width: 1
-                        border.color: Theme.stroke2
+                        border.color: Theme.arena ? Theme.accent : Theme.stroke2
                         x: Math.max(0, Math.min(parent.width - width,
                                                 seekArea.hoverFrac * seekArea.width - width / 2))
                         y: -height - 18
@@ -421,79 +289,223 @@ Rectangle {
                     onClicked: veyra.returnToLive()
                 }
             }
-        }
 
-        // --- right: preset, volume, fullscreen (230px) ---------------
         RowLayout {
-            Layout.preferredWidth: 308; Layout.minimumWidth: 308; Layout.maximumWidth: 308
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-            spacing: 6
+            Layout.fillWidth: true
+            spacing: 14
 
-            // .pill with a status dot: the dot reports the engine's state, and
-            // the label is the preset actually in use.
-            VPill {
-                key: ""
-                value: veyra.currentPresetName
-                onClicked: presetMenu.openAt(this, "up")
+            // --- left: artwork + title (230px) ---------------------------
+            RowLayout {
+                Layout.preferredWidth: 230; Layout.minimumWidth: 140; Layout.maximumWidth: 230
+                Layout.fillHeight: true
+                spacing: 10
+                // The file's own cover art when it carries one (MP4 covr, MKV image
+                // attachment); otherwise the plate stays black - never a stand-in.
                 Rectangle {
-                    width: 7; height: 7; radius: 3.5
-                    color: veyra.failed ? Theme.err : veyra.captureRecovering ? Theme.warn : Theme.ok
+                    id: coverPlate
+                    implicitWidth: Theme.arena ? 40 : 46; implicitHeight: Theme.arena ? 40 : 46; radius: Theme.arena ? 2 : 12
+                    color: Theme.videoBlack
+                    border.width: 1
+                    border.color: Theme.stroke
+                    clip: true
+                    Image {
+                        id: coverArt
+                        objectName: "cine-cover"
+                        anchors.fill: parent
+                        anchors.margins: 1
+                        // Drawn through the masking effect below, never directly.
+                        visible: false
+                        fillMode: Image.PreserveAspectCrop
+                        asynchronous: true
+                        cache: false
+                        source: veyra.hasSource && !veyra.isCapture ? "image://veyra-thumb/cover/" + veyra.thumbnailGeneration : ""
+                    }
+                    // A sibling MultiEffect, not layer.effect: Qt recreates a layer's effect item on
+                    // a screen DPI change while it walks the parent's children, and the walk then touched
+                    // the deleted item (crash moving the window to a 200 % monitor, field 2026-10-01).
+                    MultiEffect {
+                        source: coverArt
+                        anchors.fill: coverArt
+                        visible: coverArt.status === Image.Ready
+                        maskEnabled: true
+                        maskSource: coverMask
+                    }
+                    Rectangle { id: coverMask; anchors.fill: coverArt; radius: Theme.arena ? 1 : 11; visible: false; layer.enabled: true }
                 }
-            }
-
-            Item {
-                implicitWidth: 146
-                implicitHeight: 32
-                Layout.minimumWidth: 146
-                RowLayout {
-                    anchors.fill: parent
-                    spacing: 6
-                    VIcon { name: "vol"; color: Theme.t2 }
-                    VSlider {
-                        id: volumeSlider
-                        objectName: "cine-volume"
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignVCenter
+                    spacing: 2
+                    Text {
                         Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        Layout.minimumWidth: 72
-                        from: 0; to: veyra.maximumVolume; value: veyra.volume; inputScale: 100
-                        defaultValue: 1
-                        valueFromModel: true
-                        fullKnobHitArea: true
-                        onMoved: moved => veyra.volume = moved
+                        text: veyra.sourceName.length > 0 ? veyra.sourceName : qsTr("未打开")
+                        color: Theme.t1
+                        font.family: Theme.fontUi
+                        font.pixelSize: 13
+                        font.weight: Font.DemiBold; font.variableAxes: Theme.axesDemiBold
+                        elide: Text.ElideRight
                     }
-                    VSliderValue {
-                        Layout.preferredWidth: 36
-                        slider: volumeSlider
-                        text: Math.round(veyra.volume * 100) + "%"
-                        color: Theme.t2; pixelSize: 10
+                    Text {
+                        Layout.fillWidth: true
+                        text: veyra.sourceSummary
+                        color: Theme.t3
+                        font.family: Theme.fontUi
+                        font.pixelSize: 11
+                        elide: Text.ElideRight
                     }
+                }
+                VButton {
+                    objectName: "cine-playlist"
+                    icon: true; iconName: "list"; tip: qsTr("播放列表")
+                    implicitWidth: 32; implicitHeight: 32
+                    onClicked: bar.requestPlaylist()
                 }
             }
 
-            RotateButton { objectName: "cine-rotate" }
+            Item { Layout.fillWidth: true }
 
-            Item {
-                implicitWidth: 32; implicitHeight: 32
-                VIcon {
-                    anchors.centerIn: parent
-                    name: "max"
-                    color: Theme.t2
+            RowLayout {
+                Layout.alignment: Qt.AlignHCenter
+                spacing: 10
+
+                // .cbtn: 32px round, muted, brightens on hover.
+                component CBtn: Item {
+                    id: cbtn
+                    property string glyph: ""
+                    property string tip: ""
+                    // The signal has to be declared: an inline component does not
+                    // inherit the TapHandler's signal, so callers cannot assign
+                    // onTapped without it.
+                    signal tapped()
+                    implicitWidth: 32
+                    implicitHeight: Theme.arena ? 30 : 32
+                    Rectangle {
+                        anchors.fill: parent
+                        radius: Theme.arena ? 2 : 16
+                        color: cHover.hovered ? (Theme.arena ? Theme.accentSoft : Theme.ink(0.08)) : "transparent"
+                        border.width: Theme.arena ? 1 : 0
+                        border.color: cHover.hovered ? Theme.accent : Theme.stroke
+                    }
+                    VIcon {
+                        anchors.centerIn: parent
+                        name: glyph
+                        color: cHover.hovered ? (Theme.arena ? Theme.accent : Theme.inkStrong) : Theme.t2
+                    }
+                    scale: cTap.pressed ? 0.86 : 1.0
+                    Behavior on scale { NumberAnimation { duration: Theme.d(400); easing.bezierCurve: Theme.spring } }
+                    HoverHandler { id: cHover; cursorShape: Qt.PointingHandCursor }
+                    ToolTip.visible: cHover.hovered && cbtn.tip.length > 0
+                    ToolTip.text: cbtn.tip
+                    TapHandler { id: cTap; gesturePolicy: TapHandler.WithinBounds; onTapped: cbtn.tapped() }
                 }
-                HoverHandler { cursorShape: Qt.PointingHandCursor }
-                // The design's "全屏" button (title="全屏"). It used to call an
-                // undefined root.requestPage("pro").
-                TapHandler { onTapped: bar.requestFullscreen() }
+
+                // 载入 (field request 2026-10-02): the home page's sources without leaving 极简.
+                CBtn { objectName: "cine-load"; glyph: "folder"; tip: qsTr("载入片源"); onTapped: loadMenu.openAt(this, "up") }
+                CBtn { glyph: "cc"; onTapped: ccMenu.openAt(this, "up") }
+                CBtn { glyph: "back10"; onTapped: veyra.seekBy(-10) }
+
+                // .play: 40px white circle with the play/pause glyph.
+                Item {
+                    implicitWidth: 40
+                    implicitHeight: 40
+                    Rectangle {
+                        anchors.fill: parent
+                        radius: Theme.arena ? 3 : 20
+                        // Frost: a blue disc with a white glyph (white on white would vanish).
+                        // Arena: a solid accent block with a dark glyph.
+                        color: Theme.light || Theme.arena ? Theme.accent : "#FFFFFF"
+                    }
+                    VIcon {
+                        anchors.centerIn: parent
+                        name: (veyra.running && !veyra.paused) ? "pausefill" : "playfill"
+                        filled: true
+                        color: Theme.arena ? Theme.accentInk : Theme.light ? "#FFFFFF" : "#0A0A0C"
+                    }
+                    scale: playTap.pressed ? 0.88 : (playHover.hovered ? 1.06 : 1.0)
+                    Behavior on scale { NumberAnimation { duration: Theme.d(450); easing.bezierCurve: Theme.spring } }
+                    HoverHandler { id: playHover; cursorShape: Qt.PointingHandCursor }
+                    TapHandler { id: playTap; gesturePolicy: TapHandler.WithinBounds; onTapped: veyra.togglePlayPause() }
+                }
+
+                CBtn { glyph: "fwd10"; onTapped: veyra.seekBy(10) }
+                CBtn { glyph: "music"; onTapped: audioMenu.openAt(this, "up") }
+                PlaybackRateButton { id: playbackRate; objectName: "cine-playback-rate"; menuBottomLimit: bar.menuBottomLimit }
             }
-            // Hide the pill (field request 2026-10-01: it covers the game when playing
-            // through a capture card or a stream). The dock's eye button brings it back.
-            Item {
-                objectName: "cine-hide"
-                implicitWidth: 32; implicitHeight: 32
-                VIcon { anchors.centerIn: parent; name: "eyeoff"; color: hideHover.hovered ? Theme.inkStrong : Theme.t2 }
-                HoverHandler { id: hideHover; cursorShape: Qt.PointingHandCursor }
-                ToolTip.visible: hideHover.hovered
-                ToolTip.text: qsTr("隐藏播放条（顶部胶囊里可重新打开）")
-                TapHandler { onTapped: bar.requestHide() }
+
+            Item { Layout.fillWidth: true }
+
+            // --- right: preset, volume, fullscreen (230px) ---------------
+            RowLayout {
+                Layout.preferredWidth: 308; Layout.minimumWidth: 308; Layout.maximumWidth: 308
+                Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                spacing: 6
+
+                // .pill with a status dot: the dot reports the engine's state, and
+                // the label is the preset actually in use.
+                VPill {
+                    key: ""
+                    value: veyra.currentPresetName
+                    onClicked: presetMenu.openAt(this, "up")
+                    Rectangle {
+                        width: 7; height: 7; radius: 3.5
+                        color: veyra.failed ? Theme.err : veyra.captureRecovering ? Theme.warn : Theme.ok
+                    }
+                }
+
+                Item {
+                    implicitWidth: 146
+                    implicitHeight: 32
+                    Layout.minimumWidth: 146
+                    RowLayout {
+                        anchors.fill: parent
+                        spacing: 6
+                        VIcon { name: "vol"; color: Theme.t2 }
+                        VSlider {
+                            id: volumeSlider
+                            objectName: "cine-volume"
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            Layout.minimumWidth: 72
+                            from: 0; to: veyra.maximumVolume; value: veyra.volume; inputScale: 100
+                            defaultValue: 1
+                            valueFromModel: true
+                            fullKnobHitArea: true
+                            onMoved: moved => veyra.volume = moved
+                        }
+                        VSliderValue {
+                            Layout.preferredWidth: 36
+                            slider: volumeSlider
+                            text: Math.round(veyra.volume * 100) + "%"
+                            color: Theme.t2; pixelSize: 10
+                        }
+                    }
+                }
+
+                RotateButton { objectName: "cine-rotate" }
+
+                Item {
+                    implicitWidth: 32; implicitHeight: 32
+                    VIcon {
+                        anchors.centerIn: parent
+                        name: "max"
+                        color: Theme.t2
+                    }
+                    HoverHandler { cursorShape: Qt.PointingHandCursor }
+                    // The design's "全屏" button (title="全屏"). It used to call an
+                    // undefined root.requestPage("pro").
+                    TapHandler { onTapped: bar.requestFullscreen() }
+                }
+                // Hide the pill (field request 2026-10-01: it covers the game when playing
+                // through a capture card or a stream). The dock's eye button brings it back.
+                Item {
+                    objectName: "cine-hide"
+                    implicitWidth: 32; implicitHeight: 32
+                    VIcon { anchors.centerIn: parent; name: "eyeoff"; color: hideHover.hovered ? Theme.inkStrong : Theme.t2 }
+                    HoverHandler { id: hideHover; cursorShape: Qt.PointingHandCursor }
+                    ToolTip.visible: hideHover.hovered
+                    ToolTip.text: qsTr("隐藏播放条（顶部胶囊里可重新打开）")
+                    TapHandler { onTapped: bar.requestHide() }
+                }
             }
         }
     }

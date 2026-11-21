@@ -9,7 +9,7 @@ VPage {
     signal requestPage(string page)
     property string exportKind: "video"
     property int compactTab: 0
-    readonly property var geometry: ExportLayout.calculate(width, height, compactTab, Theme.frost)
+    readonly property var geometry: ExportLayout.calculate(width, height, compactTab, Theme.fresh)
     readonly property bool compact: geometry.compact
     property double draggedId: 0
     property int dropIndex: -1
@@ -291,7 +291,7 @@ VPage {
                 VGroup {
                     visible: root.exportKind === "video"
                     Note { text: veyra.exportQueueModel.selectedId ? qsTr("所选文件的音轨与内嵌字幕")
-                                            : Theme.frost ? qsTr("默认保留全部轨道；点击右侧文件可单独选择。") : qsTr("默认保留全部轨道；点击左侧文件可单独选择。") }
+                                            : Theme.fresh ? qsTr("默认保留全部轨道；点击右侧文件可单独选择。") : qsTr("默认保留全部轨道；点击左侧文件可单独选择。") }
                     VRow {
                         label: qsTr("音轨")
                         enabled: veyra.exportSelectionEditable
@@ -416,8 +416,8 @@ VPage {
                 // M$M! frost: the queue is on the right.
                 text: veyra.exportRunning
                     ? qsTr("导出进行中，预览已关闭，显卡留给导出") + "\n"
-                      + (Theme.frost ? qsTr("点右侧文件可重新预览（会和导出抢显卡）") : qsTr("点左侧文件可重新预览（会和导出抢显卡）"))
-                    : Theme.frost ? qsTr("点右侧文件预览") : qsTr("点左侧文件预览")
+                      + (Theme.fresh ? qsTr("点右侧文件可重新预览（会和导出抢显卡）") : qsTr("点左侧文件可重新预览（会和导出抢显卡）"))
+                    : Theme.fresh ? qsTr("点右侧文件预览") : qsTr("点左侧文件预览")
                 color: Theme.onVideo3
                 font.family: Theme.fontUi
                 font.pixelSize: Theme.fsH3

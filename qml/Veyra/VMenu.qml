@@ -155,7 +155,7 @@ Popup {
     contentItem: Item {
         // Cut out of the native video window (main.cpp syncVideoCovers).
         objectName: "videoCover"
-        property real coverRadius: Theme.light ? 18 : 14
+        property real coverRadius: Theme.arena ? 3 : Theme.light ? 18 : 14
         transform: [
             Scale {
                 origin.x: pop.originX
@@ -171,7 +171,7 @@ Popup {
             id: shadowSrc
             anchors.fill: parent
             anchors.margins: 12
-            radius: Theme.light ? 18 : 14
+            radius: Theme.arena ? 3 : Theme.light ? 18 : 14
             color: "black"
             visible: false
         }
@@ -187,10 +187,12 @@ Popup {
         }
         Rectangle {
             anchors.fill: parent
-            radius: Theme.light ? 18 : 14
+            radius: Theme.arena ? 3 : Theme.light ? 18 : 14
             color: Theme.popover
             border.width: 1
             border.color: Theme.stroke2
+            // M$M! arena: accent brackets at the corners of every menu.
+            VCorners { anchors.fill: parent }
         }
         Flickable {
             anchors.fill: parent
@@ -213,11 +215,12 @@ Popup {
                     Layout.margins: 6
                     Layout.leftMargin: 10
                     text: pop.title
-                    color: Theme.t3
-                    font.family: Theme.fontUi
+                    color: Theme.arena ? Theme.accent : Theme.t3
+                    font.family: Theme.arena ? Theme.fontMono : Theme.fontUi
                     font.pixelSize: 11
                     font.weight: Font.Medium
-                    font.letterSpacing: 0.44
+                    font.letterSpacing: Theme.arena ? 1.6 : 0.44
+                    font.capitalization: Theme.capsMode
                 }
                 Repeater {
                     model: pop.items
@@ -240,6 +243,8 @@ Popup {
                                 topPadding: 6; bottomPadding: 6; leftPadding: 10
                                 text: row.modelData.head
                                 color: Theme.t3
+                                font.capitalization: Theme.capsMode
+                                font.letterSpacing: Theme.spacing(1.2)
                                 font.family: Theme.fontUi
                                 font.pixelSize: 11
                                 font.weight: Font.Medium
@@ -252,33 +257,35 @@ Popup {
                             Rectangle {
                                 // M$M! frost: roomier rows; the chosen one sits on the soft accent
                                 // with an accent bar at its edge.
-                                readonly property bool chosen: Theme.light && pop.checks[row.index] === true
-                                implicitHeight: optRow.implicitHeight + (Theme.light ? 22 : 16)
-                                radius: Theme.light ? 12 : 9
+                                readonly property bool chosen: Theme.fresh && pop.checks[row.index] === true
+                                implicitHeight: optRow.implicitHeight + (Theme.fresh ? 20 : 16)
+                                radius: Theme.arena ? 2 : Theme.light ? 12 : 9
                                 opacity: row.modelData.disabled ? 0.4 : 1
                                 color: chosen ? Theme.accentSoft
                                      : optHover.hovered && !row.modelData.disabled ? Theme.ink(0.06) : "transparent"
                                 Rectangle {
                                     visible: parent.chosen
-                                    x: 3; width: 3; radius: 2
+                                    x: Theme.arena ? 0 : 3; width: Theme.arena ? 2 : 3; radius: Theme.arena ? 0 : 2
                                     anchors.verticalCenter: parent.verticalCenter
-                                    height: parent.height - 18
+                                    height: parent.height - (Theme.arena ? 0 : 18)
                                     color: Theme.accent
                                 }
                                 RowLayout {
                                     id: optRow
                                     anchors.left: parent.left; anchors.right: parent.right
                                     anchors.verticalCenter: parent.verticalCenter
-                                    anchors.leftMargin: Theme.light ? 14 : 10; anchors.rightMargin: 10
+                                    anchors.leftMargin: Theme.fresh ? 14 : 10; anchors.rightMargin: 10
                                     spacing: 10
                                     // Frost: the option's icon in a small tile.
                                     Rectangle {
                                         visible: !!row.modelData.icon
-                                        implicitWidth: Theme.light ? 28 : 16
-                                        implicitHeight: Theme.light ? 28 : 16
-                                        radius: 9
-                                        color: Theme.light ? Theme.ink(0.06) : "transparent"
-                                        VIcon { anchors.centerIn: parent; name: row.modelData.icon || ""; color: Theme.t1 }
+                                        implicitWidth: Theme.fresh ? 28 : 16
+                                        implicitHeight: Theme.fresh ? 28 : 16
+                                        radius: Theme.arena ? 2 : 9
+                                        color: Theme.fresh ? Theme.ink(0.06) : "transparent"
+                                        border.width: Theme.arena ? 1 : 0
+                                        border.color: Theme.stroke2
+                                        VIcon { anchors.centerIn: parent; name: row.modelData.icon || ""; color: Theme.arena ? Theme.accent : Theme.t1 }
                                     }
                                     ColumnLayout {
                                         Layout.fillWidth: true

@@ -552,7 +552,7 @@ VPage {
     readonly property real videoCardHeight: Math.max(transport.height + 1,
         pictureSpace + transport.height - (showMeters ? metersHeight + 10 : 0))
     // M$M! frost: the parameter panel on the left, the picture and its meters on the right.
-    readonly property bool panelLeft: Theme.frost
+    readonly property bool panelLeft: Theme.fresh
     readonly property real videoX: panelLeft ? 14 + root.inspectorWidth + 10 : 14
     readonly property rect videoViewport: Qt.rect(root.videoX, 14 + head.height + 10,
         root.videoColumnWidth, root.videoCardHeight - transport.height)
@@ -572,6 +572,7 @@ VPage {
         border.width: 1
         border.color: Theme.stroke
         clip: true
+        VCorners { anchors.fill: parent; size: 12; thickness: 2; z: 20 }
 
         // The native video window sits over the top of this; the bar is its foot.
         Item {
@@ -1257,6 +1258,7 @@ VPage {
         border.width: 1
         border.color: Theme.stroke
         clip: true
+        VCorners { anchors.fill: parent; size: 12; thickness: 2; z: 20 }
         // Quick-adjust: the same panel on the left edge of the fullscreen picture.
         states: State {
             name: "overlay"
@@ -1294,13 +1296,25 @@ VPage {
                         Layout.fillWidth: true
                         implicitWidth: tabLabel.implicitWidth + 10
                         implicitHeight: Math.max(50, tabLabel.implicitHeight + 32)
-                        radius: 14
-                        color: tabTile.on ? "transparent" : tabHover.hovered ? Theme.ink(0.05) : "transparent"
+                        // M$M! arena: sharp HUD tabs; the open one outlined and tinted in the
+                        // accent, a bar under it.
+                        readonly property bool hud: Theme.arena
+                        radius: hud ? 2 : 14
+                        color: hud ? (tabTile.on ? Theme.accentSoft : tabHover.hovered ? Theme.ink(0.05) : "transparent")
+                             : tabTile.on ? "transparent" : tabHover.hovered ? Theme.ink(0.05) : "transparent"
+                        border.width: hud ? 1 : 0
+                        border.color: tabTile.on ? Theme.accent : Theme.stroke
                         Behavior on color { ColorAnimation { duration: Theme.d(200) } }
+                        Rectangle {
+                            visible: tabTile.hud && tabTile.on
+                            anchors.left: parent.left; anchors.right: parent.right; anchors.bottom: parent.bottom
+                            height: 2
+                            color: Theme.accent
+                        }
                         VAccentFill {
                             anchors.fill: parent
                             radius: parent.radius
-                            opacity: tabTile.on ? 1 : 0
+                            opacity: tabTile.on && !tabTile.hud ? 1 : 0
                             visible: opacity > 0
                             Behavior on opacity { NumberAnimation { duration: Theme.d(200) } }
                         }
@@ -1312,7 +1326,7 @@ VPage {
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 name: tabTile.modelData.icon
                                 size: 17
-                                color: tabTile.on ? Theme.accentInk : Theme.t2
+                                color: tabTile.on ? (tabTile.hud ? Theme.accent : Theme.accentInk) : Theme.t2
                             }
                             Text {
                                 id: tabLabel
@@ -1320,10 +1334,12 @@ VPage {
                                 horizontalAlignment: Text.AlignHCenter
                                 wrapMode: Text.Wrap
                                 text: tabTile.modelData.label
-                                color: tabTile.on ? Theme.accentInk : Theme.t2
+                                color: tabTile.on ? (tabTile.hud ? Theme.accent : Theme.accentInk) : Theme.t2
                                 font.family: Theme.fontUi
-                                font.pixelSize: 12
+                                font.pixelSize: tabTile.hud ? 11 : 12
                                 font.weight: tabTile.on ? Font.DemiBold : Font.Medium
+                                font.capitalization: Theme.capsMode
+                                font.letterSpacing: Theme.spacing(0.8)
                             }
                         }
                         HoverHandler { id: tabHover; cursorShape: Qt.PointingHandCursor }

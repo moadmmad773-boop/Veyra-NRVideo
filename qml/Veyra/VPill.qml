@@ -11,10 +11,10 @@ Rectangle {
     signal clicked()
     implicitWidth: pillRow.implicitWidth + 21
     implicitHeight: Theme.ctlHeight
-    radius: 999
-    color: hover.hovered ? Theme.ink(0.10) : Theme.ink(0.05)
+    radius: Theme.arena ? 2 : 999
+    color: hover.hovered ? (Theme.arena ? Theme.accentSoft : Theme.ink(0.10)) : Theme.ink(0.05)
     border.width: 1
-    border.color: Theme.stroke2
+    border.color: Theme.arena && hover.hovered ? Theme.accent : Theme.stroke2
     scale: tap.pressed ? 0.95 : 1.0
     Behavior on scale { NumberAnimation { duration: Theme.d(400); easing.bezierCurve: Theme.spring } }
     RowLayout {

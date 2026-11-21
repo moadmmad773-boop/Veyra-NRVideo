@@ -72,6 +72,7 @@ VPage {
         color: Theme.card
         border.width: 1
         border.color: Theme.stroke
+        VCorners { anchors.fill: parent; color: Theme.stroke2; size: 8 }
 
         VH2 {
             id: navTitle
@@ -106,17 +107,21 @@ VPage {
                         required property var modelData
                         readonly property bool on: root.section === modelData.id
                         objectName: "settings-section-" + modelData.id
-                        implicitWidth: chipRow.implicitWidth + 28
-                        implicitHeight: 38
-                        radius: 19
-                        color: chip.on ? "transparent" : navHover.hovered ? Theme.ink(0.07) : Theme.ink(0.035)
-                        border.width: chip.on ? 0 : 1
-                        border.color: Theme.stroke
+                        // M$M! arena: HUD tabs - sharp outlined boxes, the section shown
+                        // lit in the accent with an accent bar under it.
+                        readonly property bool hud: Theme.arena
+                        implicitWidth: chipRow.implicitWidth + (hud ? 24 : 28)
+                        implicitHeight: hud ? 34 : 38
+                        radius: hud ? 2 : 19
+                        color: hud ? (chip.on ? Theme.accentSoft : navHover.hovered ? Theme.ink(0.05) : "transparent")
+                             : chip.on ? "transparent" : navHover.hovered ? Theme.ink(0.07) : Theme.ink(0.035)
+                        border.width: chip.on && !hud ? 0 : 1
+                        border.color: hud && chip.on ? Theme.accent : hud && navHover.hovered ? Theme.stroke2 : Theme.stroke
                         Behavior on color { ColorAnimation { duration: Theme.d(200) } }
                         VAccentFill {
                             anchors.fill: parent
                             radius: parent.radius
-                            opacity: chip.on ? 1 : 0
+                            opacity: chip.on && !chip.hud ? 1 : 0
                             visible: opacity > 0
                             Behavior on opacity { NumberAnimation { duration: Theme.d(200) } }
                         }
@@ -128,17 +133,19 @@ VPage {
                                 anchors.verticalCenter: parent.verticalCenter
                                 name: chip.modelData.icon
                                 size: 15
-                                color: chip.on ? Theme.accentInk
+                                color: chip.on ? (chip.hud ? Theme.accent : Theme.accentInk)
                                      : chip.modelData.tint !== undefined ? chip.modelData.tint : Theme.t2
                             }
                             Text {
                                 id: navLabel
                                 anchors.verticalCenter: parent.verticalCenter
                                 text: chip.modelData.label
-                                color: chip.on ? Theme.accentInk : Theme.t1
+                                color: chip.on ? (chip.hud ? Theme.accent : Theme.accentInk) : Theme.t1
                                 font.family: Theme.fontUi
-                                font.pixelSize: 13
+                                font.pixelSize: chip.hud ? 11 : 13
                                 font.weight: chip.on ? Font.DemiBold : Font.Medium
+                                font.capitalization: Theme.capsMode
+                                font.letterSpacing: Theme.spacing(1)
                             }
                         }
                         HoverHandler { id: navHover; cursorShape: Qt.PointingHandCursor }
@@ -165,6 +172,7 @@ VPage {
         border.width: 1
         border.color: Theme.stroke
         clip: true
+        VCorners { anchors.fill: parent; size: 12; thickness: 2; z: 2 }
 
         Flickable {
             id: settingsBodyScroll
@@ -198,7 +206,9 @@ VPage {
                     }
                     VGroup {
                         // 日落 (the default) or the original black-grey 经典 palette.
+                        // M$M!: one look only (竞技场), so no palette to choose.
                         VRow {
+                            visible: !Theme.arena
                             label: qsTr("界面配色")
                             hint: qsTr("冰蓝：白色与冰蓝的浅色界面；天蓝：深蓝底；日落：深靛紫底、日落渐变；经典：原来的黑灰配色")
                             VSeg {
@@ -261,10 +271,11 @@ VPage {
                                         required property var modelData
                                         readonly property bool on: (veyra.preferences.accent || "orange") === modelData.id
                                         objectName: "set-accent-" + modelData.id
-                                        width: 24; height: 24; radius: 12
+                                        width: 24; height: 24; radius: Theme.arena ? 2 : 12
                                         // The dusk palette shows what each choice paints: the sunset
                                         // gradient, or the neon white (the ring stays on top).
-                                        color: Theme.frost ? (modelData.id === "white" ? "#0A1A30" : "#1C86FF")
+                                        color: Theme.arena ? (modelData.id === "white" ? "#FF3DA6" : "#22D3EE")
+                                             : Theme.frost ? (modelData.id === "white" ? "#0A1A30" : "#1C86FF")
                                              : Theme.sky ? "#F4FAFF" : Theme.dusk ? "#FFF6FB" : modelData.c
                                         gradient: (Theme.dusk || Theme.sky || Theme.frost) && modelData.id === "orange" ? sunset : undefined
                                         Gradient {
@@ -274,13 +285,14 @@ VPage {
                                             GradientStop { position: 1.0; color: Theme.accentTo }
                                         }
                                         border.width: 2
-                                        border.color: on ? (Theme.light ? "#36C2FF" : "#FFFFFF") : "transparent"
+                                        border.color: on ? (Theme.light ? "#36C2FF" : "#FFFFFF") : Theme.arena ? Theme.stroke2 : "transparent"
                                         scale: on ? 1.12 : 1
                                         Behavior on scale { NumberAnimation { duration: Theme.d(400); easing.bezierCurve: Theme.spring } }
                                         HoverHandler { id: swHover; cursorShape: Qt.PointingHandCursor }
                                         TapHandler { onTapped: veyra.setPreference("accent", modelData.id) }
                                         ToolTip.visible: swHover.hovered
-                                        ToolTip.text: Theme.frost ? (modelData.id === "orange" ? qsTr("冰蓝") : qsTr("藏青"))
+                                        ToolTip.text: Theme.arena ? (modelData.id === "orange" ? qsTr("青色") : qsTr("品红"))
+                                                    : Theme.frost ? (modelData.id === "orange" ? qsTr("冰蓝") : qsTr("藏青"))
                                                     : Theme.sky ? (modelData.id === "orange" ? qsTr("天蓝") : modelData.tip)
                                                     : Theme.dusk ? modelData.duskTip : modelData.tip
                                     }
@@ -307,7 +319,8 @@ VPage {
                         }
                         VRow {
                             label: qsTr("背景渐变强度")
-                            hint: Theme.dusk ? qsTr("日落天空的渐变强度，带抖动防色带") : Theme.frost ? qsTr("冰蓝底上的柔和渐变与抖动（防色带）")
+                            hint: Theme.arena ? qsTr("深色网格背景的强度与抖动（防色带）")
+                                  : Theme.dusk ? qsTr("日落天空的渐变强度，带抖动防色带") : Theme.frost ? qsTr("冰蓝底上的柔和渐变与抖动（防色带）")
                                          : qsTr("深黑底上的极轻渐变与抖动（防色带）")
                             VSeg {
                                 objectName: "set-backdrop"

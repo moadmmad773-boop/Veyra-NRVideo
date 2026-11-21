@@ -71,19 +71,22 @@ Rectangle {
         enabled: !dlg.instantTransition
         NumberAnimation { duration: Theme.d(200) }
     }
+    // M$M! arena: not a centred card but a HUD sheet down the right side of the window,
+    // full height, sliding in from the right edge (the same motion values drive it).
+    readonly property bool sheet: Theme.arena
     transform: [
-        Scale { origin.x: dlg.width / 2; origin.y: dlg.height / 2; xScale: dlg.motionS; yScale: dlg.motionS },
-        Translate { y: dlg.motionDy }
+        Scale { origin.x: dlg.width / 2; origin.y: dlg.height / 2; xScale: dlg.sheet ? 1 : dlg.motionS; yScale: dlg.sheet ? 1 : dlg.motionS },
+        Translate { x: dlg.sheet ? dlg.motionDy * 4 : 0; y: dlg.sheet ? 0 : dlg.motionDy }
     ]
     // Cut out of the native video window (main.cpp syncVideoCovers). The flag,
     // not the objectName: each dialog below names itself for tests.
     objectName: "videoCover"
     readonly property bool videoCover: true
-    property real coverRadius: 16
+    property real coverRadius: sheet ? 3 : 16
 
     // Centred by position, not anchors: the parent is null while closed.
-    x: Math.round((dialogHost.width - width) / 2)
-    y: Math.round((dialogHost.height - height) / 2)
+    x: sheet ? dialogHost.width - width - 10 : Math.round((dialogHost.width - width) / 2)
+    y: sheet ? 10 : Math.round((dialogHost.height - height) / 2)
     width: Math.max(1, Math.min(dialogWidth, dialogHost.width - 24))
     // Never taller than the window: the body scrolls instead of the panel
     // being cut off at the top and bottom of a small window.
@@ -91,14 +94,24 @@ Rectangle {
     // old +40 left every body 24px short, so short dialogs hid their last row.
     implicitHeight: Math.min(720, dialogHost.height - 24,
                              header.implicitHeight + bodyScroll.contentHeight + footer.implicitHeight + 64)
-    height: implicitHeight
+    height: sheet ? Math.max(1, dialogHost.height - 20) : implicitHeight
     // Swallow presses on the panel itself so they never reach the scrim
     // below (a passive tap on a control used to close the whole dialog).
     MouseArea { anchors.fill: parent; acceptedButtons: Qt.AllButtons; z: -1 }
-    radius: Theme.frost ? 24 : 16
+    radius: sheet ? 3 : Theme.frost ? 24 : 16
     color: Theme.dialog
     border.width: Theme.frost ? 0 : 1
     border.color: Theme.stroke2
+    VCorners { anchors.fill: parent; size: 14; thickness: 2; z: 5 }
+    // Arena: the accent line under the header.
+    Rectangle {
+        visible: dlg.sheet
+        x: 1
+        y: header.y + header.height + 14
+        width: parent.width - 2
+        height: 1
+        color: Theme.stroke2
+    }
 
     // M$M! frost: the title sits on a deep blue band across the top.
     Rectangle {
@@ -128,9 +141,11 @@ Rectangle {
             Layout.margins: 16
             spacing: 12
             Rectangle {
-                implicitWidth: 34; implicitHeight: 34; radius: Theme.frost ? 17 : 10
-                color: Theme.frost ? Qt.rgba(1, 1, 1, 0.18) : Theme.ink(0.06)
-                VIcon { anchors.centerIn: parent; name: dlg.glyph; color: Theme.frost ? "#FFFFFF" : Theme.t1 }
+                implicitWidth: 34; implicitHeight: 34; radius: dlg.sheet ? 2 : Theme.frost ? 17 : 10
+                color: Theme.frost ? Qt.rgba(1, 1, 1, 0.18) : dlg.sheet ? Theme.accentSoft : Theme.ink(0.06)
+                border.width: dlg.sheet ? 1 : 0
+                border.color: Theme.accent
+                VIcon { anchors.centerIn: parent; name: dlg.glyph; color: Theme.frost ? "#FFFFFF" : dlg.sheet ? Theme.accent : Theme.t1 }
             }
             ColumnLayout {
                 Layout.fillWidth: true
@@ -144,8 +159,10 @@ Rectangle {
                     text: dlg.title
                     color: Theme.frost ? "#FFFFFF" : Theme.t1
                     font.family: Theme.fontUi
-                    font.pixelSize: Theme.fsH2
+                    font.pixelSize: dlg.sheet ? 16 : Theme.fsH2
                     font.weight: Font.DemiBold; font.variableAxes: Theme.axesDemiBold
+                    font.capitalization: Theme.capsMode
+                    font.letterSpacing: Theme.spacing(1.5)
                 }
                 Text {
                     Layout.fillWidth: true
@@ -157,7 +174,7 @@ Rectangle {
                     wrapMode: Text.WordWrap
                 }
             }
-            VButton { visible: !Theme.frost; icon: true; iconName: "x"; ghost: true; onClicked: dialogHost.close() }
+            VButton { visible: !Theme.frost; icon: true; iconName: "x"; ghost: !dlg.sheet; onClicked: dialogHost.close() }
             // Frost: a white close button on the band.
             Rectangle {
                 visible: Theme.frost

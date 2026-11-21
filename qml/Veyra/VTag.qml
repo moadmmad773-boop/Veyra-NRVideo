@@ -7,7 +7,9 @@ Rectangle {
     property string kind: ""   // "" | "exp" | "acc" | "warn" | "ok"
     implicitWidth: tagText.implicitWidth + 14
     implicitHeight: Theme.tagHeight
-    radius: 6
+    radius: Theme.arena ? 2 : 6
+    border.width: Theme.arena ? 1 : 0
+    border.color: Qt.rgba(tagText.color.r, tagText.color.g, tagText.color.b, 0.4)
     color: kind === "exp" ? Theme.expSoft
          : kind === "acc" ? Theme.accentSoft
          : kind === "warn" ? Qt.rgba(0.961, 0.784, 0.294, 0.13)

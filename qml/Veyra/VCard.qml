@@ -14,6 +14,7 @@ Rectangle {
     border.width: 1
     border.color: Theme.stroke
     implicitHeight: inner.height + 28
+    VCorners { anchors.fill: parent; color: Theme.stroke2; size: 7 }
 
     ColumnLayout {
         id: inner

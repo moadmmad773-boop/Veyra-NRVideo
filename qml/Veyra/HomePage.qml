@@ -17,7 +17,10 @@ VPage {
     readonly property bool compact: height < 500
     // M$M! frost: its own start page - a banner, then the sources as wide tiles in three
     // columns (the design's centred logo, greeting and row of small cards are not shown).
-    readonly property bool fresh: Theme.frost
+    readonly property bool fresh: Theme.fresh
+    // M$M! arena: the banner is a HUD console (black panel, cyan brackets and lines), the
+    // tiles sharp outlined modules with their icon framed in the source's colour.
+    readonly property bool hud: Theme.arena
     readonly property real freshWidth: Math.min(1060, root.width - 64)
     function captureCard() {
         for (let i = 0; i < sourceCards.count; ++i) {
@@ -70,24 +73,52 @@ VPage {
             Layout.alignment: Qt.AlignHCenter
             Layout.preferredWidth: root.freshWidth
             implicitHeight: root.compact ? 96 : 196
-            radius: 26
-            gradient: Gradient {
+            radius: root.hud ? 3 : 26
+            color: root.hud ? "#070B12" : "transparent"
+            border.width: root.hud ? 1 : 0
+            border.color: Theme.stroke2
+            gradient: root.hud ? undefined : heroFill
+            Gradient {
+                id: heroFill
                 orientation: Gradient.Horizontal
                 GradientStop { position: 0; color: "#0C2350" }
                 GradientStop { position: 0.55; color: "#1A56C4" }
                 GradientStop { position: 1; color: "#36B6FF" }
             }
+            VCorners { anchors.fill: parent; size: 18; thickness: 2 }
             // Rings, all inside the banner (its corners are round, a clip would not be).
-            Rectangle { x: parent.width - 250; y: 22; width: 150; height: 150; radius: 75; color: "transparent"; border.width: 22; border.color: Qt.rgba(1, 1, 1, 0.08); visible: !root.compact }
-            Rectangle { x: parent.width - 120; y: parent.height - 92; width: 70; height: 70; radius: 35; color: Qt.rgba(1, 1, 1, 0.10); visible: !root.compact }
-            Rectangle { x: parent.width - 330; y: parent.height - 52; width: 28; height: 28; radius: 14; color: Qt.rgba(1, 1, 1, 0.16); visible: !root.compact }
+            Rectangle { x: parent.width - 250; y: 22; width: 150; height: 150; radius: 75; color: "transparent"; border.width: 22; border.color: Qt.rgba(1, 1, 1, 0.08); visible: !root.compact && !root.hud }
+            Rectangle { x: parent.width - 120; y: parent.height - 92; width: 70; height: 70; radius: 35; color: Qt.rgba(1, 1, 1, 0.10); visible: !root.compact && !root.hud }
+            Rectangle { x: parent.width - 330; y: parent.height - 52; width: 28; height: 28; radius: 14; color: Qt.rgba(1, 1, 1, 0.16); visible: !root.compact && !root.hud }
             VIcon {
                 x: parent.width - 200; y: (parent.height - height) / 2
-                visible: !root.compact
+                visible: !root.compact && !root.hud
                 name: "sparkles"
                 size: 64
                 strokeWidth: 1.4
                 color: Qt.rgba(1, 1, 1, 0.55)
+            }
+            // Arena: a targeting reticle at the right of the console, and a status line.
+            Item {
+                visible: root.hud && !root.compact
+                x: parent.width - 236; y: (parent.height - height) / 2
+                width: 140; height: 140
+                Rectangle { anchors.centerIn: parent; width: 98; height: 98; rotation: 45; color: "transparent"; border.width: 1; border.color: Theme.stroke2 }
+                Rectangle { anchors.centerIn: parent; width: 60; height: 60; rotation: 45; color: "transparent"; border.width: 1.5; border.color: Theme.accent; opacity: 0.8 }
+                Rectangle { anchors.centerIn: parent; width: 140; height: 1; color: Theme.stroke2 }
+                Rectangle { anchors.centerIn: parent; width: 1; height: 140; color: Theme.stroke2 }
+                Rectangle { anchors.centerIn: parent; width: 8; height: 8; color: Theme.accent }
+            }
+            Text {
+                visible: root.hud && !root.compact
+                anchors.right: parent.right
+                anchors.bottom: parent.bottom
+                anchors.margins: 14
+                text: "SYS ONLINE · v" + veyra.version
+                color: Theme.t3
+                font.family: Theme.fontMono
+                font.pixelSize: 11
+                font.letterSpacing: 2
             }
             ColumnLayout {
                 anchors.left: parent.left
@@ -98,18 +129,21 @@ VPage {
                 spacing: root.compact ? 2 : 6
                 Text {
                     text: "M$M!"
-                    color: "#FFFFFF"
+                    color: root.hud ? Theme.accent : "#FFFFFF"
                     font.family: Theme.fontUi
                     font.pixelSize: root.compact ? 30 : 56
                     font.weight: Font.Bold
                     font.variableAxes: ({ "wght": 700 })
+                    font.letterSpacing: root.hud ? 4 : 0
                 }
                 Text {
                     Layout.fillWidth: true
                     text: qsTr("采集 · 画质增强 · 实时翻译")
-                    color: Qt.rgba(1, 1, 1, 0.86)
+                    color: root.hud ? Theme.t2 : Qt.rgba(1, 1, 1, 0.86)
                     font.family: Theme.fontUi
-                    font.pixelSize: root.compact ? 13 : 17
+                    font.pixelSize: root.compact ? 13 : root.hud ? 15 : 17
+                    font.capitalization: Theme.capsMode
+                    font.letterSpacing: Theme.spacing(2.5)
                     elide: Text.ElideRight
                 }
                 Row {
@@ -127,10 +161,12 @@ VPage {
             Layout.alignment: Qt.AlignHCenter
             Layout.topMargin: root.compact ? 0 : 6
             text: qsTr("选择片源")
-            color: Theme.t1
+            color: root.hud ? Theme.accent : Theme.t1
             font.family: Theme.fontUi
-            font.pixelSize: root.compact ? 14 : 20
+            font.pixelSize: root.compact ? 14 : root.hud ? 15 : 20
             font.weight: Font.DemiBold; font.variableAxes: Theme.axesDemiBold
+            font.capitalization: Theme.capsMode
+            font.letterSpacing: Theme.spacing(3)
         }
 
         Item {
@@ -337,11 +373,13 @@ VPage {
                     // .srccard: 164x124, radius 14, content pinned top and bottom.
                     width: slot.width
                     height: slot.height
-                    radius: srcGrid.wide ? 22 : Theme.rCard
+                    radius: root.hud ? 3 : srcGrid.wide ? 22 : Theme.rCard
                     color: cardHover.hovered ? Theme.card2 : Theme.card
-                    border.width: srcGrid.wide && cardHover.hovered ? 2 : 1
-                    border.color: srcGrid.wide && cardHover.hovered ? srcCard.modelData.hue
+                    border.width: srcGrid.wide && cardHover.hovered && !root.hud ? 2 : 1
+                    border.color: root.hud ? (cardHover.hovered ? Theme.accent : Theme.stroke)
+                                : srcGrid.wide && cardHover.hovered ? srcCard.modelData.hue
                                 : cardHover.hovered ? Theme.stroke2 : Theme.stroke
+                    VCorners { anchors.fill: parent; visible: root.hud && cardHover.hovered }
                     // .srccard:hover { transform: translateY(-4px) }
                     y: cardHover.hovered ? -4 : 0
                     Behavior on y { NumberAnimation { duration: Theme.d(500); easing.bezierCurve: Theme.spring } }
@@ -361,8 +399,11 @@ VPage {
                             // 40px tile in the source's colour, its icon white.
                             implicitWidth: srcGrid.wide ? 54 : Theme.light && !root.compact ? 40 : 34
                             implicitHeight: implicitWidth
-                            radius: srcGrid.wide ? 17 : Theme.light ? 13 : 10
-                            color: Theme.light ? srcCard.modelData.hue : Theme.ink(0.06)
+                            radius: root.hud ? 2 : srcGrid.wide ? 17 : Theme.light ? 13 : 10
+                            color: root.hud ? "#1F" + srcCard.modelData.hue.substring(1)
+                                 : Theme.light ? srcCard.modelData.hue : Theme.ink(0.06)
+                            border.width: root.hud ? 1 : 0
+                            border.color: srcCard.modelData.hue
                             // A soft light from the top (fixed stops: a gradient bound to the
                             // card's own colour did not draw on the CI screenshots).
                             Rectangle {
@@ -378,7 +419,7 @@ VPage {
                                 anchors.centerIn: parent
                                 name: modelData.glyph
                                 size: srcGrid.wide ? 24 : Theme.light ? 19 : 16
-                                color: Theme.light ? "#FFFFFF" : Theme.t1
+                                color: root.hud ? srcCard.modelData.hue : Theme.light ? "#FFFFFF" : Theme.t1
                             }
                         }
                         Item { Layout.fillHeight: true; visible: !srcGrid.wide }
@@ -394,8 +435,10 @@ VPage {
                                 text: modelData.title
                                 color: Theme.t1
                                 font.family: Theme.fontUi
-                                font.pixelSize: srcGrid.wide ? 17 : Theme.light ? 14 : Theme.fsBody
-                                font.weight: Theme.light ? Font.DemiBold : Font.Medium
+                                font.pixelSize: srcGrid.wide ? (root.hud ? 15 : 17) : Theme.light ? 14 : Theme.fsBody
+                                font.weight: Theme.light || root.hud ? Font.DemiBold : Font.Medium
+                                font.capitalization: Theme.capsMode
+                                font.letterSpacing: Theme.spacing(1.2)
                             }
                             Text {
                                 Layout.fillWidth: true
@@ -412,10 +455,12 @@ VPage {
                         Rectangle {
                             visible: srcGrid.wide
                             Layout.alignment: Qt.AlignVCenter
-                            implicitWidth: 30; implicitHeight: 30; radius: 15
-                            color: cardHover.hovered ? srcCard.modelData.hue : Theme.ink(0.05)
+                            implicitWidth: 30; implicitHeight: 30; radius: root.hud ? 2 : 15
+                            color: root.hud ? (cardHover.hovered ? Theme.accent : "transparent") : cardHover.hovered ? srcCard.modelData.hue : Theme.ink(0.05)
+                            border.width: root.hud ? 1 : 0
+                            border.color: cardHover.hovered ? Theme.accent : Theme.stroke2
                             Behavior on color { ColorAnimation { duration: Theme.d(150) } }
-                            VIcon { anchors.centerIn: parent; name: "right"; size: 14; color: cardHover.hovered ? "#FFFFFF" : Theme.t3 }
+                            VIcon { anchors.centerIn: parent; name: "right"; size: 14; color: root.hud ? (cardHover.hovered ? Theme.accentInk : Theme.t3) : cardHover.hovered ? "#FFFFFF" : Theme.t3 }
                         }
                     }
                     // PS5 手柄控制 is switched on for the capture card.
@@ -650,10 +695,10 @@ VPage {
         signal clicked()
         implicitWidth: hbRow.implicitWidth + 30
         implicitHeight: 38
-        radius: 19
-        color: hbHover.hovered ? Qt.rgba(1, 1, 1, 0.30) : Qt.rgba(1, 1, 1, 0.18)
+        radius: Theme.arena ? 2 : 19
+        color: Theme.arena ? (hbHover.hovered ? Theme.accent : Theme.accentSoft) : hbHover.hovered ? Qt.rgba(1, 1, 1, 0.30) : Qt.rgba(1, 1, 1, 0.18)
         border.width: 1
-        border.color: Qt.rgba(1, 1, 1, 0.35)
+        border.color: Theme.arena ? Theme.accent : Qt.rgba(1, 1, 1, 0.35)
         Behavior on color { ColorAnimation { duration: Theme.d(150) } }
         scale: hbTap.pressed ? 0.96 : 1
         Behavior on scale { NumberAnimation { duration: Theme.d(300); easing.bezierCurve: Theme.spring } }
@@ -661,8 +706,8 @@ VPage {
             id: hbRow
             anchors.centerIn: parent
             spacing: 8
-            VIcon { anchors.verticalCenter: parent.verticalCenter; name: hb.glyph; size: 15; color: "#FFFFFF" }
-            Text { anchors.verticalCenter: parent.verticalCenter; text: hb.text; color: "#FFFFFF"; font.family: Theme.fontUi; font.pixelSize: 14; font.weight: Font.Medium }
+            VIcon { anchors.verticalCenter: parent.verticalCenter; name: hb.glyph; size: 15; color: Theme.arena ? (hbHover.hovered ? Theme.accentInk : Theme.accent) : "#FFFFFF" }
+            Text { anchors.verticalCenter: parent.verticalCenter; text: hb.text; color: Theme.arena ? (hbHover.hovered ? Theme.accentInk : Theme.accent) : "#FFFFFF"; font.family: Theme.fontUi; font.pixelSize: Theme.arena ? 13 : 14; font.weight: Font.Medium; font.capitalization: Theme.capsMode; font.letterSpacing: Theme.spacing(1) }
         }
         HoverHandler { id: hbHover; cursorShape: Qt.PointingHandCursor }
         TapHandler { id: hbTap; onTapped: hb.clicked() }

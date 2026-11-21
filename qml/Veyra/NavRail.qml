@@ -17,20 +17,33 @@ Rectangle {
     signal requestClose()
     signal requestMove()
 
-    width: 84
-    radius: Theme.rCard
+    width: hud ? 76 : 84
+    // M$M! arena: a flush HUD strip down the window's left edge - near-black, a cyan
+    // hairline on its right, the page shown marked by an accent bar and tint.
+    readonly property bool hud: Theme.arena
+    radius: hud ? 0 : Theme.rCard
+    topLeftRadius: hud ? Theme.rWindow : Theme.rCard
+    bottomLeftRadius: hud ? Theme.rWindow : Theme.rCard
     // Frost: deep blue (navy to the accent's blue) with white icons; the other looks: a card.
     readonly property bool deep: Theme.frost
     readonly property color fg: deep ? Qt.rgba(1, 1, 1, 0.78) : Theme.t2
-    color: Theme.card
+    color: hud ? "#070B12" : Theme.card
     gradient: deep ? railFill : undefined
     Gradient {
         id: railFill
         GradientStop { position: 0; color: "#0C2350" }
         GradientStop { position: 1; color: "#1A56C4" }
     }
-    border.width: deep ? 0 : 1
+    border.width: deep || hud ? 0 : 1
     border.color: Theme.stroke
+    Rectangle {
+        visible: rail.hud
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        width: 1
+        color: Theme.stroke2
+    }
 
     readonly property var items: [
         { id: "home", icon: "home", label: qsTr("首页") },
@@ -46,9 +59,9 @@ Rectangle {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.topMargin: 14
+        anchors.topMargin: rail.hud ? 12 : 14
         anchors.bottomMargin: 12
-        spacing: 6
+        spacing: rail.hud ? 2 : 6
 
         // The logo: back to the start page.
         Item {
@@ -57,7 +70,7 @@ Rectangle {
             implicitHeight: 44
             Rectangle {
                 anchors.fill: parent
-                radius: 14
+                radius: rail.hud ? 2 : 14
                 color: logoHover.hovered ? (rail.deep ? Qt.rgba(1, 1, 1, 0.12) : Theme.ink(0.06)) : "transparent"
                 Behavior on color { ColorAnimation { duration: Theme.d(150) } }
             }
@@ -65,13 +78,13 @@ Rectangle {
                 anchors.centerIn: parent
                 // On the deep rail a white wordmark.
                 source: rail.deep ? "logo-white.png" : Theme.logoImage
-                sourceSize.width: 52
+                sourceSize.width: rail.hud ? 56 : 52
                 fillMode: Image.PreserveAspectFit
             }
             HoverHandler { id: logoHover; cursorShape: Qt.PointingHandCursor }
             TapHandler { onTapped: rail.requestPage("home") }
         }
-        Rectangle { Layout.alignment: Qt.AlignHCenter; implicitWidth: 36; implicitHeight: 1; color: rail.deep ? Qt.rgba(1, 1, 1, 0.18) : Theme.stroke2 }
+        Rectangle { Layout.alignment: Qt.AlignHCenter; Layout.bottomMargin: rail.hud ? 8 : 0; implicitWidth: rail.hud ? 44 : 36; implicitHeight: 1; color: rail.deep ? Qt.rgba(1, 1, 1, 0.18) : Theme.stroke2 }
 
         Repeater {
             model: rail.items
@@ -81,22 +94,31 @@ Rectangle {
                 readonly property bool on: rail.currentPage === modelData.id
                 objectName: "rail-" + modelData.id
                 Layout.alignment: Qt.AlignHCenter
-                implicitWidth: 68
-                implicitHeight: 58
+                implicitWidth: rail.hud ? rail.width - 1 : 68
+                implicitHeight: rail.hud ? 60 : 58
                 scale: entryTap.pressed ? 0.92 : 1
                 Behavior on scale { NumberAnimation { duration: Theme.d(300); easing.bezierCurve: Theme.spring } }
                 Rectangle {
                     anchors.fill: parent
-                    radius: 16
+                    radius: rail.hud ? 0 : 16
                     color: entry.on && rail.deep ? "#FFFFFF"
-                         : entryHover.hovered && !entry.on ? (rail.deep ? Qt.rgba(1, 1, 1, 0.12) : Theme.ink(0.06)) : "transparent"
+                         : entry.on && rail.hud ? Theme.accentSoft
+                         : entryHover.hovered && !entry.on ? (rail.deep ? Qt.rgba(1, 1, 1, 0.12) : Theme.ink(0.05)) : "transparent"
                     Behavior on color { ColorAnimation { duration: Theme.d(150) } }
+                }
+                // Arena: the accent bar on the page shown.
+                Rectangle {
+                    visible: rail.hud && entry.on
+                    x: 0; y: 6
+                    width: 3
+                    height: parent.height - 12
+                    color: Theme.accent
                 }
                 // The page shown: the accent (its gradient) behind a white icon and name.
                 VAccentFill {
                     anchors.fill: parent
                     radius: 16
-                    opacity: entry.on && !rail.deep ? 1 : 0
+                    opacity: entry.on && !rail.deep && !rail.hud ? 1 : 0
                     visible: opacity > 0
                     Behavior on opacity { NumberAnimation { duration: Theme.d(200) } }
                 }
@@ -108,7 +130,8 @@ Rectangle {
                         name: entry.modelData.icon
                         size: 20
                         strokeWidth: 1.8
-                        color: entry.on ? (rail.deep ? Theme.accent : Theme.accentInk) : rail.fg
+                        color: entry.on ? (rail.deep || rail.hud ? Theme.accent : Theme.accentInk)
+                                        : rail.hud && entryHover.hovered ? Theme.t1 : rail.fg
                     }
                     Text {
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -116,10 +139,13 @@ Rectangle {
                         horizontalAlignment: Text.AlignHCenter
                         elide: Text.ElideRight
                         text: entry.modelData.label
-                        color: entry.on ? (rail.deep ? "#0C2350" : Theme.accentInk) : rail.fg
+                        color: entry.on ? (rail.deep ? "#0C2350" : rail.hud ? Theme.accent : Theme.accentInk)
+                             : rail.hud && entryHover.hovered ? Theme.t1 : rail.fg
                         font.family: Theme.fontUi
-                        font.pixelSize: 11
+                        font.pixelSize: rail.hud ? 10 : 11
                         font.weight: entry.on ? Font.DemiBold : Font.Normal
+                        font.capitalization: Theme.capsMode
+                        font.letterSpacing: Theme.spacing(0.8)
                     }
                 }
                 HoverHandler { id: entryHover; cursorShape: Qt.PointingHandCursor }
@@ -141,13 +167,15 @@ Rectangle {
                 required property var modelData
                 objectName: "rail-window-" + modelData.id
                 Layout.alignment: Qt.AlignHCenter
-                implicitWidth: 40
-                implicitHeight: 30
+                implicitWidth: rail.hud ? 36 : 40
+                implicitHeight: rail.hud ? 26 : 30
                 Rectangle {
                     anchors.fill: parent
-                    radius: 15
+                    radius: rail.hud ? 2 : 15
+                    border.width: rail.hud ? 1 : 0
+                    border.color: whover.hovered ? (wbtn.modelData.id === "close" ? Theme.err : Theme.accent) : Theme.stroke
                     color: !whover.hovered ? "transparent"
-                         : wbtn.modelData.id === "close" ? Qt.rgba(0.9, 0.2, 0.22, rail.deep ? 0.85 : 0.14)
+                         : wbtn.modelData.id === "close" ? Qt.rgba(0.9, 0.2, 0.22, rail.deep || rail.hud ? 0.85 : 0.14)
                          : rail.deep ? Qt.rgba(1, 1, 1, 0.14) : Theme.ink(0.07)
                     Behavior on color { ColorAnimation { duration: Theme.d(150) } }
                 }
@@ -155,7 +183,8 @@ Rectangle {
                     anchors.centerIn: parent
                     name: wbtn.modelData.icon
                     size: 14
-                    color: whover.hovered && wbtn.modelData.id === "close" ? (rail.deep ? "#FFFFFF" : Theme.err) : rail.fg
+                    color: whover.hovered && wbtn.modelData.id === "close" ? (rail.deep || rail.hud ? "#FFFFFF" : Theme.err)
+                         : rail.hud && whover.hovered ? Theme.accent : rail.fg
                 }
                 HoverHandler { id: whover; cursorShape: Qt.PointingHandCursor }
                 ToolTip.visible: whover.hovered

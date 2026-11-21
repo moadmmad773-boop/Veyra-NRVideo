@@ -63,11 +63,42 @@ VPage {
 
         Text {
             anchors.centerIn: parent
-            visible: stageTap.enabled
+            visible: stageTap.enabled && !Theme.arena
             text: qsTr("点击画面选择片源")
             color: Theme.onVideo3
             font.family: Theme.fontUi
             font.pixelSize: Theme.fsH3
+        }
+        // M$M! arena: the empty picture is a HUD target - brackets round "no signal".
+        Item {
+            objectName: "min-no-signal"
+            anchors.centerIn: parent
+            visible: stageTap.enabled && Theme.arena
+            width: Math.max(280, noSignalHint.implicitWidth + 80)
+            height: 124
+            VCorners { anchors.fill: parent; size: 18; thickness: 2 }
+            Column {
+                anchors.centerIn: parent
+                spacing: 10
+                Text {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: qsTr("无信号")
+                    color: Theme.accent
+                    font.family: Theme.fontMono
+                    font.pixelSize: 15
+                    font.bold: true
+                    font.capitalization: Font.AllUppercase
+                    font.letterSpacing: 5
+                }
+                Text {
+                    id: noSignalHint
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: qsTr("点击画面选择片源")
+                    color: Theme.onVideo2
+                    font.family: Theme.fontUi
+                    font.pixelSize: Theme.fsBody
+                }
+            }
         }
         // Nothing open: a click on the empty picture opens the source menu where it
         // was clicked (the same menu as the professional page's 片源 button).

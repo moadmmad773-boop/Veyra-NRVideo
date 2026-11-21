@@ -30,11 +30,15 @@ Rectangle {
         + (iconName.length ? 25 : 0) + (trailingIcon.length ? 19 : 0) + 24)
     implicitHeight: Theme.ctlHeight
     radius: Theme.rCtl
+    // M$M! arena: sharp boxes; a plain button is an outline that lights up in the
+    // accent under the pointer, a primary one a solid accent block with capitals.
+    readonly property bool hud: Theme.arena
     color: primary ? Theme.accent
          : ghost ? (hover.hovered ? Theme.ink(0.07) : "transparent")
+         : hud ? (hover.hovered ? Theme.accentSoft : Theme.card2)
          : (hover.hovered ? Theme.card3 : Theme.card2)
     border.width: (primary || ghost) ? 0 : 1
-    border.color: hover.hovered ? Theme.ink(0.2) : Theme.stroke2
+    border.color: hud ? (hover.hovered ? Theme.accent : Theme.stroke2) : hover.hovered ? Theme.ink(0.2) : Theme.stroke2
     Behavior on color { ColorAnimation { duration: Theme.d(Theme.durFast) } }
     // .btn:active { transform: scale(.95) }
     // A disabled button reads as such (undo with nothing to undo).
@@ -67,11 +71,13 @@ Rectangle {
             elide: Text.ElideMiddle
             anchors.verticalCenter: parent.verticalCenter
             text: btn.glyph.length > 0 ? btn.glyph + (btn.text.length > 0 ? "  " + btn.text : "") : btn.text
-            color: btn.primary ? Theme.accentInk : (btn.ghost ? Theme.t2 : Theme.t1)
+            color: btn.primary ? Theme.accentInk : (btn.ghost ? Theme.t2 : btn.hud && hover.hovered ? Theme.accent : Theme.t1)
             font.family: Theme.fontUi
             font.pixelSize: btn.fontSize > 0 ? btn.fontSize : Theme.fsBody
             font.weight: btn.primary ? Font.DemiBold : Font.Medium
             font.variableAxes: btn.primary ? Theme.axesDemiBold : ({})
+            font.capitalization: btn.primary ? Theme.capsMode : Font.MixedCase
+            font.letterSpacing: btn.primary ? Theme.spacing(1) : 0
         }
         VIcon {
             visible: btn.trailingIcon.length > 0
