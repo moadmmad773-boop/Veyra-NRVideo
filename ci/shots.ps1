@@ -43,18 +43,23 @@ $shots = @(
     @{ name = '6-translation'; args = @('--page', 'set', '--dialog', 'translation') },
     @{ name = '7-export'; args = @('--page', 'exp') },
     @{ name = '8-pro-fg'; args = @('--page', 'pro', '--tab', 'fg', '--video-probe', 'hidden') },
-    @{ name = '11-home-sky'; args = @('--page', 'home', '--pref-at', '300', 'palette', 'sky') },
+    @{ name = '11-ps5'; args = @('--page', 'home', '--dialog', 'ps5') },
     @{ name = '12-menu'; args = @('--page', 'pro', '--menu', 'source', '--video-probe', 'hidden') },
     @{ name = '13-min-dock'; args = @('--page', 'min', '--dock-pinned') },
     @{ name = '14-settings-play'; args = @('--page', 'set', '--pref-at', '300', 'palette', 'frost') },
-    @{ name = '15-export-dialog'; args = @('--page', 'exp', '--dialog', 'save', '--video-probe', 'hidden') }
+    @{ name = '15-export-dialog'; args = @('--page', 'exp', '--dialog', 'save', '--video-probe', 'hidden') },
+    # The cinema page with its control deck (a window of its own, so this one is taken
+    # from the screen, the main window plus the strip under it) and the top bar pinned.
+    @{ name = '17-min-menu'; args = @('--page', 'min', '--menu', 'min-source') },
+    @{ name = '16-min-deck'; screen = $true; size = '960x540'; args = @('--page', 'min', '--full-bar', 'cine', '--dock-pinned') }
 )
 foreach ($s in $shots) {
     $data = Join-Path $env:RUNNER_TEMP ("shot-data-" + $s.name)
     New-Item -ItemType Directory -Force $data | Out-Null
     # --managed-portable first, as the launcher starts it: otherwise the program hands
     # itself over to the launcher and this script would wait on the wrong process.
-    $argv = @('--managed-portable', '--data-dir', $data, '--size', '1366x820', '--reduced-motion', '--exit-after', '30000') + $s.args
+    $size = if ($s.size) { $s.size } else { '1366x820' }
+    $argv = @('--managed-portable', '--data-dir', $data, '--size', $size, '--reduced-motion', '--exit-after', '30000') + $s.args
     $p = Start-Process -FilePath $exe -ArgumentList $argv -PassThru -WorkingDirectory $env:PKG_APP
     $h = [IntPtr]::Zero
     for ($i = 0; $i -lt 40 -and $h -eq [IntPtr]::Zero; $i++) { Start-Sleep -Milliseconds 500; if ($p.HasExited) { break }; $h = [Shot]::Largest([uint32]$p.Id) }
@@ -69,11 +74,19 @@ foreach ($s in $shots) {
     [Shot]::GetWindowRect($h, [ref]$r) | Out-Null
     $w = $r.Right - $r.Left; $hgt = $r.Bottom - $r.Top
     if ($w -le 0 -or $hgt -le 0) { Write-Host "shot $($s.name): empty window"; continue }
-    $bmp = New-Object System.Drawing.Bitmap $w, $hgt
-    $g = [System.Drawing.Graphics]::FromImage($bmp)
-    $dc = $g.GetHdc()
-    $ok = [Shot]::PrintWindow($h, $dc, 2)
-    $g.ReleaseHdc($dc); $g.Dispose()
+    if ($s.screen) {
+        $hgt = $hgt + 70
+        $bmp = New-Object System.Drawing.Bitmap $w, $hgt
+        $g = [System.Drawing.Graphics]::FromImage($bmp)
+        $g.CopyFromScreen($r.Left, $r.Top, 0, 0, (New-Object System.Drawing.Size $w, $hgt))
+        $g.Dispose(); $ok = 'screen'
+    } else {
+        $bmp = New-Object System.Drawing.Bitmap $w, $hgt
+        $g = [System.Drawing.Graphics]::FromImage($bmp)
+        $dc = $g.GetHdc()
+        $ok = [Shot]::PrintWindow($h, $dc, 2)
+        $g.ReleaseHdc($dc); $g.Dispose()
+    }
     $file = Join-Path $out "$($s.name).png"
     $bmp.Save($file, [System.Drawing.Imaging.ImageFormat]::Png); $bmp.Dispose()
     Write-Host "shot $($s.name): ${w}x${hgt} printwindow=$ok -> $file"

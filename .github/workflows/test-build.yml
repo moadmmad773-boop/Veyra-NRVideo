@@ -19,7 +19,7 @@ concurrency:
 env:
   SOURCE_REF: custom/mmm
   # 'true': publish the package as the "mmm" pre-release; otherwise build, test and report only.
-  PUBLISH: 'true'
+  PUBLISH: 'false'
 
   OFFICIAL_TAG: v2.2.0
   DEPS: D:\deps
