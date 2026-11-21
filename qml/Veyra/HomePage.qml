@@ -278,13 +278,17 @@ VPage {
                             implicitWidth: Theme.light && !root.compact ? 40 : 34
                             implicitHeight: implicitWidth
                             radius: Theme.light ? 13 : 10
-                            color: Theme.light ? "transparent" : Theme.ink(0.06)
-                            gradient: Theme.light ? hueFill : undefined
-                            Gradient {
-                                id: hueFill
-                                orientation: Gradient.Vertical
-                                GradientStop { position: 0; color: Qt.lighter(modelData.hue, 1.25) }
-                                GradientStop { position: 1; color: modelData.hue }
+                            color: Theme.light ? srcCard.modelData.hue : Theme.ink(0.06)
+                            // A soft light from the top (fixed stops: a gradient bound to the
+                            // card's own colour did not draw on the CI screenshots).
+                            Rectangle {
+                                anchors.fill: parent
+                                radius: parent.radius
+                                visible: Theme.light
+                                gradient: Gradient {
+                                    GradientStop { position: 0; color: Qt.rgba(1, 1, 1, 0.28) }
+                                    GradientStop { position: 1; color: Qt.rgba(1, 1, 1, 0) }
+                                }
                             }
                             VIcon {
                                 anchors.centerIn: parent
